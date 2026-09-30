@@ -49,7 +49,11 @@ vraie fenêtre. Sur un poste neuf, installer d'abord les navigateurs :
   besoin.
 - **Tailwind CSS 4.** Les jetons de la maquette forment le thème
   (`src/app/globals.css`), sans la palette par défaut, pour qu'aucune couleur d'accent
-  ne puisse s'y glisser.
+  ne puisse s'y glisser. Les utilitaires couvrent tout, sauf les chorégraphies à
+  plusieurs états couplés (menu mobile, burger) : celles-là restent en CSS, dans la
+  couche `components`, à côté de leur composant.
+- **Contenu** dans `src/content/<langue>.ts`, typé par `src/content/types.ts` ; les
+  pages n'écrivent aucun texte en dur.
 - **Mouvements écrits à la main**, sans bibliothèque d'animation : ce sont les formules
   de `mockup/site.js`, validées telles quelles.
 - **Langues** sous `src/app/[lang]/`, sans bibliothèque d'i18n. L'anglais n'a pas de
@@ -101,6 +105,10 @@ couvre la méthode.
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
 - **Le logotype est un SVG tracé**, pas du texte : coupe d'affichage du Bodoni en grand,
   coupe texte à la taille de la barre, où l'autre perd ses déliés.
+- **Les polices viennent de `src/app/fonts/`, pas de `next/font/google`.** Google sert
+  au build une autre coupe de Schibsted Grotesk que celle du CDN chargée par la
+  maquette : 2 px d'écart sur une ligne d'accroche, et des retours à la ligne décalés
+  sur mobile. Les fichiers locaux sont ceux de la maquette.
 - **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
   `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
   la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers
