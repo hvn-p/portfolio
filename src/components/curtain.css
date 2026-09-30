@@ -1,0 +1,154 @@
+/* Page transitions, ported from mockup/styles.css: a curtain that covers, names
+   the destination, and lifts once the router has rendered the new page. */
+@layer components {
+  .curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .curtain::before,
+  .curtain-panel {
+    content: "";
+    position: absolute;
+    inset: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+  .curtain::before {
+    background: var(--color-ink);
+  }
+  .curtain-panel {
+    background: var(--color-surface);
+    display: grid;
+    align-content: end;
+    padding: var(--gutter);
+    padding-bottom: clamp(2rem, 6vh, 4rem);
+  }
+  .curtain-label {
+    display: block;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: clamp(3rem, 9vw, 8rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+  }
+  .curtain-label span {
+    display: block;
+    transform: translateY(105%);
+  }
+  .curtain-bar {
+    display: block;
+    height: 1px;
+    margin-top: 1.75rem;
+    background: var(--color-hairline);
+    position: relative;
+  }
+  .curtain-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .curtain.is-covering,
+  .curtain.is-covered,
+  .curtain.is-lifting {
+    visibility: visible;
+    pointer-events: auto;
+  }
+  /* Once covered, the curtain holds without relying on an animation's end state. */
+  .curtain.is-covered::before,
+  .curtain.is-covered .curtain-panel {
+    clip-path: inset(0);
+    animation: none;
+  }
+  .curtain.is-covered .curtain-label span {
+    transform: none;
+    animation: none;
+  }
+  .curtain.is-covered .curtain-bar::after {
+    transform: scaleX(1);
+    animation: none;
+  }
+  .curtain.is-covering::before {
+    animation: curtain-in 0.55s var(--ease-soft) both;
+  }
+  .curtain.is-covering .curtain-panel {
+    animation: curtain-in 0.55s var(--ease-soft) 0.07s both;
+  }
+  .curtain.is-covering .curtain-label span {
+    animation: label-in 0.6s var(--ease-soft) 0.2s both;
+  }
+  .curtain.is-covering .curtain-bar::after {
+    animation: bar-fill 0.7s var(--ease-soft) 0.15s both;
+  }
+  .curtain.is-lifting::before,
+  .curtain.is-lifting .curtain-panel {
+    clip-path: inset(0);
+  }
+  .curtain.is-lifting .curtain-label span {
+    transform: none;
+  }
+  .curtain.is-lifting .curtain-bar::after {
+    transform: scaleX(1);
+  }
+  .curtain.is-lifting .curtain-panel {
+    animation: curtain-out 0.75s var(--ease-soft) both;
+  }
+  .curtain.is-lifting::before {
+    animation: curtain-out 0.75s var(--ease-soft) 0.08s both;
+  }
+  .curtain.is-lifting .curtain-label span {
+    animation: label-out 0.45s var(--ease-soft) both;
+  }
+  /* The focus start is moved to the top of the page after a navigation, as a full
+     load would; the page itself never shows a ring for it. */
+  body:focus {
+    outline: none;
+  }
+
+  @keyframes curtain-in {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+  @keyframes curtain-out {
+    from {
+      clip-path: inset(0);
+    }
+    to {
+      clip-path: inset(0 0 100% 0);
+    }
+  }
+  @keyframes label-in {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes label-out {
+    from {
+      transform: none;
+    }
+    to {
+      transform: translateY(-105%);
+    }
+  }
+  @keyframes bar-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
