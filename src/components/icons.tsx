@@ -6,9 +6,12 @@ const strokes = {
   right: 'M3 8h10M9 4l4 4-4 4',
 }
 
-// Line icons follow the text: 0.9em, stroked in the current color.
+const travel = { up: 'is-up', arrow: '', right: 'is-flat' }
+
+// Line icons follow the text: 0.9em, stroked in the current color. Every one sits
+// in a link, so it comes with the twin that takes over on hover (motion.css).
 export function Icon({ name }: { name: keyof typeof strokes }) {
-  return (
+  const svg = (
     <svg
       viewBox="0 0 16 16"
       aria-hidden="true"
@@ -16,6 +19,12 @@ export function Icon({ name }: { name: keyof typeof strokes }) {
     >
       <path d={strokes[name]} />
     </svg>
+  )
+  return (
+    <span aria-hidden="true" className={`arrow-swap ${travel[name]}`}>
+      {svg}
+      {svg}
+    </span>
   )
 }
 

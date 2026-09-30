@@ -1,36 +1,23 @@
-import Link from 'next/link'
 import type { Content, Project } from '@/content/types'
 import { type Locale, localePath } from '@/i18n'
 import { Availability } from './bits'
 import { Screenshot, SectionHead } from './blocks'
 import { Clock } from './clock'
+import { HeroMotion, Lens, Rotator, ScenesMotion } from './home-motion'
 import { Icon } from './icons'
+import { Roll } from './roll'
 import { link } from './styles'
+import { Link } from './transition-link'
 import { Wordmark } from './wordmark'
-
-// The statement's last words, one line tall; only the current one shows.
-function Rotator({ words }: { words: string[] }) {
-  return (
-    <span aria-hidden="true" className="rotator inline-block h-[1.02em] overflow-hidden align-bottom">
-      {words.map((word, i) => (
-        <span
-          key={word}
-          className={`block [transform:translateY(calc(var(--k,0)*-100%))] ${i === 0 ? 'opacity-100 [transition:transform_0.8s_var(--ease-soft),opacity_0.45s_var(--ease-soft)_0.15s]' : 'opacity-0 [transition:transform_0.8s_var(--ease-soft),opacity_0.45s_var(--ease-soft)]'}`}
-        >
-          {word}
-        </span>
-      ))}
-    </span>
-  )
-}
 
 export function Hero({ t, site }: { t: Content['home']; site: Content['site'] }) {
   return (
     <section
       aria-labelledby="hero-title"
-      className="wrap grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5"
+      className="hero wrap grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5"
     >
-      <div className="row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1">
+      <HeroMotion />
+      <div className="hero-top row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1">
         <p className="m-0 text-statement">
           {t.statement.first}
           <br />
@@ -49,11 +36,11 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
           <p className="m-0 max-w-[44ch] text-[1rem] leading-[1.5] text-pretty text-ink-muted">{t.lede}</p>
         </div>
       </div>
-      <h1 id="hero-title" className="row-[3] m-0 pt-[clamp(2rem,6vh,4rem)]">
+      <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6vh,4rem)]">
         <span className="sr-only">{t.nameLabel}</span>
         <Wordmark cut="display" />
       </h1>
-      <div className="row-[4] mt-6 flex flex-wrap justify-between gap-4 border-t border-hairline pt-4 text-[0.875rem] text-ink-quiet">
+      <div className="hero-foot row-[4] mt-6 flex flex-wrap justify-between gap-4 border-t border-hairline pt-4 text-[0.875rem] text-ink-quiet">
         <span className="inline-flex items-center gap-3 after:h-px after:w-10 after:bg-[linear-gradient(90deg,var(--color-ink)_0_30%,var(--color-hairline-strong)_30%)] after:bg-size-[200%_100%] motion-safe:after:animate-cue">
           {t.scrollCue}
         </span>
@@ -65,8 +52,7 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
 
 const counter = (k: number, n: number) => `${String(k).padStart(2, '0')} / ${String(n).padStart(2, '0')}`
 
-// One scene per project: its screenshots, then its label. Pinned on wide screens
-// once motion is allowed; this is the plain sequence.
+// One scene per project: its screenshots, then its label (scenes.css).
 export function Scenes({
   lang,
   t,
@@ -88,56 +74,53 @@ export function Scenes({
           titleClass="m-0 text-[clamp(2.75rem,6.4vw,6rem)] leading-none font-semibold tracking-[-0.035em]"
         />
       </div>
-      <ol className="m-0 list-none p-0">
+      <ol className="scenes">
         {projects.map((project, k) => {
           const href = localePath(lang, `/projects/${project.slug}`)
+          const shots = project.scene.shots
           return (
-            <li key={project.slug}>
-              <div className="relative">
-                <Link
-                  href={href}
-                  tabIndex={-1}
-                  aria-hidden="true"
-                  className="relative mx-(--gutter) mt-8 grid gap-4 no-underline"
-                >
-                  {project.scene.shots.map((shot, i) => (
+            <li key={project.slug} className="scene">
+              <div className="scene-pin">
+                <Link href={href} tabIndex={-1} aria-hidden="true" className="scene-shots project-link">
+                  {shots.map((shot, i) => (
                     <div
                       key={shot.caption}
-                      className="relative aspect-[16/10] overflow-hidden rounded-frame bg-surface"
+                      className="shot"
+                      data-name={project.name}
+                      data-caption={shot.caption}
                     >
-                      <Screenshot
-                        image={shot.image}
-                        alt=""
-                        eager={i === 0}
-                        className="size-full object-cover object-top"
-                      />
+                      <Screenshot image={shot.image} alt="" eager={i === 0} />
                     </div>
                   ))}
                 </Link>
-                <div className="wrap pt-[clamp(3rem,6vw,5rem)]">
-                  <h3 className="m-0 text-[clamp(2.75rem,7vw,6rem)] leading-[0.92] font-semibold tracking-[-0.04em] whitespace-nowrap">
-                    <Link href={href} className="no-underline">
-                      {project.name}
-                    </Link>
+                <div className="scene-info">
+                  <h3 className="scene-title">
+                    <Link href={href}>{project.name}</Link>
                   </h3>
-                  <p className="mt-[0.9rem] mb-0 flex flex-wrap gap-x-6 gap-y-[0.4rem] text-[0.9375rem] text-ink-quiet tabular-nums">
-                    <span className="text-ink">{counter(k + 1, projects.length)}</span>
+                  <p className="scene-sub">
+                    <span>{counter(k + 1, projects.length)}</span>
                     <span>{project.scene.kind}</span>
                     <span>{project.scene.year}</span>
                   </p>
-                  <div className="mt-5 grid gap-4">
-                    <p className="m-0 max-w-[40ch] text-[1.0625rem] text-ink-muted">{project.scene.line}</p>
-                    <p className="m-0 text-[0.9375rem] text-ink-quiet">{project.scene.facts}</p>
+                  <div className="scene-details">
+                    <p className="scene-line">{project.scene.line}</p>
+                    <p className="scene-facts">{project.scene.facts}</p>
                     <Link href={href} className={link.text}>
-                      {site.openCaseStudy} <Icon name="right" />
+                      <Roll text={site.openCaseStudy} /> <Icon name="right" />
                     </Link>
                   </div>
                 </div>
+                <p className="scene-caption" aria-hidden="true">
+                  <span className="cap-text">{shots[0]?.caption}</span>
+                  <span className="cap-count">1 / {shots.length}</span>
+                </p>
               </div>
             </li>
           )
         })}
       </ol>
+      <ScenesMotion />
+      <Lens label={site.openProject} />
     </section>
   )
 }

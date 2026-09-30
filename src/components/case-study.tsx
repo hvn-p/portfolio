@@ -1,5 +1,6 @@
 import type { Fact, GalleryRow, Section, Shot } from '@/content/types'
 import { Screenshot } from './blocks'
+import { GallerySettle } from './gallery-settle'
 import { Icon } from './icons'
 import { link } from './styles'
 
@@ -29,7 +30,7 @@ export function Facts({ facts }: { facts: Fact[] }) {
 function Frame({ shot, eager, className = '' }: { shot: Shot; eager: boolean; className?: string }) {
   return (
     <figure
-      className={`relative m-0 overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] ${className}`}
+      className={`frame relative m-0 overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] ${className}`}
     >
       <Screenshot
         image={shot.image}
@@ -66,7 +67,7 @@ function Row({ row, eager }: { row: GalleryRow; eager: boolean }) {
 // Galleries and text sections, in order. Only the first screenshot loads eagerly.
 export function CaseSections({ sections }: { sections: Section[] }) {
   let first = true
-  return sections.map((section) => {
+  const blocks = sections.map((section) => {
     if (section.kind === 'text') {
       return (
         <section
@@ -98,9 +99,15 @@ export function CaseSections({ sections }: { sections: Section[] }) {
     const rows = section.rows.map((row, i) => <Row key={key(row)} row={row} eager={first && i === 0} />)
     first = false
     return (
-      <div key={key(section.rows[0])} className={`wrap grid ${gap} pt-[clamp(2.5rem,5vw,4rem)]`}>
+      <div key={key(section.rows[0])} className={`gallery wrap grid ${gap} pt-[clamp(2.5rem,5vw,4rem)]`}>
         {rows}
       </div>
     )
   })
+  return (
+    <>
+      {blocks}
+      <GallerySettle />
+    </>
+  )
 }

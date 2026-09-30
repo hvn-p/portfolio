@@ -1,0 +1,177 @@
+/* Work: one pinned scene per project, ported from mockup/styles.css.
+   The default layout is a plain sequence. With .scenes-pinned (wide screens,
+   motion allowed) each scene opens full-bleed, then tightens into a frame while
+   the title shrinks and the details arrive; the next screenshots wipe in after. */
+@layer components {
+  .scenes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .scene-pin {
+    position: relative;
+  }
+  .scene-info {
+    width: 100%;
+    max-width: var(--container-site);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    padding-top: clamp(3rem, 6vw, 5rem);
+  }
+  .scene-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: clamp(2.75rem, 7vw, 6rem);
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    white-space: nowrap;
+  }
+  .scene-title a {
+    text-decoration: none;
+  }
+  .scene-details {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .scene-line {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: 1.0625rem;
+    max-width: 40ch;
+  }
+  .scene-facts {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-ink-quiet);
+  }
+  .project-link {
+    display: block;
+    text-decoration: none;
+    position: relative;
+  }
+  .scene-shots {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem var(--gutter) 0;
+  }
+  .shot {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-frame);
+    background: var(--color-surface);
+    aspect-ratio: 16 / 10;
+  }
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .scene-caption {
+    display: none;
+  }
+  .scene-sub {
+    margin: 0.9rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-quiet);
+    font-variant-numeric: tabular-nums;
+  }
+  .scene-sub span:first-child {
+    color: var(--color-ink);
+  }
+
+  .scenes-pinned .scene {
+    height: 380vh;
+  }
+  .scenes-pinned .scene-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .scenes-pinned .scene-shots {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    display: block;
+    pointer-events: none;
+  }
+  .scenes-pinned .shot {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    background: none;
+    aspect-ratio: auto;
+    pointer-events: auto;
+  }
+  .scenes-pinned .shot img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: auto;
+    max-width: none;
+    object-fit: fill;
+    transform-origin: 0 0;
+  }
+  .scenes-pinned .scene-info {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    padding: 0;
+    pointer-events: none;
+  }
+  .scenes-pinned .scene-info a {
+    pointer-events: auto;
+  }
+  .scenes-pinned .scene-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: clamp(6rem, 16vw, 17rem);
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+  .scenes-pinned .scene-sub {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 62vh;
+    margin: 0;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: var(--sub, 1);
+    transform: translateY(calc((1 - var(--sub, 1)) * -1rem));
+  }
+  .scenes-pinned .scene-details {
+    position: absolute;
+    top: calc(var(--fb, 75vh) + 3.2vh);
+    left: 30vw;
+    right: var(--gutter);
+    margin: 0;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+    gap: 1rem 2.5rem;
+    align-items: start;
+  }
+  .scenes-pinned .scene-details > * {
+    opacity: var(--dt, 1);
+    transform: translateY(calc((1 - var(--dt, 1)) * 1.25rem));
+  }
+  .scenes-pinned .scene-caption {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.25rem;
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    top: calc(var(--fb, 75vh) + 0.8vh);
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-ink-quiet);
+    font-variant-numeric: tabular-nums;
+    opacity: var(--cap, 0);
+  }
+}

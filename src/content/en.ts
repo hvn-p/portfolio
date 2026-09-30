@@ -37,6 +37,8 @@ export const en: Content = {
     work: 'Work',
     nextProject: 'Next project',
     openCaseStudy: 'Open the case study',
+    openProject: 'Open project',
+    homeName: 'Pierre Hervelin',
   },
 
   home: {

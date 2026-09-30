@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
 import { links } from '@/content/links'
@@ -8,7 +7,10 @@ import type { Content } from '@/content/types'
 import { type Locale, localePath, sectionOf } from '@/i18n'
 import { Availability, Languages, Socials } from './bits'
 import { Icon } from './icons'
+import { Magnetic } from './magnetic'
+import { Roll } from './roll'
 import { button } from './styles'
+import { Link } from './transition-link'
 import { Wordmark } from './wordmark'
 
 type Props = { lang: Locale; t: Content['site'] }
@@ -105,7 +107,7 @@ export function SiteHeader({ lang, t }: Props) {
             <Link
               href={localePath(lang, '/')}
               aria-label={t.homeLabel}
-              className="block w-full text-ink no-underline [transition:opacity_0.5s_var(--ease-soft),translate_0.6s_var(--ease-soft)]"
+              className="brand block w-full text-ink no-underline"
             >
               <Wordmark cut="text" />
             </Link>
@@ -117,20 +119,20 @@ export function SiteHeader({ lang, t }: Props) {
             <ul className="m-0 flex list-none gap-[clamp(1rem,2.5vw,2.25rem)] p-0 narrow:hidden">
               <li>
                 <Link href={workHref} aria-current={current('work')} className={navLink}>
-                  {t.nav.work}
+                  <Roll text={t.nav.work} />
                 </Link>
               </li>
               <li>
                 <Link href={aboutHref} aria-current={current('about')} className={navLink}>
-                  {t.nav.about}
+                  <Roll text={t.nav.about} />
                 </Link>
               </li>
             </ul>
             <div className="flex items-center gap-[0.6rem]">
               <Socials />
-              <a href={links.linkedin} className={button.nav}>
-                {t.getInTouch} <Icon name="arrow" />
-              </a>
+              <Magnetic href={links.linkedin} className={button.nav}>
+                <Roll text={t.getInTouch} /> <Icon name="arrow" />
+              </Magnetic>
             </div>
             <Languages t={t.languages} />
           </nav>

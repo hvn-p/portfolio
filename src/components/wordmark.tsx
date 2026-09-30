@@ -13,7 +13,7 @@ export function Wordmark({ cut }: { cut: 'display' | 'text' }) {
       viewBox={viewBox}
       aria-hidden="true"
       focusable="false"
-      className="block h-auto w-full overflow-hidden fill-current"
+      className="wordmark block h-auto w-full overflow-hidden fill-current"
     >
       <g>{first.map((d, i) => letter(d, i))}</g>
       <g>{last.map((d, i) => letter(d, first.length + i))}</g>

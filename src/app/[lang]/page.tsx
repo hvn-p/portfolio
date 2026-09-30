@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Capabilities, Contact, Split, splitText } from '@/components/blocks'
 import { Hero, Scenes } from '@/components/home'
 import { Icon } from '@/components/icons'
+import { Roll } from '@/components/roll'
 import { link } from '@/components/styles'
+import { Link } from '@/components/transition-link'
 import { getContent } from '@/content'
 import { type Locale, localePath } from '@/i18n'
 
@@ -25,7 +26,7 @@ export default async function Home({ params }: Props) {
       <Split id="about-title" title={home.about.title}>
         <p className={splitText}>{home.about.text}</p>
         <Link href={localePath(lang, '/about')} className={link.text}>
-          {home.about.link} <Icon name="right" />
+          <Roll text={home.about.link} /> <Icon name="right" />
         </Link>
         <Capabilities items={home.about.capabilities} />
       </Split>

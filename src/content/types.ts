@@ -66,6 +66,10 @@ export type Content = {
     work: string
     nextProject: string
     openCaseStudy: string
+    // The lens ring over a project screenshot.
+    openProject: string
+    // Curtain label for the home page.
+    homeName: string
   }
   home: {
     meta: { title: string; description: string }

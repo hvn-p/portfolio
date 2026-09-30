@@ -1,11 +1,15 @@
-import Image, { type StaticImageData } from 'next/image'
+import { getImageProps, type StaticImageData } from 'next/image'
 import type { ReactNode } from 'react'
 import { links } from '@/content/links'
 import type { Capability, Content, Row } from '@/content/types'
 import { Icon } from './icons'
+import { Magnetic } from './magnetic'
+import { Roll } from './roll'
 import { button, link } from './styles'
 
-// Served as is for now: sizes per screen arrive with the production step.
+// A plain <img> with the attributes next/image computes. The next/image component
+// itself calls img.decode() on load, and with it Chromium draws the pinned scenes'
+// screenshots blurred (measured against the mockup: 1.4% of the frame differs).
 export function Screenshot({
   image,
   alt,
@@ -17,7 +21,9 @@ export function Screenshot({
   eager?: boolean
   className?: string
 }) {
-  return <Image src={image} alt={alt} unoptimized loading={eager ? 'eager' : 'lazy'} className={className} />
+  const { props } = getImageProps({ src: image, alt, unoptimized: true, loading: eager ? 'eager' : 'lazy' })
+  // biome-ignore lint/performance/noImgElement: the attributes come from getImageProps
+  return <img {...props} alt={alt} className={className} />
 }
 
 // A section title over a hairline, with an optional count on the right.
@@ -105,7 +111,7 @@ export function Elsewhere({
       {items.map((item) => (
         <li key={item.href}>
           <a href={item.href} className={link.elsewhere}>
-            {item.label} <Icon name="arrow" />
+            <Roll text={item.label} /> <Icon name="arrow" />
           </a>
         </li>
       ))}
@@ -123,9 +129,9 @@ export function Contact({ t }: { t: Content['site'] }) {
         {t.contact.title}
       </h2>
       <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
-        <a href={links.linkedin} className={button.large}>
-          {t.getInTouch} <Icon name="arrow" />
-        </a>
+        <Magnetic href={links.linkedin} className={button.large}>
+          <Roll text={t.getInTouch} /> <Icon name="arrow" />
+        </Magnetic>
         <Elsewhere
           items={[
             { label: t.contact.github, href: links.github },

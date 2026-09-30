@@ -1,5 +1,6 @@
 import type { Content } from '@/content/types'
 import { Icon } from './icons'
+import { Roll } from './roll'
 
 export function SiteFooter({ t }: { t: Content['site'] }) {
   return (
@@ -9,7 +10,7 @@ export function SiteFooter({ t }: { t: Content['site'] }) {
         href="#top"
         className="inline-flex items-center gap-[0.45rem] text-ink-muted no-underline [transition:color_0.25s_var(--ease-soft)] hover:text-ink"
       >
-        {t.footer.backToTop} <Icon name="up" />
+        <Roll text={t.footer.backToTop} /> <Icon name="up" />
       </a>
       <span>{t.location}</span>
     </footer>

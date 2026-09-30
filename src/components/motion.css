@@ -1,0 +1,232 @@
+/* Motion ported from mockup/styles.css: what only exists when motion is allowed,
+   and the states site.js sets. */
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* The bar's wordmark waits on the home page until the hero name has sunk. */
+  .brand {
+    transition:
+      opacity 0.5s var(--ease-soft),
+      transform 0.6s var(--ease-soft);
+  }
+  .has-hero-name .brand {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  .has-hero-name.name-passed .brand,
+  .menu-open .brand {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* --s: how far each letter has sunk below the baseline as the page scrolls. */
+  .hero-name .wordmark path {
+    transform: translateY(calc(var(--s, 0) * 115%));
+  }
+
+  /* Rolling letters and swapping arrows are markup for motion only: without it,
+     the plain label and the single arrow show. */
+  .roll {
+    display: none;
+  }
+  .arrow-swap {
+    display: contents;
+  }
+  .arrow-swap > svg + svg {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .intro .hero-name .wordmark path {
+      animation: wm-rise 1.1s var(--ease-soft) both;
+      animation-delay: calc(var(--i) * 55ms + 150ms);
+    }
+    .intro .hero-top > *,
+    .intro .hero-foot {
+      animation: fade-up 1s var(--ease-soft) both;
+      animation-delay: 0.75s;
+    }
+    .intro .hero-top > :nth-child(2) {
+      animation-delay: 0.85s;
+    }
+    .brand:hover .wordmark path {
+      animation: wm-wave 0.7s var(--ease-soft);
+      animation-delay: calc(var(--i) * 28ms);
+    }
+
+    /* Letters roll up one after another, the copy rising from below. Each letter
+       box matches the face's own height, so caps sit on the optical centre of the
+       control and line up with its arrow. */
+    .roll {
+      display: inline-flex;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .roll .ch {
+      display: block;
+      overflow: hidden;
+      height: 1.2em;
+    }
+    .roll .ch > span {
+      display: block;
+      transition: transform 0.55s var(--ease-soft);
+      transition-delay: min(calc(var(--i) * 14ms), 220ms);
+    }
+    a:hover .roll .ch > span,
+    a:focus-visible .roll .ch > span {
+      transform: translateY(-100%);
+    }
+
+    /* Arrows leave in their own direction and a fresh one arrives behind them. */
+    .arrow-swap {
+      position: relative;
+      display: inline-block;
+      width: 0.9em;
+      height: 0.9em;
+      overflow: hidden;
+      flex: none;
+    }
+    .arrow-swap > svg,
+    .arrow-swap > svg + svg {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s var(--ease-soft);
+    }
+    .arrow-swap > svg + svg {
+      transform: translate(-115%, 115%);
+    }
+    .arrow-swap.is-flat > svg + svg {
+      transform: translateX(-115%);
+    }
+    a:hover .arrow-swap > svg:first-child {
+      transform: translate(115%, -115%);
+    }
+    a:hover .arrow-swap.is-flat > svg:first-child {
+      transform: translateX(115%);
+    }
+    .arrow-swap.is-up > svg + svg {
+      transform: translateY(115%);
+    }
+    a:hover .arrow-swap.is-up > svg:first-child {
+      transform: translateY(-115%);
+    }
+    a:hover .arrow-swap > svg + svg {
+      transform: none;
+      transition-delay: 0.06s;
+    }
+  }
+
+  /* Gallery frames settle into place as they arrive; the lens dims the one under it. */
+  .frame.is-settling img {
+    transform: scale(1.06);
+  }
+  .frame.is-lensed img {
+    filter: brightness(0.8);
+  }
+
+  /* Signature interaction: a lens that magnifies the screenshot under the pointer,
+     ringed by the project's name. Fine pointers only. */
+  .has-lens .project-link .frame,
+  .has-lens .project-link .shot {
+    cursor: none;
+  }
+  .lens {
+    will-change: transform;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 40;
+    width: 13rem;
+    height: 13rem;
+    margin: -6.5rem 0 0 -6.5rem;
+    pointer-events: none;
+  }
+  .lens-body {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(0.3);
+    transition:
+      transform 0.3s var(--ease-soft),
+      opacity 0.2s linear;
+  }
+  .lens.is-on .lens-body {
+    opacity: 1;
+    transform: scale(1);
+    transition-duration: 0.6s, 0.25s;
+  }
+  /* A dark band under the ring keeps its letters readable over light screenshots. */
+  .lens-body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 0 62%, rgba(13, 13, 14, 0.86) 62.5% 100%);
+  }
+  .lens-view {
+    position: absolute;
+    inset: 1.35rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow:
+      0 0 0 1px rgba(237, 235, 230, 0.55),
+      0 22px 48px -14px rgba(0, 0, 0, 0.8);
+  }
+  .lens-view img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: none;
+  }
+  .lens-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: lens-spin 16s linear infinite;
+  }
+  .lens-ring text {
+    fill: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lens-ring {
+      animation: none;
+    }
+  }
+
+  @keyframes wm-rise {
+    from {
+      transform: translateY(115%);
+    }
+  }
+  @keyframes wm-wave {
+    35% {
+      transform: translateY(-14%);
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+  }
+  @keyframes lens-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
