@@ -1,0 +1,193 @@
+/* Mobile menu, ported from mockup/styles.css.
+   The burger's two lines meet, then turn into a cross; the menu opens as a circle
+   growing out of the button. The current page is set in the wordmark's italic. */
+@layer components {
+  .burger,
+  .menu {
+    display: none;
+  }
+  .burger {
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0;
+    margin-left: auto;
+    background: none;
+    border: 0;
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 0.9375rem;
+    cursor: pointer;
+  }
+  .burger-lines {
+    position: relative;
+    width: 1.5rem;
+    height: 0.7rem;
+    flex: none;
+  }
+  .burger-lines span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+    transition:
+      top 0.25s var(--ease-soft) 0.2s,
+      bottom 0.25s var(--ease-soft) 0.2s,
+      transform 0.35s var(--ease-soft);
+  }
+  .burger-lines span:first-child {
+    top: 0;
+  }
+  .burger-lines span:last-child {
+    bottom: 0;
+  }
+  .menu-open .burger-lines span {
+    transition:
+      top 0.25s var(--ease-soft),
+      bottom 0.25s var(--ease-soft),
+      transform 0.45s var(--ease-soft) 0.2s;
+  }
+  .menu-open .burger-lines span:first-child {
+    top: calc(50% - 0.75px);
+    transform: rotate(45deg);
+  }
+  .menu-open .burger-lines span:last-child {
+    bottom: calc(50% - 0.75px);
+    transform: rotate(-45deg);
+  }
+  .burger-label {
+    display: inline-block;
+    height: 1.2em;
+    line-height: 1.2;
+    overflow: hidden;
+  }
+  .burger-label span {
+    display: block;
+    transition: transform 0.55s var(--ease-soft);
+  }
+  .menu-open .burger-label span {
+    transform: translateY(-100%);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 29;
+    background: var(--color-surface);
+    clip-path: circle(0px at var(--cx, calc(100% - 2rem)) var(--cy, 2rem));
+    visibility: hidden;
+    transition:
+      clip-path 0.5s var(--ease-soft),
+      visibility 0s linear 0.5s;
+  }
+  .menu-open .menu {
+    clip-path: circle(var(--r, 150vmax) at var(--cx, calc(100% - 2rem)) var(--cy, 2rem));
+    visibility: visible;
+    transition:
+      clip-path 0.8s var(--ease-soft),
+      visibility 0s;
+  }
+  .menu-inner {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding-top: calc(var(--bar-h) + 1rem);
+    padding-bottom: 2rem;
+  }
+  .menu-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .menu-links a {
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--color-ink-muted);
+    font-weight: 600;
+    font-size: clamp(3rem, 15vw, 4.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+  .menu-links a[aria-current="page"] {
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .menu-links a:active {
+    color: var(--color-ink);
+  }
+  .menu-links a:focus-visible {
+    outline-offset: 0.2rem;
+    border-radius: var(--radius-focus);
+  }
+  .ml {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 0.35s var(--ease-soft);
+  }
+  .menu-open .ml {
+    transform: none;
+    transition: transform 0.8s var(--ease-soft) calc(0.22s + var(--i) * 0.08s);
+  }
+  .menu-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-hairline);
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition:
+      opacity 0.25s var(--ease-soft),
+      transform 0.25s var(--ease-soft);
+  }
+  .menu-open .menu-foot {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.6s var(--ease-soft) 0.5s,
+      transform 0.6s var(--ease-soft) 0.5s;
+  }
+  .menu-open {
+    overflow: hidden;
+  }
+
+  @media (max-width: 48rem) {
+    .js .burger {
+      display: inline-flex;
+    }
+    .js .menu {
+      display: block;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu,
+    .menu-open .menu {
+      clip-path: none;
+      transition:
+        opacity 0.3s linear,
+        visibility 0s linear 0.3s;
+      opacity: 0;
+    }
+    .menu-open .menu {
+      opacity: 1;
+      transition:
+        opacity 0.3s linear,
+        visibility 0s;
+    }
+    .ml,
+    .menu-open .ml {
+      transform: none;
+      transition: none;
+    }
+  }
+}
