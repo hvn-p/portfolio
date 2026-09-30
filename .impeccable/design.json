@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T12:16:06+00:00",
+  "title": "Design System: Pierre Hervelin, portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Fond d'encre",
+        "canonical": "#0D0D0E",
+        "tonalRamp": [
+          "#141415",
+          "#27272A",
+          "#45454A",
+          "#67676F",
+          "#8B8B93",
+          "#B0B0B5",
+          "#D5D5D8",
+          "#EFEFF0"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#161618",
+        "tonalRamp": [
+          "#141415",
+          "#27272B",
+          "#44444B",
+          "#666670",
+          "#8A8A94",
+          "#AFAFB6",
+          "#D4D4D8",
+          "#EFEFF0"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Encre chaude",
+        "canonical": "#EDEBE6",
+        "tonalRamp": [
+          "#181611",
+          "#2F2C22",
+          "#534C3C",
+          "#7D735A",
+          "#A1977D",
+          "#BFB8A6",
+          "#DDD9D0",
+          "#F2F1ED"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Encre atténuée",
+        "canonical": "#A8A59E",
+        "tonalRamp": [
+          "#161513",
+          "#2B2A27",
+          "#4B4944",
+          "#716D65",
+          "#959189",
+          "#B7B4AE",
+          "#D8D7D4",
+          "#F1F0EF"
+        ]
+      },
+      "ink-quiet": {
+        "role": "neutral",
+        "displayName": "Encre discrète",
+        "canonical": "#8E8B85",
+        "tonalRamp": [
+          "#151514",
+          "#2A2927",
+          "#4A4845",
+          "#6F6C67",
+          "#93908B",
+          "#B5B3B0",
+          "#D8D7D5",
+          "#F0F0EF"
+        ]
+      },
+      "ink-bright": {
+        "role": "neutral",
+        "displayName": "Blanc pur",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#141414",
+          "#292929",
+          "#474747",
+          "#6B6B6B",
+          "#8F8F8F",
+          "#B2B2B2",
+          "#D6D6D6",
+          "#F0F0F0"
+        ]
+      },
+      "status-online": {
+        "role": "secondary",
+        "displayName": "Vert statut",
+        "canonical": "#5BD68A",
+        "tonalRamp": [
+          "#082112",
+          "#104123",
+          "#1D723D",
+          "#2BAB5C",
+          "#4BD27F",
+          "#85E0A8",
+          "#BEEFD0",
+          "#E7F9EE"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Filet",
+        "canonical": "rgba(237, 235, 230, 0.12)"
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Filet appuyé",
+        "canonical": "rgba(237, 235, 230, 0.28)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titres de page et grands appels."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Accroche du hero."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titres de projet dans les scènes."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Entreprises du parcours."
+      },
+      "section": {
+        "displayName": "Section",
+        "purpose": "Titres de section secondaires."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Chapeaux."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texte courant."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation, faits, métadonnées."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Légendes et libellés de faits."
+      },
+      "accent-serif": {
+        "displayName": "Identity italic",
+        "purpose": "Logotype et page courante du menu mobile uniquement."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lens",
+        "value": "0 0 0 1px rgba(237, 235, 230, 0.55), 0 22px 48px -14px rgba(0, 0, 0, 0.8)",
+        "purpose": "La loupe qui flotte au-dessus des captures."
+      },
+      {
+        "name": "frame-edge",
+        "value": "inset 0 0 0 1px rgba(237, 235, 230, 0.12)",
+        "purpose": "Contour dessiné par-dessus une capture pour garder son bord sur le fond sombre."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Courbe unique de tout le site."
+      },
+      {
+        "name": "roll",
+        "value": "0.55s, 14ms per letter, 220ms max stagger",
+        "purpose": "Lettres qui roulent au survol."
+      },
+      {
+        "name": "arrow-swap",
+        "value": "0.5s, second arrow delayed 0.06s",
+        "purpose": "Échange des flèches au survol."
+      },
+      {
+        "name": "underline-sweep",
+        "value": "0.6s scaleX, origin left on enter, right on leave",
+        "purpose": "Trait des liens."
+      },
+      {
+        "name": "curtain-cover",
+        "value": "0.55s ink band, panel +0.07s",
+        "purpose": "Volet qui couvre avant navigation."
+      },
+      {
+        "name": "curtain-lift",
+        "value": "0.75s, ink band +0.08s",
+        "purpose": "Volet qui se lève sur la nouvelle page."
+      },
+      {
+        "name": "lens-follow",
+        "value": "lerp 0.24 per frame, zoom 1.9, ring 16s per turn",
+        "purpose": "Loupe au-dessus des captures."
+      },
+      {
+        "name": "menu-reveal",
+        "value": "circle clip 0.8s open, 0.5s close, links +0.22s then 0.08s apart",
+        "purpose": "Menu mobile."
+      },
+      {
+        "name": "statement-rotate",
+        "value": "every 2.8s, 0.8s roll",
+        "purpose": "Derniers mots de l'accroche."
+      },
+      {
+        "name": "pulse",
+        "value": "2s, scale 1 to 3, opacity 0.7 to 0",
+        "purpose": "Point de disponibilité."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "48rem"
+      },
+      {
+        "name": "pinned-scenes",
+        "value": "56rem"
+      },
+      {
+        "name": "wide",
+        "value": "80rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Appel principal, toujours avec une flèche.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Get in touch <svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4.5 11.5 11.5 4.5M6 4.5h5.5V10\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 0.6rem; background: #EDEBE6; color: #0D0D0E; font: 600 1rem 'Schibsted Grotesk', sans-serif; text-decoration: none; padding: 0.95rem 1.4rem; border-radius: 999px; transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover { background: #FFFFFF; } .ds-btn:focus-visible { outline: 2px solid #EDEBE6; outline-offset: 4px; }"
+    },
+    {
+      "name": "Nav Button",
+      "kind": "button",
+      "refersTo": "button-nav",
+      "description": "Get in touch dans la barre du haut.",
+      "html": "<a class=\"ds-btn-nav\" href=\"#\">Get in touch <svg viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4.5 11.5 11.5 4.5M6 4.5h5.5V10\"/></svg></a>",
+      "css": ".ds-btn-nav { display: inline-flex; align-items: center; gap: 0.6rem; background: #EDEBE6; color: #0D0D0E; font: 600 0.9375rem 'Schibsted Grotesk', sans-serif; text-decoration: none; padding: 0.6rem 1.05rem; border-radius: 999px; } .ds-btn-nav:hover { background: #FFFFFF; }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "link-secondary",
+      "description": "Lien texte avec trait de repos et trait qui se trace au survol.",
+      "html": "<a class=\"ds-link\" href=\"#\">Open the case study →</a>",
+      "css": ".ds-link { position: relative; display: inline-flex; gap: 0.45rem; color: #EDEBE6; font: 500 1rem 'Schibsted Grotesk', sans-serif; text-decoration: none; padding-bottom: 0.35em; } .ds-link::before, .ds-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; } .ds-link::before { background: rgba(237, 235, 230, 0.28); } .ds-link::after { background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover::after { transform: scaleX(1); transform-origin: left; }"
+    },
+    {
+      "name": "Social Icon",
+      "kind": "nav",
+      "description": "Icône LinkedIn ou GitHub dans la barre.",
+      "html": "<a class=\"ds-social\" href=\"#\" aria-label=\"GitHub\"><svg viewBox=\"0 0 16 16\" width=\"17\" height=\"17\" fill=\"currentColor\"><path d=\"M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z\"/></svg></a>",
+      "css": ".ds-social { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; color: #A8A59E; transition: color 0.25s, background-color 0.25s; } .ds-social:hover { color: #EDEBE6; background: rgba(237, 235, 230, 0.08); }"
+    },
+    {
+      "name": "Availability",
+      "kind": "chip",
+      "description": "Statut de disponibilité, le seul vert du site.",
+      "html": "<p class=\"ds-status\"><span></span>Open to freelance missions</p>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 0.7rem; margin: 0; color: #EDEBE6; font: 400 0.9375rem 'Schibsted Grotesk', sans-serif; } .ds-status span { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #5BD68A; box-shadow: 0 0 0 0 rgba(91, 214, 138, 0.6); animation: ds-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite; } @keyframes ds-pulse { to { box-shadow: 0 0 0 0.55rem rgba(91, 214, 138, 0); } }"
+    },
+    {
+      "name": "Image Frame",
+      "kind": "card",
+      "refersTo": "frame",
+      "description": "Cadre d'une capture de projet.",
+      "html": "<figure class=\"ds-frame\"><div class=\"ds-frame-img\"></div></figure>",
+      "css": ".ds-frame { position: relative; margin: 0; width: 320px; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 14px; background: #161618; } .ds-frame::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(237, 235, 230, 0.12); } .ds-frame-img { width: 100%; height: 100%; background: linear-gradient(135deg, #2a2a2e, #161618); }"
+    },
+    {
+      "name": "Burger",
+      "kind": "button",
+      "description": "Bouton du menu mobile, deux traits qui deviennent une croix.",
+      "html": "<button class=\"ds-burger\" type=\"button\"><span class=\"ds-lines\"><i></i><i></i></span>Menu</button>",
+      "css": ".ds-burger { display: inline-flex; align-items: center; gap: 0.7rem; background: none; border: 0; color: #EDEBE6; font: 400 0.9375rem 'Schibsted Grotesk', sans-serif; cursor: pointer; } .ds-lines { position: relative; width: 1.5rem; height: 0.7rem; } .ds-lines i { position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), top 0.25s, bottom 0.25s; } .ds-lines i:first-child { top: 0; } .ds-lines i:last-child { bottom: 0; } .ds-burger:hover .ds-lines i:first-child { top: calc(50% - 0.75px); transform: rotate(45deg); } .ds-burger:hover .ds-lines i:last-child { bottom: calc(50% - 0.75px); transform: rotate(-45deg); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La maquette fait foi, pixel par pixel",
+    "overview": "La référence de ce système est la maquette validée par Pierre le 2026-09-30, dans mockup/. Toute implémentation reproduit ce rendu exactement. Le monde est une vitrine de projets sombre et sobre, au niveau de finition de trois sites d'agence ; le fond est presque noir, l'interface se tient en retrait, et la seule couleur vient des captures des projets. Le mouvement est la signature.",
+    "keyCharacteristics": [
+      "Fond presque noir, encres chaudes à trois niveaux, filets très discrets.",
+      "Une seule famille de texte (Schibsted Grotesk), et un italique Bodoni réservé à l'identité.",
+      "Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.",
+      "Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures.",
+      "Des transitions de page qui couvrent, nomment la destination, puis se lèvent."
+    ],
+    "rules": [
+      {
+        "name": "La règle du travail qui colore",
+        "body": "Aucun aplat de couleur dans l'interface. Si un écran paraît terne, c'est aux captures de porter la couleur, pas au décor.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle du point vert unique",
+        "body": "Le vert n'existe qu'à un endroit : le statut de disponibilité. Il ne devient ni accent, ni lien, ni bouton.",
+        "section": "colors"
+      },
+      {
+        "name": "La règle du logotype tracé",
+        "body": "« Pierre Hervelin » n'est jamais du texte composé : c'est un SVG tiré des contours des polices, une lettre par tracé ; coupe d'affichage en grand, coupe texte à la taille de la barre.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle de l'italique rare",
+        "body": "Le Bodoni italique ne sert qu'à l'identité : le nom, et la page courante dans le menu mobile.",
+        "section": "typography"
+      },
+      {
+        "name": "La règle du plat par défaut",
+        "body": "Pas d'ombre au repos. Une ombre signale un objet qui flotte réellement (la loupe), jamais une carte.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reproduire la maquette mockup/ au pixel près ; en cas de doute, ouvrir la page et mesurer.",
+      "Do laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.",
+      "Do garder le texte d'une scène de projet sous l'image.",
+      "Do donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, fondus à la place des déplacements.",
+      "Do tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes."
+    ],
+    "donts": [
+      "Don't introduire une couleur d'accent ; la v1 colorée a été refusée.",
+      "Don't présenter les projets en cartes, ni poser le titre d'un projet sur son image à l'arrivée.",
+      "Don't afficher de citations de sources du type « Source : CV ».",
+      "Don't remettre de halos ou de lumières d'ambiance en fond ; ils ont été retirés.",
+      "Don't laisser traîner de view-transition-name hors d'une vraie transition native : sous Firefox, un nom oublié sur une page suffisait à faire ressortir l'image de l'ancienne page à chaque navigation."
+    ]
+  }
+}
