@@ -23,6 +23,11 @@ export const es: Content = {
     openCaseStudy: 'Ver el proyecto',
     openProject: 'Ver el proyecto',
     homeName: 'Pierre Hervelin',
+    notFound: {
+      title: 'Página no encontrada',
+      text: 'Esta página no existe o ya no está disponible.',
+      back: 'Volver a los proyectos',
+    },
   },
 
   home: {

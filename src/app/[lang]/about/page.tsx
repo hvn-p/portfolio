@@ -12,11 +12,13 @@ import {
 import { Experience } from '@/components/experience'
 import { getContent } from '@/content'
 import type { Locale } from '@/i18n'
+import { pageMetadata } from '@/site'
 
 type Props = PageProps<'/[lang]/about'>
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return getContent((await params).lang as Locale).about.meta
+  const lang = (await params).lang as Locale
+  return pageMetadata(lang, '/about', getContent(lang).about.meta)
 }
 
 export default async function AboutPage({ params }: Props) {

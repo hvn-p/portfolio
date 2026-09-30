@@ -10,20 +10,28 @@ import { button, link } from './styles'
 // A plain <img> with the attributes next/image computes. The next/image component
 // itself calls img.decode() on load, and with it Chromium draws the pinned scenes'
 // screenshots blurred (measured against the mockup: 1.4% of the frame differs).
+// `sizes` is the width the layout gives the screenshot; the lens reads the full
+// original from data-full, since it magnifies well past the displayed width.
 export function Screenshot({
   image,
   alt,
+  sizes,
   eager = false,
+  lens = false,
   className,
 }: {
   image: StaticImageData
   alt: string
+  sizes: string
   eager?: boolean
+  lens?: boolean
   className?: string
 }) {
-  const { props } = getImageProps({ src: image, alt, unoptimized: true, loading: eager ? 'eager' : 'lazy' })
-  // biome-ignore lint/performance/noImgElement: the attributes come from getImageProps
-  return <img {...props} alt={alt} className={className} />
+  const { props } = getImageProps({ src: image, alt, sizes, quality: 90, loading: eager ? 'eager' : 'lazy' })
+  return (
+    // biome-ignore lint/performance/noImgElement: the attributes come from getImageProps
+    <img {...props} alt={alt} data-full={lens ? image.src : undefined} className={className} />
+  )
 }
 
 // A section title over a hairline, with an optional count on the right.

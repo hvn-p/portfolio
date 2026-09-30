@@ -89,7 +89,7 @@ export function Scenes({
                       data-name={project.name}
                       data-caption={shot.caption}
                     >
-                      <Screenshot image={shot.image} alt="" eager={i === 0} />
+                      <Screenshot image={shot.image} alt="" sizes="100vw" eager={i === 0} lens />
                     </div>
                   ))}
                 </Link>

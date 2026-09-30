@@ -23,6 +23,8 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const first = pathname.split('/')[1] ?? ''
 
+  // Share images keep the address the page metadata gives them.
+  if (pathname.endsWith('/opengraph-image')) return
   if (first === defaultLocale) {
     const url = request.nextUrl.clone()
     url.pathname = pathname.slice(defaultLocale.length + 1) || '/'

@@ -61,6 +61,14 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
   de `mockup/site.js`, validées telles quelles.
 - **Langues** sous `src/app/[lang]/`, sans bibliothèque d'i18n. L'anglais n'a pas de
   préfixe : `src/proxy.ts` réécrit ses adresses vers `/en`.
+- **Adresse publique** dans la variable `SITE_URL`, lue au build. Sans elle, le site est
+  un aperçu : liens absolus vers localhost, `noindex` et `robots.txt` fermé.
+- **Images** optimisées par Next (qualité 90, tailles déclarées par disposition dans
+  `sizes`). Le banc construit avec `BENCH=1`, qui sert les fichiers d'origine : il
+  mesure la mise en page et le mouvement, pas le ré-encodage.
+- **Liens internes sans préchargement** (`src/components/transition-link.tsx`) : le
+  préchargement de Next chargeait chaque page liée, et ses captures, à chaque visite ;
+  le volet couvre le chargement au clic.
 - TypeScript et Biome : `nr lint`, `nr typecheck`.
 - **Umami** auto-hébergé sur le même VPS pour les statistiques de visite.
 - Gestionnaire de paquets : `ni` (`ni`, `nr`, `nlx`), jamais npm, pnpm ou yarn en direct.

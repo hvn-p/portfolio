@@ -7,12 +7,13 @@ import { link } from '@/components/styles'
 import { Link } from '@/components/transition-link'
 import { getContent } from '@/content'
 import { type Locale, localePath } from '@/i18n'
+import { pageMetadata } from '@/site'
 
 type Props = PageProps<'/[lang]'>
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { home } = getContent((await params).lang as Locale)
-  return home.meta
+  const lang = (await params).lang as Locale
+  return pageMetadata(lang, '/', getContent(lang).home.meta)
 }
 
 export default async function Home({ params }: Props) {

@@ -23,6 +23,11 @@ export const en: Content = {
     openCaseStudy: 'Open the case study',
     openProject: 'Open project',
     homeName: 'Pierre Hervelin',
+    notFound: {
+      title: 'Page not found',
+      text: 'This page does not exist, or no longer does.',
+      back: 'Back to the work',
+    },
   },
 
   home: {

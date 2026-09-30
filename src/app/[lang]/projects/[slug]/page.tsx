@@ -8,6 +8,7 @@ import { Link } from '@/components/transition-link'
 import { getContent } from '@/content'
 import type { ProjectSlug } from '@/content/types'
 import { type Locale, localePath } from '@/i18n'
+import { pageMetadata } from '@/site'
 
 type Props = PageProps<'/[lang]/projects/[slug]'>
 
@@ -26,7 +27,8 @@ async function load(params: Props['params']) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return (await load(params)).project.meta
+  const { lang, project } = await load(params)
+  return pageMetadata(lang, `/projects/${project.slug}`, project.meta)
 }
 
 export default async function ProjectPage({ params }: Props) {

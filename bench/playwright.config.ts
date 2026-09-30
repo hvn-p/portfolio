@@ -35,9 +35,10 @@ export default defineConfig({
     },
     {
       // The binary itself: through nr, the server lands outside the process group
-      // Playwright stops, and the run never ends.
+      // Playwright stops, and the run never ends. BENCH=1 serves the mockup's own
+      // screenshots instead of optimized ones, so what differs is layout and motion.
       command:
-        'node_modules/.bin/next build && node_modules/.bin/next start --hostname localhost --port 3917',
+        'BENCH=1 node_modules/.bin/next build && node_modules/.bin/next start --hostname localhost --port 3917',
       cwd: '..',
       url: APP_URL,
       timeout: 3 * 60_000,

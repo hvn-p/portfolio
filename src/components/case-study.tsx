@@ -27,7 +27,25 @@ export function Facts({ facts }: { facts: Fact[] }) {
 
 // A screenshot in its frame, with a hairline edge drawn over the image so dark
 // captures keep their outline on the dark ground.
-function Frame({ shot, eager, className = '' }: { shot: Shot; eager: boolean; className?: string }) {
+// Widths each layout gives a screenshot, for the image optimizer.
+const sizes = {
+  full: '(max-width: 48rem) 100vw, min(100vw, 90rem)',
+  half: '(max-width: 48rem) 100vw, min(50vw, 45rem)',
+  desktop: '(max-width: 48rem) 100vw, min(75vw, 67rem)',
+  mobile: '(max-width: 48rem) 16rem, min(25vw, 23rem)',
+}
+
+function Frame({
+  shot,
+  eager,
+  size,
+  className = '',
+}: {
+  shot: Shot
+  eager: boolean
+  size: keyof typeof sizes
+  className?: string
+}) {
   return (
     <figure
       className={`frame relative m-0 overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] ${className}`}
@@ -35,6 +53,7 @@ function Frame({ shot, eager, className = '' }: { shot: Shot; eager: boolean; cl
       <Screenshot
         image={shot.image}
         alt={shot.alt}
+        sizes={sizes[size]}
         eager={eager}
         className="h-auto w-full object-top [transition:transform_1.4s_var(--ease-soft),filter_0.45s_var(--ease-soft)]"
       />
@@ -45,12 +64,12 @@ function Frame({ shot, eager, className = '' }: { shot: Shot; eager: boolean; cl
 const gap = 'gap-[clamp(1rem,2vw,1.5rem)]'
 
 function Row({ row, eager }: { row: GalleryRow; eager: boolean }) {
-  if (row.layout === 'full') return <Frame shot={row.shot} eager={eager} />
+  if (row.layout === 'full') return <Frame shot={row.shot} eager={eager} size="full" />
   if (row.layout === 'two-up') {
     return (
       <div className={`grid grid-cols-[1fr_1fr] ${gap} narrow:grid-cols-1`}>
         {row.shots.map((shot) => (
-          <Frame key={shot.alt} shot={shot} eager={eager} />
+          <Frame key={shot.alt} shot={shot} eager={eager} size="half" />
         ))}
       </div>
     )
@@ -58,8 +77,8 @@ function Row({ row, eager }: { row: GalleryRow; eager: boolean }) {
   const [desktop, mobile] = row.shots
   return (
     <div className={`grid grid-cols-[minmax(0,1fr)_minmax(0,0.34fr)] items-start ${gap} narrow:grid-cols-1`}>
-      <Frame shot={desktop} eager={eager} />
-      <Frame shot={mobile} eager={eager} className="narrow:max-w-[16rem]" />
+      <Frame shot={desktop} eager={eager} size="desktop" />
+      <Frame shot={mobile} eager={eager} size="mobile" className="narrow:max-w-[16rem]" />
     </div>
   )
 }

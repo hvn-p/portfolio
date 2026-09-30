@@ -1,9 +1,11 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Curtain } from '@/components/curtain'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { getContent } from '@/content'
 import { defaultLocale, hasLocale, locales } from '@/i18n'
+import { indexable, siteUrl } from '@/site'
 import { bodoni, schibsted } from '../fonts'
 import '../globals.css'
 
@@ -13,8 +15,11 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }))
 }
 
-// FIXME: fake. Kept out of search engines until launch.
-export const metadata = { robots: { index: false, follow: false } }
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  // A preview stays out of search engines; the public site is indexed.
+  robots: indexable ? undefined : { index: false, follow: false },
+}
 
 // Runs before the first paint. The small-screen menu only replaces the links once
 // a script can open it. On the home page with motion allowed, the bar's wordmark

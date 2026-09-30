@@ -71,6 +71,7 @@ export type Content = {
     openProject: string
     // Curtain label for the home page.
     homeName: string
+    notFound: { title: string; text: string; back: string }
   }
   home: {
     meta: { title: string; description: string }
