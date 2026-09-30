@@ -94,6 +94,15 @@ fichiers ignorés, installent les dépendances et lancent un serveur de dev par 
 sur un port tiré du nom de branche : `wt list` affiche son URL. La skill `parallel-dev`
 couvre la méthode.
 
+## Mise en ligne
+
+Le `Dockerfile` construit l'image du site (sortie standalone, utilisateur `node`, port
+3000). Trois arguments de build, tous lus au build puisque les pages sont prérendues :
+`SITE_URL` (l'adresse publique), `NEXT_PUBLIC_UMAMI_SRC` et
+`NEXT_PUBLIC_UMAMI_WEBSITE_ID` (le script et l'identifiant du site dans Umami). Sans les
+deux derniers, aucune statistique n'est envoyée ; Umami ne compte que les visites sur le
+domaine de `SITE_URL`. La CI construit l'image à chaque PR sans la publier.
+
 ## Refaire des captures
 
 - **Abacus** : instance de démonstration, worktree `~/dev/pro/abacus/demo-captures`,

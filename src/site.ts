@@ -6,6 +6,17 @@ import { defaultLocale, type Locale, localePath, locales } from './i18n'
 export const siteUrl = process.env.SITE_URL ?? 'http://localhost:3000'
 export const indexable = Boolean(process.env.SITE_URL)
 
+// Visit statistics, self-hosted Umami: on only when both are set at build time,
+// and only counting visits on the public address, never a preview's.
+export const umami =
+  process.env.NEXT_PUBLIC_UMAMI_SRC && process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID
+    ? {
+        src: process.env.NEXT_PUBLIC_UMAMI_SRC,
+        websiteId: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
+        domain: new URL(siteUrl).hostname,
+      }
+    : null
+
 const ogLocale: Record<Locale, string> = { en: 'en_GB', fr: 'fr_FR', es: 'es_ES' }
 
 // Metadata for a page reachable at `path` in every language: its address, the

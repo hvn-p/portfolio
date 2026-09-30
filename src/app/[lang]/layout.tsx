@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 import { Curtain } from '@/components/curtain'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { getContent } from '@/content'
 import { defaultLocale, hasLocale, locales } from '@/i18n'
-import { indexable, siteUrl } from '@/site'
+import { indexable, siteUrl, umami } from '@/site'
 import { bodoni, schibsted } from '../fonts'
 import '../globals.css'
 
@@ -68,6 +69,14 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           {children}
           <SiteFooter t={site} />
         </Curtain>
+        {umami && (
+          <Script
+            src={umami.src}
+            data-website-id={umami.websiteId}
+            data-domains={umami.domain}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   )
