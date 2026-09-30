@@ -3,7 +3,8 @@ import { defaultLocale, type Locale, localePath, locales } from './i18n'
 
 // The public address, set where the site is served from. Without it the site is a
 // preview: absolute links point to localhost and search engines are kept out.
-export const siteUrl = process.env.SITE_URL ?? 'http://localhost:3000'
+// `||`, not `??`: an unset Docker build argument arrives as an empty string.
+export const siteUrl = process.env.SITE_URL || 'http://localhost:3000'
 export const indexable = Boolean(process.env.SITE_URL)
 
 // Visit statistics, self-hosted Umami: on only when both are set at build time,
