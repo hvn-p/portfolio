@@ -20,12 +20,15 @@ l'étend dans sa grammaire, sans en inventer une autre. Pour mesurer un doute, s
 `mockup/` en local (`python3 -m http.server 8765 --directory mockup`) et comparer au
 navigateur.
 
-`nr bench` automatise la comparaison : il capture la maquette et l'application aux mêmes
-positions de défilement, à 1440×900 et 390×844, en mouvement normal et réduit, sous
-Chromium et Firefox, et range les écarts dans `bench/output/`. Ce qui dépend du temps
-(intro du nom, accroche tournante, volet) et la loupe se vérifient à l'œil, dans une
-vraie fenêtre. Sur un poste neuf, installer d'abord les navigateurs :
-`nlx playwright install chromium firefox`.
+`nr bench` automatise la comparaison, sous Chromium et Firefox, à 1440×900 et 390×844,
+en mouvement normal et réduit, et range les écarts dans `bench/output/` :
+
+- `compare.spec.ts` capture les deux côtés aux mêmes positions de défilement ;
+- `motion.spec.ts` fige toutes les animations au même instant des deux côtés : intro,
+  accroche tournante, survols, bouton aimanté, loupe, volet ;
+- `a11y.spec.ts` passe chaque page à axe (WCAG 2.2 AA).
+
+Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install chromium firefox`.
 
 ## Principes
 
@@ -99,8 +102,9 @@ couvre la méthode.
 - **Pas de `view-transition-name` hors d'une transition native réellement utilisée.**
   Sous Firefox, un nom oublié sur une page faisait ressortir l'image de l'ancienne page à
   chaque navigation suivante.
-- **Chromium sans affichage ne déclare aucune souris** (`pointer: none`) : tout ce qui
-  dépend de `pointer: fine` (loupe, bouton aimanté) se teste dans une fenêtre réelle.
+- **Le Chromium d'agent-browser ne déclare aucune souris** (`pointer: none`) : la loupe
+  et le bouton aimanté ne s'y activent pas. Celui de Playwright en déclare une, et le banc
+  (`bench/motion.spec.ts`) les teste.
 - **Captures d'estuaire.fr à 1920 px de large.** Entre 1280 et 1650 px environ, un lien du
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
 - **Le logotype est un SVG tracé**, pas du texte : coupe d'affichage du Bodoni en grand,
@@ -109,6 +113,12 @@ couvre la méthode.
   au build une autre coupe de Schibsted Grotesk que celle du CDN chargée par la
   maquette : 2 px d'écart sur une ligne d'accroche, et des retours à la ligne décalés
   sur mobile. Les fichiers locaux sont ceux de la maquette.
+- **Les captures passent par `getImageProps()`, jamais par le composant `next/image`.**
+  Celui-ci appelle `img.decode()` au chargement, et Chromium dessine alors floues les
+  captures que les scènes épinglées redimensionnent. Le banc n'appelle `decode()` qu'une
+  fois l'image à sa taille finale.
+- **Le banc tourne à deux navigateurs à la fois.** À quatre, Chromium manque de temps de
+  rastérisation et floute au hasard une capture redimensionnée, d'un côté ou de l'autre.
 - **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
   `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
   la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers

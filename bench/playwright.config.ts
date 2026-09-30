@@ -13,6 +13,9 @@ export default defineConfig({
   outputDir: '../test-results',
   timeout: 5 * 60_000,
   fullyParallel: true,
+  // Four browsers at once starve Chromium's raster: rescaled screenshots come out
+  // blurred on whichever side lagged. Two keep every run stable.
+  workers: 2,
   reporter: [['list'], ['html', { outputFolder: '../playwright-report', open: 'never' }]],
   projects: browsers.flatMap((browserName) =>
     Object.entries(viewports).flatMap(([size, viewport]) =>
