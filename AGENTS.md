@@ -20,12 +20,20 @@ l'étend dans sa grammaire, sans en inventer une autre. Pour mesurer un doute, s
 `mockup/` en local (`python3 -m http.server 8765 --directory mockup`) et comparer au
 navigateur.
 
+`nr bench` automatise la comparaison : il capture la maquette et l'application aux mêmes
+positions de défilement, à 1440×900 et 390×844, en mouvement normal et réduit, sous
+Chromium et Firefox, et range les écarts dans `bench/output/`. Ce qui dépend du temps
+(intro du nom, accroche tournante, volet) et la loupe se vérifient à l'œil, dans une
+vraie fenêtre. Sur un poste neuf, installer d'abord les navigateurs :
+`nlx playwright install chromium firefox`.
+
 ## Principes
 
 - **Le travail d'abord.** Les projets s'affichent en grand ; l'interface se tient en
   retrait et ne porte aucune couleur d'accent.
-- **Accessible, sans exception.** Contraste de 4.5:1 au moins, navigation au clavier,
-  focus visible, et une alternative en mouvement réduit pour chaque animation.
+- **Accessible, sans exception**, d'abord pour un visiteur au lecteur d'écran et au
+  clavier (le détail est dans `PRODUCT.md`). Focus visible, et une alternative en
+  mouvement réduit pour chaque animation.
 - **Rien d'inventé.** Pas de témoignage, de client, de chiffre ni de rôle qui ne vienne
   de `PRODUCT.md` ou de Pierre. Les captures d'Abacus viennent uniquement d'une instance
   de démonstration remplie de données fictives.
@@ -36,8 +44,17 @@ navigateur.
 
 ## Stack
 
-- **Next.js** (App Router) et React, hébergés sur le VPS de Pierre. Un backend est
-  possible, mais la v1 n'en a pas besoin.
+- **Next.js** (App Router) et React, hébergés sur le VPS de Pierre, en sortie
+  `standalone` pour une image Docker. Un backend est possible, mais la v1 n'en a pas
+  besoin.
+- **Tailwind CSS 4.** Les jetons de la maquette forment le thème
+  (`src/app/globals.css`), sans la palette par défaut, pour qu'aucune couleur d'accent
+  ne puisse s'y glisser.
+- **Mouvements écrits à la main**, sans bibliothèque d'animation : ce sont les formules
+  de `mockup/site.js`, validées telles quelles.
+- **Langues** sous `src/app/[lang]/`, sans bibliothèque d'i18n. L'anglais n'a pas de
+  préfixe : `src/proxy.ts` réécrit ses adresses vers `/en`.
+- TypeScript et Biome : `nr lint`, `nr typecheck`.
 - **Umami** auto-hébergé sur le même VPS pour les statistiques de visite.
 - Gestionnaire de paquets : `ni` (`ni`, `nr`, `nlx`), jamais npm, pnpm ou yarn en direct.
 
@@ -57,9 +74,21 @@ remplace, au lieu de s'ajouter à côté.
 
 Le dépôt est en structure bare : `.bare/` plus un répertoire par branche. Le worktree
 `main/` reste sur `main` : on n'y travaille pas. Chaque sujet a son worktree, créé avec
-`wt switch -c <branche>`. Les hooks de worktrunk (`.config/wt.toml` : fichiers ignorés à
-copier, installation des dépendances, serveur de dev par worktree) sont à écrire dès que
-l'application existe ; la skill `parallel-dev` couvre la méthode.
+`wt switch -c <branche>`. Les hooks de worktrunk (`.config/wt.toml`) copient les
+fichiers ignorés, installent les dépendances et lancent un serveur de dev par worktree,
+sur un port tiré du nom de branche : `wt list` affiche son URL. La skill `parallel-dev`
+couvre la méthode.
+
+## Refaire des captures
+
+- **Abacus** : instance de démonstration, worktree `~/dev/pro/abacus/demo-captures`,
+  `demo/run.sh` (port 3947), `demo/reset.sh` pour reconstruire la base
+  `abacus_demo_portfolio`. Identifiant `lea@demo.abacus.example`, mot de passe dans
+  `demo/seed.ts`. Ne jamais lire la base `abacus`, qui contient les vraies données de
+  Pierre, ni appeler le connecteur MCP `abacus`.
+- **estuaire.fr** : fenêtre de 1920×1200 à densité 1.5 (voir Pièges), attendre la fin du
+  carrousel d'accueil (8 s environ), faire défiler la page avant une capture pleine page
+  pour charger les images.
 
 ## Pièges
 
@@ -72,3 +101,17 @@ l'application existe ; la skill `parallel-dev` couvre la méthode.
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
 - **Le logotype est un SVG tracé**, pas du texte : coupe d'affichage du Bodoni en grand,
   coupe texte à la taille de la barre, où l'autre perd ses déliés.
+- **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
+  `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
+  la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers
+  `/`. Lancer sans `--hostname`, avec `localhost` ou avec `0.0.0.0`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

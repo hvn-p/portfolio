@@ -97,4 +97,6 @@ Décisions ouvertes :
 
 ## Accessibility & Inclusion
 
-Le site doit être accessible : c'est une exigence ferme de Pierre, qui a lui-même travaillé sur un outil d'audit d'accessibilité (RGAA). Le référentiel et le niveau visés restent à fixer.
+Le site doit être accessible : c'est une exigence ferme de Pierre, qui a lui-même travaillé sur un outil d'audit d'accessibilité (RGAA).
+
+La priorité, fixée par Pierre le 2026-09-30 : un visiteur non voyant utilise tout le site au lecteur d'écran et au clavier. Chaque capture a son alternative textuelle, chaque lien réduit à une icône a son libellé, le décor est masqué aux lecteurs d'écran, les titres et les zones de la page sont structurés, et chaque changement de page est annoncé. Le contraste et les tailles de texte comptent moins ; la maquette les tient déjà.
