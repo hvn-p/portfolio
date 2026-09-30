@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
 import { links } from '@/content/links'
 import type { Content } from '@/content/types'
-import { type Locale, localePath, sectionOf } from '@/i18n'
+import { type Locale, localePath, sectionOf, stripLocale } from '@/i18n'
 import { Availability, Languages, Socials } from './bits'
 import { Icon } from './icons'
 import { Magnetic } from './magnetic'
@@ -19,7 +19,9 @@ const navLink =
   'text-[0.9375rem] text-ink-muted no-underline [transition:color_0.25s_var(--ease-soft)] hover:text-ink aria-[current=page]:text-ink'
 
 export function SiteHeader({ lang, t }: Props) {
-  const section = sectionOf(usePathname())
+  const pathname = usePathname()
+  const section = sectionOf(pathname)
+  const path = stripLocale(pathname)
   const bar = useRef<HTMLElement>(null)
   const burger = useRef<HTMLButtonElement>(null)
   const menu = useRef<HTMLElement>(null)
@@ -134,7 +136,7 @@ export function SiteHeader({ lang, t }: Props) {
                 <Roll text={t.getInTouch} /> <Icon name="arrow" />
               </Magnetic>
             </div>
-            <Languages t={t.languages} />
+            <Languages t={t.languages} lang={lang} path={path} />
           </nav>
           <button
             ref={burger}
@@ -182,7 +184,7 @@ export function SiteHeader({ lang, t }: Props) {
           <div className="menu-foot">
             <Availability text={t.availability} className="basis-full" />
             <Socials />
-            <Languages t={t.languages} inMenu />
+            <Languages t={t.languages} lang={lang} path={path} inMenu />
           </div>
         </div>
       </nav>

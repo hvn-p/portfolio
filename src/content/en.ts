@@ -1,19 +1,4 @@
-import abacusAiConnect from '@/assets/abacus/ai-connect.webp'
-import abacusAnalysis from '@/assets/abacus/analysis.webp'
-import abacusDeclarePanel from '@/assets/abacus/declare-panel.webp'
-import abacusInvestments from '@/assets/abacus/investments.webp'
-import abacusMovements from '@/assets/abacus/movements.webp'
-import abacusOverview from '@/assets/abacus/overview.webp'
-import abacusRecurring from '@/assets/abacus/recurring.webp'
-import estuaireExpertise from '@/assets/estuaire/expertise-agencement.webp'
-import estuaireHome from '@/assets/estuaire/home.webp'
-import estuaireHomeMobile from '@/assets/estuaire/home-mobile.webp'
-import estuaireHomeScroll from '@/assets/estuaire/home-scroll.webp'
-import estuaireAbout from '@/assets/estuaire/nous-decouvrir.webp'
-import estuaireKelio from '@/assets/estuaire/realisation-kelio.webp'
-import estuaireSisley from '@/assets/estuaire/realisation-sisley.webp'
-import estuaireCaseStudies from '@/assets/estuaire/realisations.webp'
-import estuaireRetail from '@/assets/estuaire/univers-retail.webp'
+import { images } from './images'
 import { links } from './links'
 import type { Content } from './types'
 
@@ -27,8 +12,7 @@ export const en: Content = {
     nav: { label: 'Main', work: 'Work', about: 'About' },
     getInTouch: 'Get in touch',
     menu: { open: 'Menu', close: 'Close', openLabel: 'Menu', closeLabel: 'Close menu', label: 'Menu' },
-    // FIXME: fake. French and Spanish copy is not written yet.
-    languages: { label: 'Language', soon: { fr: 'Français, bientôt', es: 'Español, pronto' } },
+    languages: { label: 'Language', names: { en: 'English', fr: 'Français', es: 'Español' } },
     availability: 'Open to freelance missions',
     location: 'Bilbao, Spain',
     localTime: 'local time',
@@ -89,7 +73,10 @@ export const en: Content = {
         { label: 'Live', value: 'estuaire.fr', href: 'https://estuaire.fr' },
       ],
       sections: [
-        { kind: 'gallery', rows: [{ layout: 'full', shot: { image: estuaireHome, alt: estuaireHomeAlt } }] },
+        {
+          kind: 'gallery',
+          rows: [{ layout: 'full', shot: { image: images.estuaireHome, alt: estuaireHomeAlt } }],
+        },
         {
           kind: 'text',
           id: 'site-title',
@@ -109,7 +96,7 @@ export const en: Content = {
             {
               layout: 'full',
               shot: {
-                image: estuaireCaseStudies,
+                image: images.estuaireCaseStudies,
                 alt: 'Case studies page on a deep blue panel: “Des projets où se rencontrent créativité, matières et savoir-faire”, beside a photo of a fitted canteen.',
               },
             },
@@ -117,11 +104,11 @@ export const en: Content = {
               layout: 'two-up',
               shots: [
                 {
-                  image: estuaireKelio,
+                  image: images.estuaireKelio,
                   alt: 'Kelio case study: full-width photo of a fitted office canteen with a pink and green palette, captioned Cholet, 2021.',
                 },
                 {
-                  image: estuaireSisley,
+                  image: images.estuaireSisley,
                   alt: 'Maison Sisley case study: a fitted beauty boutique with floral wall panels and wooden display counters, captioned Luxembourg, 2025, 170 m².',
                 },
               ],
@@ -129,26 +116,26 @@ export const en: Content = {
             {
               layout: 'full',
               shot: {
-                image: estuaireRetail,
+                image: images.estuaireRetail,
                 alt: 'Retail sector page: “Des points de vente à votre image” beside a photo of a fitted shop.',
               },
             },
             {
               layout: 'device-pair',
               shots: [
-                { image: estuaireHomeScroll, alt: 'Lower part of the Estuaire home page, scrolled.' },
-                { image: estuaireHomeMobile, alt: estuaireHomeAlt },
+                { image: images.estuaireHomeScroll, alt: 'Lower part of the Estuaire home page, scrolled.' },
+                { image: images.estuaireHomeMobile, alt: estuaireHomeAlt },
               ],
             },
             {
               layout: 'two-up',
               shots: [
                 {
-                  image: estuaireExpertise,
+                  image: images.estuaireExpertise,
                   alt: "Custom fitting expertise page: a craftswoman in the workshop, with the heading “Agencement, penser l'espace dans son ensemble”.",
                 },
                 {
-                  image: estuaireAbout,
+                  image: images.estuaireAbout,
                   alt: 'About Estuaire page: the team in the workshop, with the heading “Nous sommes agenceurs et concepteurs”.',
                 },
               ],
@@ -163,9 +150,9 @@ export const en: Content = {
         line: 'A showcase site for a French maker of custom fittings and furniture, built around its expertise, its sectors and its case studies.',
         facts: 'Client: Estuaire · Next.js, Sanity, Cloudflare',
         shots: [
-          { image: estuaireHome, caption: 'Home page' },
-          { image: estuaireCaseStudies, caption: 'Case studies' },
-          { image: estuaireKelio, caption: 'A case study: Kelio, Cholet' },
+          { image: images.estuaireHome, caption: 'Home page' },
+          { image: images.estuaireCaseStudies, caption: 'Case studies' },
+          { image: images.estuaireKelio, caption: 'A case study: Kelio, Cholet' },
         ],
       },
     },
@@ -193,7 +180,7 @@ export const en: Content = {
             {
               layout: 'full',
               shot: {
-                image: abacusOverview,
+                image: images.abacusOverview,
                 alt: 'Abacus overview in its dark theme, for a fictitious person: balances, commitments and recent activity.',
               },
             },
@@ -219,11 +206,11 @@ export const en: Content = {
               layout: 'two-up',
               shots: [
                 {
-                  image: abacusMovements,
+                  image: images.abacusMovements,
                   alt: 'Movements list with dates, counterparties, categories and amounts, fictitious data.',
                 },
                 {
-                  image: abacusAnalysis,
+                  image: images.abacusAnalysis,
                   alt: 'Analysis view with spending charts over several months, fictitious data.',
                 },
               ],
@@ -231,7 +218,7 @@ export const en: Content = {
             {
               layout: 'full',
               shot: {
-                image: abacusInvestments,
+                image: images.abacusInvestments,
                 alt: 'Investments view with positions and their value over time, fictitious data.',
               },
             },
@@ -254,16 +241,19 @@ export const en: Content = {
             {
               layout: 'two-up',
               shots: [
-                { image: abacusRecurring, alt: 'Recurring expenses view, fictitious data.' },
+                { image: images.abacusRecurring, alt: 'Recurring expenses view, fictitious data.' },
                 {
-                  image: abacusDeclarePanel,
+                  image: images.abacusDeclarePanel,
                   alt: 'Side panel open for declaring a movement, fictitious data.',
                 },
               ],
             },
             {
               layout: 'full',
-              shot: { image: abacusAiConnect, alt: 'Screen for connecting an AI agent to Abacus over MCP.' },
+              shot: {
+                image: images.abacusAiConnect,
+                alt: 'Screen for connecting an AI agent to Abacus over MCP.',
+              },
             },
           ],
         },
@@ -275,9 +265,9 @@ export const en: Content = {
         line: 'A self-hosted personal finance app you talk to: you declare what happened, an AI agent records it through MCP.',
         facts: 'Personal product · Next.js, PostgreSQL, MCP',
         shots: [
-          { image: abacusOverview, caption: 'Overview, fictitious data' },
-          { image: abacusAnalysis, caption: 'Analysis, fictitious data' },
-          { image: abacusAiConnect, caption: 'Connecting an AI agent' },
+          { image: images.abacusOverview, caption: 'Overview, fictitious data' },
+          { image: images.abacusAnalysis, caption: 'Analysis, fictitious data' },
+          { image: images.abacusAiConnect, caption: 'Connecting an AI agent' },
         ],
       },
     },

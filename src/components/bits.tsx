@@ -1,5 +1,6 @@
 import { links } from '@/content/links'
 import type { Content } from '@/content/types'
+import { LANG_COOKIE, type Locale, localePath, locales } from '@/i18n'
 import { BrandIcon } from './icons'
 
 type Site = Content['site']
@@ -36,26 +37,45 @@ export function Socials() {
   )
 }
 
-// FIXME: fake. French and Spanish are announced but not selectable yet.
-export function Languages({ t, inMenu = false }: { t: Site['languages']; inMenu?: boolean }) {
+// The same page in each language. Following one remembers the choice, which the
+// proxy then prefers to the browser's languages.
+export function Languages({
+  t,
+  lang,
+  path,
+  inMenu = false,
+}: {
+  t: Site['languages']
+  lang: Locale
+  path: string
+  inMenu?: boolean
+}) {
   const option =
-    'cursor-pointer rounded-[6px] border-0 bg-transparent px-[0.45rem] py-[0.3rem] text-ink-muted aria-pressed:text-ink aria-pressed:underline aria-pressed:underline-offset-[0.3em] disabled:cursor-not-allowed disabled:text-ink-quiet'
+    'rounded-[6px] px-[0.45rem] py-[0.3rem] text-ink-muted no-underline aria-[current=true]:text-ink aria-[current=true]:underline aria-[current=true]:decoration-auto aria-[current=true]:underline-offset-[0.3em]'
   return (
-    // biome-ignore lint/a11y/useSemanticElements: a group of toggles, not a form field set
+    // biome-ignore lint/a11y/useSemanticElements: a group of links, not a form field set
     <div
       role="group"
       aria-label={t.label}
       className={`flex gap-[0.2rem] text-[0.8125rem] ${inMenu ? '' : 'narrow:hidden'}`}
     >
-      <button type="button" aria-pressed="true" lang="en" className={option}>
-        EN
-      </button>
-      <button type="button" aria-pressed="false" lang="fr" disabled title={t.soon.fr} className={option}>
-        FR
-      </button>
-      <button type="button" aria-pressed="false" lang="es" disabled title={t.soon.es} className={option}>
-        ES
-      </button>
+      {locales.map((l) => (
+        <a
+          key={l}
+          href={localePath(l, path)}
+          hrefLang={l}
+          lang={l}
+          title={t.names[l]}
+          aria-current={l === lang ? 'true' : undefined}
+          onClick={() => {
+            // biome-ignore lint/suspicious/noDocumentCookie: a plain preference cookie, read by the proxy
+            document.cookie = `${LANG_COOKIE}=${l}; path=/; max-age=31536000; samesite=lax`
+          }}
+          className={option}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))}
     </div>
   )
 }

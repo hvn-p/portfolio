@@ -57,7 +57,8 @@ export type Content = {
     nav: { label: string; work: string; about: string }
     getInTouch: string
     menu: { open: string; close: string; openLabel: string; closeLabel: string; label: string }
-    languages: { label: string; soon: { fr: string; es: string } }
+    // Each language named in itself.
+    languages: { label: string; names: Record<'en' | 'fr' | 'es', string> }
     availability: string
     location: string
     localTime: string
