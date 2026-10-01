@@ -38,7 +38,9 @@ export function SiteHeader({ lang, t }: Props) {
       const y = scrollY
       el.toggleAttribute('data-scrolled', y > 8)
       if (y < 140 || y < lastY - 3) el.removeAttribute('data-hidden')
-      else if (y > lastY + 3 && !el.contains(document.activeElement)) el.setAttribute('data-hidden', '')
+      // Kept in view while it holds keyboard focus. Not just any focus: after the
+      // menu closes, focus returns to its button, and a tap would pin the bar.
+      else if (y > lastY + 3 && !el.querySelector(':focus-visible')) el.setAttribute('data-hidden', '')
       lastY = y
     }
     const request = () => {
