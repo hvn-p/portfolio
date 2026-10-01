@@ -1,0 +1,38 @@
+# Bootstrapping a worktree for parallel development. `pre-start` and
+# `post-start` fire only when a worktree is created, so everything here is
+# one-time setup for a new branch. Inert for anyone not using worktrunk.
+
+[step.copy-ignored]
+# pnpm's node_modules is a symlink farm pointing back inside the source
+# worktree, so copying it leaves dangling links. A fresh install hardlinks from
+# the pnpm store in seconds. The Next build cache is not worth carrying over.
+exclude = ["node_modules/", ".next/"]
+
+[[pre-start]]
+ignored-files = "wt step copy-ignored"
+
+[[pre-start]]
+deps = "ni --frozen-lockfile"
+
+[post-start]
+# The site keeps no cookie session, so a port per worktree is enough: no
+# hostname proxy needed.
+web = "wt step tether -- nr dev --port {{ branch | hash_port }}"
+
+[list]
+url = "http://localhost:{{ branch | hash_port }}"
+
+[[pre-remove]]
+# Stop the dev server before anything is deleted. `wt step tether` stops it only
+# once the worktree path is gone, and Next recreates .next/dev the instant its
+# cache disappears: the path never goes, and the server outlives the worktree.
+# `[n]` keeps the pattern from matching this hook's own command line.
+server = """
+pkill -TERM -f '[n]ext dev --port {{ branch | hash_port }}'
+for _ in $(seq 50); do
+  pgrep -f '[n]ext dev --port {{ branch | hash_port }}' > /dev/null || exit 0
+  sleep 0.2
+done
+echo 'dev server still running after 10 s' >&2
+exit 1
+"""

@@ -20,12 +20,23 @@ l'étend dans sa grammaire, sans en inventer une autre. Pour mesurer un doute, s
 `mockup/` en local (`python3 -m http.server 8765 --directory mockup`) et comparer au
 navigateur.
 
+`nr bench` automatise la comparaison, sous Chromium et Firefox, à 1440×900 et 390×844,
+en mouvement normal et réduit, et range les écarts dans `bench/output/` :
+
+- `compare.spec.ts` capture les deux côtés aux mêmes positions de défilement ;
+- `motion.spec.ts` fige toutes les animations au même instant des deux côtés : intro,
+  accroche tournante, survols, bouton aimanté, loupe, volet ;
+- `a11y.spec.ts` passe chaque page à axe (WCAG 2.2 AA).
+
+Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install chromium firefox`.
+
 ## Principes
 
 - **Le travail d'abord.** Les projets s'affichent en grand ; l'interface se tient en
   retrait et ne porte aucune couleur d'accent.
-- **Accessible, sans exception.** Contraste de 4.5:1 au moins, navigation au clavier,
-  focus visible, et une alternative en mouvement réduit pour chaque animation.
+- **Accessible, sans exception**, d'abord pour un visiteur au lecteur d'écran et au
+  clavier (le détail est dans `PRODUCT.md`). Focus visible, et une alternative en
+  mouvement réduit pour chaque animation.
 - **Rien d'inventé.** Pas de témoignage, de client, de chiffre ni de rôle qui ne vienne
   de `PRODUCT.md` ou de Pierre. Les captures d'Abacus viennent uniquement d'une instance
   de démonstration remplie de données fictives.
@@ -36,9 +47,30 @@ navigateur.
 
 ## Stack
 
-- **Next.js** (App Router) et React, hébergés sur le VPS de Pierre. Un backend est
-  possible, mais la v1 n'en a pas besoin.
-- **Umami** auto-hébergé sur le même VPS pour les statistiques de visite.
+- **Next.js** (App Router) et React, hébergés sur Vercel. Un backend est possible, mais
+  la v1 n'en a pas besoin.
+- **Tailwind CSS 4.** Les jetons de la maquette forment le thème
+  (`src/app/globals.css`), sans la palette par défaut, pour qu'aucune couleur d'accent
+  ne puisse s'y glisser. Les utilitaires couvrent tout, sauf les chorégraphies à
+  plusieurs états couplés (menu mobile, burger) : celles-là restent en CSS, dans la
+  couche `components`, à côté de leur composant.
+- **Contenu** dans `src/content/<langue>.ts`, typé par `src/content/types.ts` ; les
+  pages n'écrivent aucun texte en dur.
+- **Mouvements écrits à la main**, sans bibliothèque d'animation : ce sont les formules
+  de `mockup/site.js`, validées telles quelles.
+- **Langues** sous `src/app/[lang]/`, sans bibliothèque d'i18n. L'anglais n'a pas de
+  préfixe : `src/proxy.ts` réécrit ses adresses vers `/en`.
+- **Adresse publique** dans la variable `SITE_URL`, lue au build. Sans elle, le site est
+  un aperçu : liens absolus vers localhost, `noindex` et `robots.txt` fermé.
+- **Images** optimisées par Next (qualité 90, tailles déclarées par disposition dans
+  `sizes`). Le banc construit avec `BENCH=1`, qui sert les fichiers d'origine : il
+  mesure la mise en page et le mouvement, pas le ré-encodage.
+- **Liens internes sans préchargement** (`src/components/transition-link.tsx`) : le
+  préchargement de Next chargeait chaque page liée, et ses captures, à chaque visite ;
+  le volet couvre le chargement au clic.
+- TypeScript et Biome : `nr lint`, `nr typecheck`.
+- **Umami** pour les statistiques de visite, auto-hébergé sur le VPS de Pierre avec
+  Dokploy. C'est un service à part : ce dépôt ne fait que charger son script.
 - Gestionnaire de paquets : `ni` (`ni`, `nr`, `nlx`), jamais npm, pnpm ou yarn en direct.
 
 ## Où s'écrit une décision
@@ -57,18 +89,69 @@ remplace, au lieu de s'ajouter à côté.
 
 Le dépôt est en structure bare : `.bare/` plus un répertoire par branche. Le worktree
 `main/` reste sur `main` : on n'y travaille pas. Chaque sujet a son worktree, créé avec
-`wt switch -c <branche>`. Les hooks de worktrunk (`.config/wt.toml` : fichiers ignorés à
-copier, installation des dépendances, serveur de dev par worktree) sont à écrire dès que
-l'application existe ; la skill `parallel-dev` couvre la méthode.
+`wt switch -c <branche>`. Les hooks de worktrunk (`.config/wt.toml`) copient les
+fichiers ignorés, installent les dépendances et lancent un serveur de dev par worktree,
+sur un port tiré du nom de branche : `wt list` affiche son URL. La skill `parallel-dev`
+couvre la méthode.
+
+## Mise en ligne
+
+Vercel déploie le site depuis ce dépôt. Les pages étant prérendues, trois variables du
+projet Vercel sont lues au build :
+
+- `SITE_URL`, l'adresse publique, définie pour l'environnement Production seulement :
+  les aperçus restent ainsi hors des moteurs de recherche ;
+- `NEXT_PUBLIC_UMAMI_SRC` et `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, le script et l'identifiant
+  du site dans Umami. Sans elles, aucune statistique n'est envoyée ; Umami ne compte que
+  les visites sur le domaine de `SITE_URL`.
+
+## Refaire des captures
+
+- **Abacus** : instance de démonstration, worktree `~/dev/pro/abacus/demo-captures`,
+  `demo/run.sh` (port 3947), `demo/reset.sh` pour reconstruire la base
+  `abacus_demo_portfolio`. Identifiant `lea@demo.abacus.example`, mot de passe dans
+  `demo/seed.ts`. Ne jamais lire la base `abacus`, qui contient les vraies données de
+  Pierre, ni appeler le connecteur MCP `abacus`.
+- **estuaire.fr** : fenêtre de 1920×1200 à densité 1.5 (voir Pièges), attendre la fin du
+  carrousel d'accueil (8 s environ), faire défiler la page avant une capture pleine page
+  pour charger les images.
 
 ## Pièges
 
 - **Pas de `view-transition-name` hors d'une transition native réellement utilisée.**
   Sous Firefox, un nom oublié sur une page faisait ressortir l'image de l'ancienne page à
   chaque navigation suivante.
-- **Chromium sans affichage ne déclare aucune souris** (`pointer: none`) : tout ce qui
-  dépend de `pointer: fine` (loupe, bouton aimanté) se teste dans une fenêtre réelle.
+- **Le Chromium d'agent-browser ne déclare aucune souris** (`pointer: none`) : la loupe
+  et le bouton aimanté ne s'y activent pas. Celui de Playwright en déclare une, et le banc
+  (`bench/motion.spec.ts`) les teste.
 - **Captures d'estuaire.fr à 1920 px de large.** Entre 1280 et 1650 px environ, un lien du
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
 - **Le logotype est un SVG tracé**, pas du texte : coupe d'affichage du Bodoni en grand,
   coupe texte à la taille de la barre, où l'autre perd ses déliés.
+- **Les polices viennent de `src/app/fonts/`, pas de `next/font/google`.** Google sert
+  au build une autre coupe de Schibsted Grotesk que celle du CDN chargée par la
+  maquette : 2 px d'écart sur une ligne d'accroche, et des retours à la ligne décalés
+  sur mobile. Les fichiers locaux sont ceux de la maquette.
+- **Les captures passent par `getImageProps()`, jamais par le composant `next/image`.**
+  Celui-ci appelle `img.decode()` au chargement, et Chromium dessine alors floues les
+  captures que les scènes épinglées redimensionnent. Le banc n'appelle `decode()` qu'une
+  fois l'image à sa taille finale.
+- **Pas de `decoding="async"` sur les captures, et le banc à deux navigateurs à la fois.**
+  Chromium dessine parfois une capture de scène épinglée à partir d'un autre décodage :
+  avec `decoding="async"` (que `getImageProps` ajoute et que `Screenshot` retire), ou sous
+  la charge de quatre navigateurs en parallèle. Les deux font échouer le banc au hasard,
+  sur la dernière capture d'Abacus.
+- **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
+  `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
+  la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers
+  `/`. Lancer sans `--hostname`, avec `localhost` ou avec `0.0.0.0`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
