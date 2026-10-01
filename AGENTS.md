@@ -47,9 +47,8 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
 
 ## Stack
 
-- **Next.js** (App Router) et React, hébergés sur le VPS de Pierre, en sortie
-  `standalone` pour une image Docker. Un backend est possible, mais la v1 n'en a pas
-  besoin.
+- **Next.js** (App Router) et React, hébergés sur Vercel. Un backend est possible, mais
+  la v1 n'en a pas besoin.
 - **Tailwind CSS 4.** Les jetons de la maquette forment le thème
   (`src/app/globals.css`), sans la palette par défaut, pour qu'aucune couleur d'accent
   ne puisse s'y glisser. Les utilitaires couvrent tout, sauf les chorégraphies à
@@ -70,7 +69,8 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
   préchargement de Next chargeait chaque page liée, et ses captures, à chaque visite ;
   le volet couvre le chargement au clic.
 - TypeScript et Biome : `nr lint`, `nr typecheck`.
-- **Umami** auto-hébergé sur le même VPS pour les statistiques de visite.
+- **Umami** pour les statistiques de visite, auto-hébergé sur le VPS de Pierre avec
+  Dokploy. C'est un service à part : ce dépôt ne fait que charger son script.
 - Gestionnaire de paquets : `ni` (`ni`, `nr`, `nlx`), jamais npm, pnpm ou yarn en direct.
 
 ## Où s'écrit une décision
@@ -96,12 +96,14 @@ couvre la méthode.
 
 ## Mise en ligne
 
-Le `Dockerfile` construit l'image du site (sortie standalone, utilisateur `node`, port
-3000). Trois arguments de build, tous lus au build puisque les pages sont prérendues :
-`SITE_URL` (l'adresse publique), `NEXT_PUBLIC_UMAMI_SRC` et
-`NEXT_PUBLIC_UMAMI_WEBSITE_ID` (le script et l'identifiant du site dans Umami). Sans les
-deux derniers, aucune statistique n'est envoyée ; Umami ne compte que les visites sur le
-domaine de `SITE_URL`. La CI construit l'image à chaque PR sans la publier.
+Vercel déploie le site depuis ce dépôt. Les pages étant prérendues, trois variables du
+projet Vercel sont lues au build :
+
+- `SITE_URL`, l'adresse publique, définie pour l'environnement Production seulement :
+  les aperçus restent ainsi hors des moteurs de recherche ;
+- `NEXT_PUBLIC_UMAMI_SRC` et `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, le script et l'identifiant
+  du site dans Umami. Sans elles, aucune statistique n'est envoyée ; Umami ne compte que
+  les visites sur le domaine de `SITE_URL`.
 
 ## Refaire des captures
 

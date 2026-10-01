@@ -16,6 +16,9 @@ export default defineConfig({
   // Four browsers at once starve Chromium's raster: rescaled screenshots come out
   // blurred on whichever side lagged. Two keep every run stable.
   workers: 2,
+  // Even at two, one rescaled screenshot still comes out blurred now and then. A
+  // single retry absorbs it; the summary still reports the test as flaky.
+  retries: 1,
   reporter: [['list'], ['html', { outputFolder: '../playwright-report', open: 'never' }]],
   projects: browsers.flatMap((browserName) =>
     Object.entries(viewports).flatMap(([size, viewport]) =>

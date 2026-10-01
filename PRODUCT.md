@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-React, imposé par Pierre. Next.js, hébergé sur le VPS de Pierre et non plus sur Vercel (décision du 2026-09-30) : un backend devient possible. Statistiques de visite avec Umami, auto-hébergé sur ce même VPS.
+React, imposé par Pierre. Next.js, hébergé sur Vercel : cette décision de Pierre, prise le 2026-10-01, remplace celle du 2026-09-30 de passer sur son VPS. Un backend reste possible. Statistiques de visite avec Umami, auto-hébergé sur le VPS de Pierre avec Dokploy.
 
 ## Users
 

@@ -1,8 +1,6 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // Self-contained server bundle for the Docker image.
-  output: 'standalone',
   images: {
     // Screenshots are mostly interface and text: 75 visibly softens their hairlines.
     qualities: [90],
