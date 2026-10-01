@@ -16,7 +16,7 @@ export const es: Content = {
     availability: 'Disponible para proyectos freelance',
     location: 'Bilbao, España',
     localTime: 'hora local',
-    footer: { copyright: '© 2026 Pierre Hervelin', backToTop: 'Volver arriba' },
+    footer: { copyright: '© {year} Pierre Hervelin', backToTop: 'Volver arriba', source: 'Código fuente' },
     contact: { title: '¿Tienes un proyecto en mente?', github: 'GitHub', linkedin: 'LinkedIn' },
     work: 'Proyectos',
     nextProject: 'Siguiente proyecto',
@@ -34,7 +34,7 @@ export const es: Content = {
     meta: {
       title: 'Pierre Hervelin · Desarrollador full stack, sistemas de IA',
       description:
-        'Desarrollador full stack que diseña sistemas de IA en producción y construye software con IA. Proyectos seleccionados, desde Bilbao, en remoto.',
+        'Desarrollador full stack que diseña sistemas de IA en producción y construye software con IA. Últimos proyectos, desde Bilbao, en remoto.',
     },
     statement: {
       first: 'Desarrollador full stack.',
@@ -45,8 +45,8 @@ export const es: Content = {
     lede: 'De la interfaz a la infraestructura, y los sistemas de IA que funcionan dentro: servidores MCP, agentes, arneses de validación. Casi cinco años en startups.',
     nameLabel: 'Pierre Hervelin, desarrollador full stack',
     scrollCue: 'Desplázate para ver los proyectos',
-    selectedWork: 'Proyectos seleccionados, 2026',
-    workTitle: 'Selección de proyectos',
+    selectedWork: 'Últimos proyectos',
+    workTitle: 'Proyectos',
     projectCount: '2 proyectos',
     about: {
       title: 'Sobre mí',
@@ -292,7 +292,7 @@ export const es: Content = {
         'Pierre Hervelin, desarrollador full stack: experiencia, habilidades, formación y proyectos personales.',
     },
     title: 'Sobre mí',
-    lede: 'Desarrollador full stack con casi cinco años en startups, en remoto. Diseño sistemas de IA tanto como escribo código de producto, con una convicción: una IA vale lo que valen los datos a los que puede llegar.',
+    lede: 'Desarrollador full stack de {age} años, con casi cinco años en startups, en remoto. Diseño sistemas de IA tanto como escribo código de producto, con una convicción: una IA vale lo que valen los datos a los que puede llegar.',
     skills: {
       title: 'Lo que hago',
       capabilities: [

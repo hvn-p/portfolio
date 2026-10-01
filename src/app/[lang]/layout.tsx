@@ -12,6 +12,9 @@ import '../globals.css'
 
 export const dynamicParams = false
 
+// Regenerated daily: the footer's year and the age on About come from today's date.
+export const revalidate = 86400
+
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }))
 }

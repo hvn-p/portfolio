@@ -16,7 +16,7 @@ export const fr: Content = {
     availability: 'Disponible pour des missions freelance',
     location: 'Bilbao, Espagne',
     localTime: 'heure locale',
-    footer: { copyright: '© 2026 Pierre Hervelin', backToTop: 'Haut de page' },
+    footer: { copyright: '© {year} Pierre Hervelin', backToTop: 'Haut de page', source: 'Code source' },
     contact: { title: 'Une mission en tête ?', github: 'GitHub', linkedin: 'LinkedIn' },
     work: 'Projets',
     nextProject: 'Projet suivant',
@@ -34,7 +34,7 @@ export const fr: Content = {
     meta: {
       title: 'Pierre Hervelin · Développeur full stack, systèmes d’IA',
       description:
-        'Développeur full stack qui conçoit des systèmes d’IA en production et construit du logiciel avec l’IA. Projets choisis, depuis Bilbao, en télétravail.',
+        'Développeur full stack qui conçoit des systèmes d’IA en production et construit du logiciel avec l’IA. Derniers projets, depuis Bilbao, en télétravail.',
     },
     statement: {
       first: 'Développeur full stack.',
@@ -45,8 +45,8 @@ export const fr: Content = {
     lede: 'De l’interface à l’infrastructure, et les systèmes d’IA qui tournent dedans : serveurs MCP, agents, harnais de validation. Près de cinq ans en startup.',
     nameLabel: 'Pierre Hervelin, développeur full stack',
     scrollCue: 'Défiler pour voir les projets',
-    selectedWork: 'Projets choisis, 2026',
-    workTitle: 'Projets choisis',
+    selectedWork: 'Derniers projets',
+    workTitle: 'Projets',
     projectCount: '2 projets',
     about: {
       title: 'À propos',
@@ -293,7 +293,7 @@ export const fr: Content = {
         'Pierre Hervelin, développeur full stack : parcours, compétences, formation et projets personnels.',
     },
     title: 'À propos',
-    lede: 'Développeur full stack, près de cinq ans en startup, en télétravail complet. Je conçois des systèmes d’IA autant que j’écris du code produit, avec une conviction : une IA ne vaut que par les données qu’elle peut atteindre.',
+    lede: 'Développeur full stack, {age} ans, près de cinq ans en startup, en télétravail complet. Je conçois des systèmes d’IA autant que j’écris du code produit, avec une conviction : une IA ne vaut que par les données qu’elle peut atteindre.',
     skills: {
       title: 'Ce que je fais',
       capabilities: [

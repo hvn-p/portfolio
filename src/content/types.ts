@@ -62,7 +62,8 @@ export type Content = {
     availability: string
     location: string
     localTime: string
-    footer: { copyright: string; backToTop: string }
+    // {year} is the current year.
+    footer: { copyright: string; backToTop: string; source: string }
     contact: { title: string; github: string; linkedin: string }
     work: string
     nextProject: string
@@ -88,6 +89,7 @@ export type Content = {
   about: {
     meta: { title: string; description: string }
     title: string
+    // {age} is worked out from today's date.
     lede: string
     skills: { title: string; capabilities: Capability[] }
     experience: { title: string; since: string; indexLabel: string; roles: Role[] }

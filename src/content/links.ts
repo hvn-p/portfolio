@@ -5,4 +5,6 @@ export const links = {
   githubPersonal: 'https://github.com/payangar-dev',
   modrinth: 'https://modrinth.com/user/Payangar',
   curseforge: 'https://www.curseforge.com/members/payangar_dev',
+  // This site's own source.
+  source: 'https://github.com/hvn-p/portfolio',
 }

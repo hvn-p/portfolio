@@ -11,6 +11,7 @@ import {
 } from '@/components/blocks'
 import { Experience } from '@/components/experience'
 import { getContent } from '@/content'
+import { age, fill } from '@/dates'
 import type { Locale } from '@/i18n'
 import { pageMetadata } from '@/site'
 
@@ -26,7 +27,7 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <main id="main" className="pt-(--bar-h)">
-      <PageHead title={about.title} lede={about.lede} />
+      <PageHead title={about.title} lede={fill(about.lede, { age: age() })} />
       <section aria-labelledby="skills-title" className="wrap pt-4">
         <SectionHead id="skills-title" title={about.skills.title} />
         <Capabilities items={about.skills.capabilities} flush />

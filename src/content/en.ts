@@ -16,7 +16,7 @@ export const en: Content = {
     availability: 'Open to freelance missions',
     location: 'Bilbao, Spain',
     localTime: 'local time',
-    footer: { copyright: '© 2026 Pierre Hervelin', backToTop: 'Back to top' },
+    footer: { copyright: '© {year} Pierre Hervelin', backToTop: 'Back to top', source: 'Source code' },
     contact: { title: 'Have a mission in mind?', github: 'GitHub', linkedin: 'LinkedIn' },
     work: 'Work',
     nextProject: 'Next project',
@@ -34,7 +34,7 @@ export const en: Content = {
     meta: {
       title: 'Pierre Hervelin · Full-stack developer, AI systems',
       description:
-        'Full-stack developer who builds AI systems in production and builds software with AI. Selected work, based in Bilbao, working remotely.',
+        'Full-stack developer who builds AI systems in production and builds software with AI. Latest work, based in Bilbao, working remotely.',
     },
     statement: {
       first: 'Full-stack developer.',
@@ -45,8 +45,8 @@ export const en: Content = {
     lede: 'From interface to infrastructure, and the AI systems that run inside: MCP servers, agents, validation harnesses. Close to five years in startups.',
     nameLabel: 'Pierre Hervelin, full-stack developer',
     scrollCue: 'Scroll to see the work',
-    selectedWork: 'Selected work, 2026',
-    workTitle: 'Selected work',
+    selectedWork: 'Latest work',
+    workTitle: 'Work',
     projectCount: '2 projects',
     about: {
       title: 'About',
@@ -284,7 +284,7 @@ export const en: Content = {
       description: 'Pierre Hervelin, full-stack developer: experience, skills, education and side projects.',
     },
     title: 'About',
-    lede: 'Full-stack developer with close to five years in startups, fully remote. I design AI systems as much as I write product code, from one conviction: an AI is only as good as the data it can reach.',
+    lede: 'Full-stack developer, {age}, with close to five years in startups, fully remote. I design AI systems as much as I write product code, from one conviction: an AI is only as good as the data it can reach.',
     skills: {
       title: 'What I do',
       capabilities: [
