@@ -50,13 +50,13 @@ export const es: Content = {
     projectCount: '2 proyectos',
     about: {
       title: 'Sobre mí',
-      text: 'Llevo casi cinco años en startups construyendo productos SaaS de principio a fin, últimamente en climate tech y en el impacto ESG de lo digital. Hoy diseño sistemas de IA para producción, y construyo software con IA: ella escribe el código, yo elijo la arquitectura que pide el problema y la sostengo con especificaciones y tests.',
+      text: 'Llevo casi cinco años en startups construyendo productos SaaS de principio a fin, últimamente en climate tech y en el impacto ESG de lo digital. Hoy diseño sistemas de IA para producción, y construyo software con IA. La IA escribe el código; yo construyo su arnés, las instrucciones, los datos, los tests y el lenguaje que deciden lo bien que trabaja, y elijo la arquitectura que pide el problema.',
       link: 'Experiencia, habilidades y proyectos personales',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
         {
           title: 'Programar con IA',
-          text: 'Desarrollo guiado por especificaciones y programación agéntica con Claude Code',
+          text: 'El arnés que hace que una IA programe bien: especificaciones, instrucciones, datos, tests. Programación agéntica con Claude Code.',
         },
         { title: 'Sistemas de IA', text: 'Servidores MCP, agentes y arneses de validación en producción' },
       ],
@@ -302,7 +302,7 @@ export const es: Content = {
         },
         {
           title: 'Programar con IA',
-          text: 'La IA escribe el código más rápido; elegir la arquitectura adecuada para el problema sigue siendo mi trabajo. Desarrollo guiado por especificaciones con GitHub SpecKit, programación agéntica con Claude Code, cada cambio entregado con sus tests.',
+          text: 'La IA escribe el código; lo que la hace buena es su arnés: instrucciones, datos, tests, lenguaje. Yo construyo ese arnés y elijo la arquitectura que pide el problema. Desarrollo guiado por especificaciones con GitHub SpecKit, programación agéntica con Claude Code.',
         },
         {
           title: 'Sistemas de IA',

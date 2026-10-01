@@ -30,7 +30,15 @@ export function Screenshot({
   const { props } = getImageProps({ src: image, alt, sizes, quality: 90, loading: eager ? 'eager' : 'lazy' })
   return (
     // biome-ignore lint/performance/noImgElement: the attributes come from getImageProps
-    <img {...props} alt={alt} data-full={lens ? image.src : undefined} className={className} />
+    <img
+      {...props}
+      // The browser's default, as in the mockup: with getImageProps' decoding="async",
+      // Chromium now and then draws a pinned scene's screenshot from another decode.
+      decoding={undefined}
+      alt={alt}
+      data-full={lens ? image.src : undefined}
+      className={className}
+    />
   )
 }
 
@@ -142,6 +150,7 @@ export function Contact({ t }: { t: Content['site'] }) {
         </Magnetic>
         <Elsewhere
           items={[
+            { label: links.email, href: `mailto:${links.email}` },
             { label: t.contact.github, href: links.github },
             { label: t.contact.linkedin, href: links.linkedin },
           ]}

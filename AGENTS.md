@@ -136,8 +136,11 @@ projet Vercel sont lues au build :
   Celui-ci appelle `img.decode()` au chargement, et Chromium dessine alors floues les
   captures que les scènes épinglées redimensionnent. Le banc n'appelle `decode()` qu'une
   fois l'image à sa taille finale.
-- **Le banc tourne à deux navigateurs à la fois.** À quatre, Chromium manque de temps de
-  rastérisation et floute au hasard une capture redimensionnée, d'un côté ou de l'autre.
+- **Pas de `decoding="async"` sur les captures, et le banc à deux navigateurs à la fois.**
+  Chromium dessine parfois une capture de scène épinglée à partir d'un autre décodage :
+  avec `decoding="async"` (que `getImageProps` ajoute et que `Screenshot` retire), ou sous
+  la charge de quatre navigateurs en parallèle. Les deux font échouer le banc au hasard,
+  sur la dernière capture d'Abacus.
 - **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
   `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
   la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers

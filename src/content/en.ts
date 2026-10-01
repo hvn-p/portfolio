@@ -50,11 +50,14 @@ export const en: Content = {
     projectCount: '2 projects',
     about: {
       title: 'About',
-      text: 'I have spent close to five years in startups building SaaS products end to end, most recently in climate tech and the ESG impact of digital services. Today I design AI systems for production, and I build software with AI: it writes the code, I choose the architecture the problem calls for and hold it to specs and tests.',
+      text: 'I have spent close to five years in startups building SaaS products end to end, most recently in climate tech and the ESG impact of digital services. Today I design AI systems for production, and I build software with AI. The AI writes the code; I build its harness, the instructions, data, tests and language that decide how well it works, and I choose the architecture the problem calls for.',
       link: 'Experience, skills and side projects',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
-        { title: 'AI programming', text: 'Spec-driven development and agentic coding with Claude Code' },
+        {
+          title: 'AI programming',
+          text: 'The harness that makes AI code well: specs, instructions, data, tests. Agentic coding with Claude Code.',
+        },
         { title: 'AI systems', text: 'MCP servers, agents and validation harnesses in production' },
       ],
     },
@@ -294,7 +297,7 @@ export const en: Content = {
         },
         {
           title: 'AI programming',
-          text: 'AI writes the code faster; choosing the right architecture for the problem stays my job. Spec-driven development with GitHub SpecKit, agentic coding with Claude Code, every change shipped with its tests.',
+          text: 'AI writes the code; what makes it good is its harness: instructions, data, tests, language. I build that harness and choose the architecture the problem calls for. Spec-driven development with GitHub SpecKit, agentic coding with Claude Code.',
         },
         {
           title: 'AI systems',

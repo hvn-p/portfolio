@@ -1,5 +1,6 @@
 // The same in every language.
 export const links = {
+  email: 'phvn.pro@outlook.com',
   linkedin: 'https://www.linkedin.com/in/pierre-hervelin-a25b60221',
   github: 'https://github.com/hvn-p',
   githubPersonal: 'https://github.com/payangar-dev',

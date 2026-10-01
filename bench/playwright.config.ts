@@ -13,11 +13,10 @@ export default defineConfig({
   outputDir: '../test-results',
   timeout: 5 * 60_000,
   fullyParallel: true,
-  // Four browsers at once starve Chromium's raster: rescaled screenshots come out
-  // blurred on whichever side lagged. Two keep every run stable.
+  // Under load, Chromium now and then draws the last screenshot of the Abacus scene
+  // from another decode: four browsers at once trigger it, two do not.
   workers: 2,
-  // Even at two, one rescaled screenshot still comes out blurred now and then. A
-  // single retry absorbs it; the summary still reports the test as flaky.
+  // A single retry as a safety net; the summary still reports the test as flaky.
   retries: 1,
   reporter: [['list'], ['html', { outputFolder: '../playwright-report', open: 'never' }]],
   projects: browsers.flatMap((browserName) =>

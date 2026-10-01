@@ -50,13 +50,13 @@ export const fr: Content = {
     projectCount: '2 projets',
     about: {
       title: 'À propos',
-      text: 'Près de cinq ans en startup à construire des produits SaaS de bout en bout, dernièrement dans la climate tech et l’impact ESG du numérique. Aujourd’hui, je conçois des systèmes d’IA pour la production, et je construis du logiciel avec l’IA : elle écrit le code, je choisis l’architecture que le problème demande et je la tiens par des specs et des tests.',
+      text: 'Près de cinq ans en startup à construire des produits SaaS de bout en bout, dernièrement dans la climate tech et l’impact ESG du numérique. Aujourd’hui, je conçois des systèmes d’IA pour la production, et je construis du logiciel avec l’IA. Elle écrit le code ; je construis son harnais, les instructions, les données, les tests et le langage qui décident de sa performance, et je choisis l’architecture que le problème demande.',
       link: 'Parcours, compétences et projets personnels',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
         {
           title: 'Programmer avec l’IA',
-          text: 'Développement piloté par les specs et code agentique avec Claude Code',
+          text: 'Le harnais qui fait bien coder une IA : specs, instructions, données, tests. Code agentique avec Claude Code.',
         },
         { title: 'Systèmes d’IA', text: 'Serveurs MCP, agents et harnais de validation en production' },
       ],
@@ -303,7 +303,7 @@ export const fr: Content = {
         },
         {
           title: 'Programmer avec l’IA',
-          text: 'L’IA écrit le code plus vite ; choisir la bonne architecture pour le problème reste mon travail. Développement piloté par les specs avec GitHub SpecKit, code agentique avec Claude Code, chaque évolution livrée avec ses tests.',
+          text: 'L’IA écrit le code ; ce qui la rend bonne, c’est son harnais : instructions, données, tests, langage. Je construis ce harnais et je choisis l’architecture que le problème demande. Développement piloté par les specs avec GitHub SpecKit, code agentique avec Claude Code.',
         },
         {
           title: 'Systèmes d’IA',
