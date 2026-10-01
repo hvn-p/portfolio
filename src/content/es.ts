@@ -39,8 +39,8 @@ export const es: Content = {
     statement: {
       first: 'Desarrollador full stack.',
       lead: 'Construyo ',
-      rotating: ['sistemas de IA.', 'con IA.', 'de la A a la Z.'],
-      spoken: 'sistemas de IA, y construyo con IA.',
+      rotating: ['sistemas de IA.', 'a medida.', 'con IA.'],
+      spoken: 'sistemas de IA, a medida, con IA.',
     },
     lede: 'De la interfaz a la infraestructura, y los sistemas de IA que funcionan dentro: servidores MCP, agentes, arneses de validación. Casi cinco años en startups.',
     nameLabel: 'Pierre Hervelin, desarrollador full stack',

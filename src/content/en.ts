@@ -39,8 +39,8 @@ export const en: Content = {
     statement: {
       first: 'Full-stack developer.',
       lead: 'I build ',
-      rotating: ['AI systems.', 'with AI.', 'end to end.'],
-      spoken: 'AI systems, and I build with AI.',
+      rotating: ['AI systems.', 'from scratch.', 'with AI.'],
+      spoken: 'AI systems, from scratch, with AI.',
     },
     lede: 'From interface to infrastructure, and the AI systems that run inside: MCP servers, agents, validation harnesses. Close to five years in startups.',
     nameLabel: 'Pierre Hervelin, full-stack developer',
