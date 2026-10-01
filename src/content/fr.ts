@@ -50,7 +50,7 @@ export const fr: Content = {
     projectCount: '2 projets',
     about: {
       title: 'À propos',
-      text: 'Près de cinq ans en startup à construire des produits SaaS de bout en bout, dernièrement dans la climate tech et l’impact ESG du numérique. Aujourd’hui, je conçois des systèmes d’IA pour la production, et je construis du logiciel avec l’IA, tenu par des specs et des tests.',
+      text: 'Près de cinq ans en startup à construire des produits SaaS de bout en bout, dernièrement dans la climate tech et l’impact ESG du numérique. Aujourd’hui, je conçois des systèmes d’IA pour la production, et je construis du logiciel avec l’IA : elle écrit le code, je choisis l’architecture que le problème demande et je la tiens par des specs et des tests.',
       link: 'Parcours, compétences et projets personnels',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
@@ -303,7 +303,7 @@ export const fr: Content = {
         },
         {
           title: 'Programmer avec l’IA',
-          text: 'Développement piloté par les specs avec GitHub SpecKit, code agentique avec Claude Code, plus de 80 % de couverture de tests.',
+          text: 'L’IA écrit le code plus vite ; choisir la bonne architecture pour le problème reste mon travail. Développement piloté par les specs avec GitHub SpecKit, code agentique avec Claude Code, chaque évolution livrée avec ses tests.',
         },
         {
           title: 'Systèmes d’IA',
@@ -324,6 +324,7 @@ export const fr: Content = {
           when: 'Mars 2025 – aujourd’hui · Télétravail',
           what: 'Développeur full stack sur Fruggr, une suite SaaS européenne qui mesure l’impact ESG du numérique.',
           bullets: [
+            'Administrateur de l’infrastructure Azure du produit, chargé de son DevOps et des évolutions d’infrastructure jusqu’en production.',
             'Construction, à partir de zéro, du module de gouvernance de l’IA : registre des systèmes d’IA, évaluations de maturité, conformité à l’AI Act, calculateur de ROI. En production avec ses premiers clients payants.',
             'Conception du serveur MCP du produit avec OAuth 2.1, et du pipeline de télémétrie qui attribue l’usage de l’IA.',
             'Introduction de l’IA dans l’outil d’audit d’accessibilité (RGAA) : sorties structurées avec scores de confiance, livrées sous forme de scanner Docker autonome.',

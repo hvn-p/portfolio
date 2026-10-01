@@ -50,7 +50,7 @@ export const en: Content = {
     projectCount: '2 projects',
     about: {
       title: 'About',
-      text: 'I have spent close to five years in startups building SaaS products end to end, most recently in climate tech and the ESG impact of digital services. Today I design AI systems for production, and I use AI to build software, held to specs and tests.',
+      text: 'I have spent close to five years in startups building SaaS products end to end, most recently in climate tech and the ESG impact of digital services. Today I design AI systems for production, and I build software with AI: it writes the code, I choose the architecture the problem calls for and hold it to specs and tests.',
       link: 'Experience, skills and side projects',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
@@ -294,7 +294,7 @@ export const en: Content = {
         },
         {
           title: 'AI programming',
-          text: 'Spec-driven development with GitHub SpecKit, agentic coding with Claude Code, 80%+ test coverage.',
+          text: 'AI writes the code faster; choosing the right architecture for the problem stays my job. Spec-driven development with GitHub SpecKit, agentic coding with Claude Code, every change shipped with its tests.',
         },
         {
           title: 'AI systems',
@@ -315,6 +315,7 @@ export const en: Content = {
           when: 'Mar 2025 – now · Remote',
           what: 'Full-stack developer on Fruggr, a European SaaS suite that monitors the ESG impact of digital services.',
           bullets: [
+            "Administrator of the product's Azure infrastructure, in charge of its DevOps work and of infrastructure changes through to production.",
             'Led the build of the AI governance module from scratch: AI system registry, maturity assessments, EU AI Act compliance, ROI calculator. Live with its first paying customers.',
             "Built the product's MCP server with OAuth 2.1, and the telemetry pipeline that attributes AI usage.",
             'Brought AI into the accessibility audit tool (RGAA): structured outputs with confidence scores, shipped as a standalone Docker scanner.',

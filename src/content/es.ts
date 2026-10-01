@@ -50,7 +50,7 @@ export const es: Content = {
     projectCount: '2 proyectos',
     about: {
       title: 'Sobre mí',
-      text: 'Llevo casi cinco años en startups construyendo productos SaaS de principio a fin, últimamente en climate tech y en el impacto ESG de lo digital. Hoy diseño sistemas de IA para producción, y uso la IA para construir software, sujeto a especificaciones y tests.',
+      text: 'Llevo casi cinco años en startups construyendo productos SaaS de principio a fin, últimamente en climate tech y en el impacto ESG de lo digital. Hoy diseño sistemas de IA para producción, y construyo software con IA: ella escribe el código, yo elijo la arquitectura que pide el problema y la sostengo con especificaciones y tests.',
       link: 'Experiencia, habilidades y proyectos personales',
       capabilities: [
         { title: 'Full stack', text: 'React, NestJS, GraphQL, PostgreSQL, Kubernetes, Azure' },
@@ -302,7 +302,7 @@ export const es: Content = {
         },
         {
           title: 'Programar con IA',
-          text: 'Desarrollo guiado por especificaciones con GitHub SpecKit, programación agéntica con Claude Code, más del 80 % de cobertura de tests.',
+          text: 'La IA escribe el código más rápido; elegir la arquitectura adecuada para el problema sigue siendo mi trabajo. Desarrollo guiado por especificaciones con GitHub SpecKit, programación agéntica con Claude Code, cada cambio entregado con sus tests.',
         },
         {
           title: 'Sistemas de IA',
@@ -323,6 +323,7 @@ export const es: Content = {
           when: 'Mar. 2025 – hoy · En remoto',
           what: 'Desarrollador full stack en Fruggr, una suite SaaS europea que mide el impacto ESG de lo digital.',
           bullets: [
+            'Administrador de la infraestructura Azure del producto, a cargo de su DevOps y de los cambios de infraestructura hasta producción.',
             'Lideré la construcción desde cero del módulo de gobernanza de la IA: registro de sistemas de IA, evaluaciones de madurez, cumplimiento del AI Act europeo, calculadora de ROI. En producción con sus primeros clientes de pago.',
             'Construí el servidor MCP del producto con OAuth 2.1, y la canalización de telemetría que atribuye el uso de la IA.',
             'Llevé la IA a la herramienta de auditoría de accesibilidad (RGAA): salidas estructuradas con puntuaciones de confianza, entregadas como escáner Docker autónomo.',
