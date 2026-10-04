@@ -1,0 +1,13 @@
+# Production stack, deployed by the provisioner (provision/) on every main
+# commit. The image carries everything the site needs, its public address
+# included, so the only value Dokploy injects is the tag to run.
+services:
+  web:
+    image: ghcr.io/hvn-p/portfolio:${IMAGE_TAG}
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true

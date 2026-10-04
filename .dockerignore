@@ -1,0 +1,15 @@
+# Only what the build needs goes into the context.
+node_modules
+.next
+.git
+.github
+.config
+.impeccable
+bench
+deploy
+provision
+mockup
+docs
+test-results
+playwright-report
+*.md

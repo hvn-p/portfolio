@@ -2,6 +2,15 @@
 # also type-checks. The mockup comparison bench stays local: it needs two
 # browsers and the Google Fonts CDN the mockup loads.
 #
+# Continuous deployment, the same way as abacus: every commit on main also
+# builds the site image tagged by commit SHA, pushes it to GHCR, and reconciles
+# Dokploy against the repository through the embedded provisioner
+# (provision/). Pull requests build the image without pushing it.
+#
+# The deploy job is separate on purpose: environment secrets are only handed to
+# the job that declares the environment, so the Dokploy token (instance-wide,
+# not scoped to one project) never shares a process with the Docker actions.
+#
 # Actions are pinned by commit rather than by tag: a tag is a moving target its
 # owner can repoint (see the tj-actions/changed-files leak, 2025).
 name: CI
@@ -27,3 +36,66 @@ jobs:
       - run: pnpm lint
       - run: pnpm build
 
+  image:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ghcr.io/hvn-p/portfolio
+          # sha-<short> is what gets deployed: immutable, names exactly one
+          # build. `latest` is a convenience for pulling by hand.
+          tags: |
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+      - uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: .
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # The pages are prerendered, so all three are written into the image.
+          # The website id is a repository variable, not a secret: it reads in
+          # every page. Until it is set the site ships without statistics.
+          build-args: |
+            SITE_URL=https://pierrehervelin.com
+            NEXT_PUBLIC_UMAMI_SRC=https://stats.pierrehervelin.com/script.js
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.UMAMI_WEBSITE_ID }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: image
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    # Holds the Dokploy secrets. Restricted to main in the repository settings:
+    # a workflow on any other branch cannot read them.
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: 24
+      # The provisioner has zero dependencies (Node runs the TypeScript
+      # directly), so nothing is installed in the job that holds the token.
+      - name: Reconcile Dokploy against the repository
+        env:
+          DOKPLOY_URL: ${{ secrets.DOKPLOY_URL }}
+          DOKPLOY_AUTH_TOKEN: ${{ secrets.DOKPLOY_AUTH_TOKEN }}
+        run: |
+          export IMAGE_TAG="sha-$(echo "$GITHUB_SHA" | cut -c1-7)"
+          node provision/src/provision.ts
