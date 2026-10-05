@@ -119,6 +119,7 @@
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
     }
     .scenes:not(.scenes-pinned) .shot {
       flex: 0 0 85%;
