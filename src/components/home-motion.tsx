@@ -59,7 +59,7 @@ export function Rotator({ words }: { words: string[] }) {
 }
 
 // The hero name's letters sink below the baseline one after another; the bar's
-// wordmark waits for them to be gone.
+// monogram waits for them to be gone.
 export function HeroMotion() {
   useEffect(() => {
     const root = document.documentElement

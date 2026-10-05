@@ -156,10 +156,6 @@
       "caption": {
         "displayName": "Caption",
         "purpose": "Légendes et libellés de faits."
-      },
-      "accent-serif": {
-        "displayName": "Identity italic",
-        "purpose": "Logotype et page courante du menu mobile uniquement."
       }
     },
     "shadows": [
@@ -301,7 +297,7 @@
     "overview": "La référence de ce système est la maquette validée par Pierre le 2026-09-30, dans mockup/. Toute implémentation reproduit ce rendu exactement. Le monde est une vitrine de projets sombre et sobre, au niveau de finition de trois sites d'agence ; le fond est presque noir, l'interface se tient en retrait, et la seule couleur vient des captures des projets. Le mouvement est la signature.",
     "keyCharacteristics": [
       "Fond presque noir, encres chaudes à trois niveaux, filets très discrets.",
-      "Une seule famille de texte (Schibsted Grotesk), et un italique Bodoni réservé à l'identité.",
+      "Une seule famille, Schibsted Grotesk, du texte courant jusqu'au nom, qui la porte en graisse 800.",
       "Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.",
       "Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.",
       "Des transitions de page qui couvrent, nomment la destination, puis se lèvent."
@@ -319,12 +315,12 @@
       },
       {
         "name": "La règle du logotype tracé",
-        "body": "« Pierre Hervelin » n'est jamais du texte composé : c'est un SVG tiré des contours des polices, une lettre par tracé ; coupe d'affichage en grand, coupe texte à la taille de la barre.",
+        "body": "« Pierre Hervelin » n'est jamais du texte composé : c'est un SVG tiré des contours de Schibsted Grotesk 800, une lettre par tracé.",
         "section": "typography"
       },
       {
-        "name": "La règle de l'italique rare",
-        "body": "Le Bodoni italique ne sert qu'à l'identité : le nom, et la page courante dans le menu mobile.",
+        "name": "La règle du monogramme",
+        "body": "La barre et les icônes portent « PH », une ligature tirée du P et du H de Schibsted Grotesk 800 : la panse du P loge dans le H, et son bas se prolonge en barre du H. Une seule couleur, l'encre.",
         "section": "typography"
       },
       {

@@ -7,7 +7,7 @@
     }
   }
 
-  /* The bar's wordmark waits on the home page until the hero name has sunk. */
+  /* The bar's monogram waits on the home page until the hero name has sunk. */
   .brand {
     transition:
       opacity 0.5s var(--ease-soft),
@@ -52,10 +52,6 @@
     }
     .intro .hero-top > :nth-child(2) {
       animation-delay: 0.85s;
-    }
-    .brand:hover .wordmark path {
-      animation: wm-wave 0.7s var(--ease-soft);
-      animation-delay: calc(var(--i) * 28ms);
     }
 
     /* Letters roll up one after another, the copy rising from below. Each letter
@@ -217,11 +213,6 @@
   @keyframes wm-rise {
     from {
       transform: translateY(115%);
-    }
-  }
-  @keyframes wm-wave {
-    35% {
-      transform: translateY(-14%);
     }
   }
   @keyframes fade-up {

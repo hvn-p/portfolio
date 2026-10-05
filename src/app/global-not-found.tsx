@@ -5,7 +5,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { getContent } from '@/content'
 import { defaultLocale } from '@/i18n'
-import { bodoni, schibsted } from './fonts'
+import { schibsted } from './fonts'
 import './globals.css'
 
 // Addresses outside every language, such as a missing file: the English 404,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function GlobalNotFound() {
   return (
-    <html lang={defaultLocale} className={`${schibsted.variable} ${bodoni.variable}`}>
+    <html lang={defaultLocale} className={schibsted.variable}>
       <head>
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a constant, first-paint flag */}
         <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.classList.add("js")' }} />

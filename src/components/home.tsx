@@ -42,7 +42,7 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
       </div>
       <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6vh,4rem)] short:pt-6">
         <span className="sr-only">{t.nameLabel}</span>
-        <Wordmark cut="display" />
+        <Wordmark />
       </h1>
       <div className="hero-foot row-[4] mt-6 flex flex-wrap justify-between gap-4 border-t border-hairline pt-4 text-[0.875rem] text-ink-quiet short:mt-4">
         <span className="inline-flex items-center gap-3 after:h-px after:w-10 after:bg-[linear-gradient(90deg,var(--color-ink)_0_30%,var(--color-hairline-strong)_30%)] after:bg-size-[200%_100%] motion-safe:after:animate-cue">

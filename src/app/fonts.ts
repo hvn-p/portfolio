@@ -9,12 +9,3 @@ export const schibsted = localFont({
   style: 'normal',
   variable: '--font-schibsted',
 })
-
-// Only the current page in the mobile menu uses it: no preload on every page.
-export const bodoni = localFont({
-  src: './fonts/bodoni-moda-italic-latin.woff2',
-  weight: '500',
-  style: 'italic',
-  variable: '--font-bodoni',
-  preload: false,
-})

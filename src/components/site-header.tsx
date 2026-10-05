@@ -8,10 +8,10 @@ import { type Locale, localePath, sectionOf, stripLocale } from '@/i18n'
 import { Availability, Languages, Socials } from './bits'
 import { Icon } from './icons'
 import { Magnetic } from './magnetic'
+import { Monogram } from './monogram'
 import { Roll } from './roll'
 import { button } from './styles'
 import { Link } from './transition-link'
-import { Wordmark } from './wordmark'
 
 type Props = { lang: Locale; t: Content['site'] }
 
@@ -119,13 +119,13 @@ export function SiteHeader({ lang, t }: Props) {
         className="fixed inset-x-0 top-0 z-30 [transition:background-color_0.4s_var(--ease-soft),box-shadow_0.4s_var(--ease-soft),translate_0.5s_var(--ease-soft)] data-hidden:-translate-y-full data-scrolled:bg-[rgb(13_13_14/0.94)] data-scrolled:shadow-[0_1px_0_var(--color-hairline)] in-[.menu-open]:translate-y-0! in-[.menu-open]:bg-transparent! in-[.menu-open]:shadow-none!"
       >
         <div className="wrap flex h-(--bar-h) items-center justify-between gap-6">
-          <span className="block h-[1.32rem] w-[10.5rem] flex-none narrow:h-[1.07rem] narrow:w-[8.5rem]">
+          <span className="block h-[1.55rem] w-[2.06rem] flex-none narrow:h-[1.3rem] narrow:w-[1.73rem]">
             <Link
               href={localePath(lang, '/')}
               aria-label={t.homeLabel}
               className="brand block w-full text-ink no-underline"
             >
-              <Wordmark cut="text" />
+              <Monogram />
             </Link>
           </span>
           <nav

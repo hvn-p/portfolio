@@ -8,7 +8,7 @@ import { SmoothScroll } from '@/components/smooth-scroll'
 import { getContent } from '@/content'
 import { defaultLocale, hasLocale, locales } from '@/i18n'
 import { indexable, siteUrl, umami } from '@/site'
-import { bodoni, schibsted } from '../fonts'
+import { schibsted } from '../fonts'
 import '../globals.css'
 
 export const dynamicParams = false
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 // Runs before the first paint. The small-screen menu only replaces the links once
-// a script can open it. On the home page with motion allowed, the bar's wordmark
+// a script can open it. On the home page with motion allowed, the bar's monogram
 // waits for the hero name, and a first arrival from outside the site plays the
 // intro: setting both here keeps the final state from flashing first.
 // data-fit sorts the screen height for the hero (globals.css), measured on arrival
@@ -56,7 +56,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
   return (
     <html
       lang={lang}
-      className={`${schibsted.variable} ${bodoni.variable}`}
+      className={schibsted.variable}
       // Next then scrolls instantly on navigation, under the curtain.
       data-scroll-behavior="smooth"
       suppressHydrationWarning

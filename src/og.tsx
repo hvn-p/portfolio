@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { ImageResponse } from 'next/og'
 import sharp from 'sharp'
-import { display } from './components/wordmark-paths'
+import { wordmark } from './components/wordmark-paths'
 
 export const ogSize = { width: 1200, height: 630 }
 export const ogAlt = 'Pierre Hervelin'
@@ -15,10 +15,10 @@ const asset = (...parts: string[]) => readFile(path.join(process.cwd(), 'src/ass
 
 // The traced name, as in the hero.
 function Name({ width }: { width: number }) {
-  const [, , w = 1278, h = 160] = display.viewBox.split(' ').map(Number)
+  const [, , w = 1414, h = 162] = wordmark.viewBox.split(' ').map(Number)
   return (
-    <svg width={width} height={(width * h) / w} viewBox={display.viewBox} fill={ink} aria-hidden="true">
-      {[...display.first, ...display.last].map((d) => (
+    <svg width={width} height={(width * h) / w} viewBox={wordmark.viewBox} fill={ink} aria-hidden="true">
+      {[...wordmark.first, ...wordmark.last].map((d) => (
         <path key={d} d={d} />
       ))}
     </svg>

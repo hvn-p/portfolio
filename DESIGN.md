@@ -62,10 +62,6 @@ typography:
     fontSize: "0.8125rem"
     fontWeight: 400
     lineHeight: 1.5
-  accent-serif:
-    fontFamily: "Bodoni Moda, serif"
-    fontWeight: 500
-    letterSpacing: "-0.02em"
 rounded:
   frame: "14px"
   scene: "16px"
@@ -118,7 +114,7 @@ Refusé et à ne pas réintroduire : une palette colorée (la v1 en outremer et 
 
 **Key Characteristics:**
 - Fond presque noir, encres chaudes à trois niveaux, filets très discrets.
-- Une seule famille de texte (Schibsted Grotesk), et un italique Bodoni réservé à l'identité.
+- Une seule famille, Schibsted Grotesk, du texte courant jusqu'au nom, qui la porte en graisse 800.
 - Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.
 - Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.
 - Des transitions de page qui couvrent, nomment la destination, puis se lèvent.
@@ -150,9 +146,8 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 
 **Display Font:** Schibsted Grotesk (repli : sans-serif)
 **Body Font:** Schibsted Grotesk (repli : sans-serif)
-**Identity Font:** Bodoni Moda italique, dans le logotype et pour la page courante du menu mobile
 
-**Character:** un grotesque d'actualité, net et un peu serré en grand corps, face à un Didone italique à fort contraste qui signe le nom. La tension entre les deux est l'identité.
+**Character:** un grotesque d'actualité, net et un peu serré en grand corps. Le nom en prend la graisse la plus appuyée (800) : c'est lui qui signe.
 
 ### Hierarchy
 - **Display** (600, clamp(2.75rem, 6.4vw, 6rem), 1.02) : titres de page, « Selected work », « Have a mission in mind? ».
@@ -165,9 +160,9 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 - **Label** (400, 0.9375rem) et **Caption** (400, 0.8125rem) : navigation, faits, légendes.
 
 ### Named Rules
-**La règle du logotype tracé.** « Pierre Hervelin » n'est jamais du texte composé : c'est un SVG tiré des contours des polices (`mockup/assets/wordmark-display.svg` en grand, `wordmark-text.svg` à la taille de la barre), une lettre par tracé. La coupe d'affichage du Bodoni perd ses déliés sous 200 px de large ; en dessous, on utilise la coupe texte.
+**La règle du logotype tracé.** « Pierre Hervelin » n'est jamais du texte composé : c'est un SVG tiré des contours de Schibsted Grotesk 800 (`mockup/assets/wordmark.svg`), une lettre par tracé.
 
-**La règle de l'italique rare.** Le Bodoni italique ne sert qu'à l'identité : le nom, et la page courante dans le menu mobile. Jamais pour un titre ou un paragraphe.
+**La règle du monogramme.** La barre et les icônes du site portent « PH », une ligature tirée du P et du H de Schibsted Grotesk 800 : la panse du P loge dans le H, et son bas se prolonge en barre du H (`mockup/assets/monogram.svg`). Une seule couleur, l'encre ; en icône, sur le fond d'encre aux angles arrondis.
 
 ## Layout
 
@@ -209,8 +204,8 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 
 ### Navigation
 - **Barre du haut :** fixe, transparente en haut de page, fond d'encre à 94 % et filet dès qu'on défile. Elle se masque quand on descend et revient dès qu'on remonte.
-- **Contenu :** logotype à gauche ; à droite Work, About, puis le groupe réseaux et contact (icônes LinkedIn et GitHub professionnel, bouton « Get in touch »), puis les langues. Sur l'accueil, le logotype de la barre n'apparaît qu'une fois le grand nom du hero enfoncé.
-- **Mobile :** logotype et bouton « Menu » seulement. Les deux traits se rejoignent puis pivotent en croix, le libellé roule vers « Close ». Le menu s'ouvre en cercle depuis le bouton (0.8s ; fermeture en 0.5s), sur la surface ; les liens montent en très grand un à un, la page courante en Bodoni italique ; en bas, disponibilité, réseaux et langues.
+- **Contenu :** monogramme à gauche ; à droite Work, About, puis le groupe réseaux et contact (icônes LinkedIn et GitHub professionnel, bouton « Get in touch »), puis les langues. Sur l'accueil, le monogramme de la barre n'apparaît qu'une fois le grand nom du hero enfoncé.
+- **Mobile :** monogramme et bouton « Menu » seulement. Les deux traits se rejoignent puis pivotent en croix, le libellé roule vers « Close ». Le menu s'ouvre en cercle depuis le bouton (0.8s ; fermeture en 0.5s), sur la surface ; les liens montent en très grand un à un, la page courante en graisse 800 et en encre pleine ; en bas, disponibilité, réseaux et langues.
 
 ### Frames and lens
 - **Cadre :** surface, 14px, image en `object-fit: cover` calée en haut, contour intérieur en filet.

@@ -21,7 +21,6 @@
   --color-status-online: #5bd68a;
 
   --font-sans: var(--font-schibsted), sans-serif;
-  --font-serif: var(--font-bodoni), serif;
 
   --text-display: clamp(2.75rem, 6.4vw, 6rem);
   --text-display--line-height: 1.02;
