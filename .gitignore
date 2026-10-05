@@ -38,3 +38,6 @@ next-env.d.ts
 **/.impeccable/live/deferred-svelte-component-accepts.json
 **/.impeccable/live/*.png
 # impeccable-ignore-end
+
+# The skill's engine binary: the launcher downloads it on first run.
+/.claude/skills/impeccable/scripts/bin/
