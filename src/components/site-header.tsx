@@ -61,40 +61,52 @@ export function SiteHeader({ lang, t }: Props) {
     }
   }, [])
 
-  const toggle = useCallback((next: boolean, restoreFocus = true) => {
+  // The circle grows from the burger and reaches the farthest corner.
+  const placeCircle = useCallback(() => {
     const lines = burger.current?.querySelector('.burger-lines')?.getBoundingClientRect()
-    if (lines && menu.current) {
-      // The circle grows from the burger and reaches the farthest corner.
-      const cx = lines.left + lines.width / 2
-      const cy = lines.top + lines.height / 2
-      const r = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 20
-      menu.current.style.setProperty('--cx', `${cx}px`)
-      menu.current.style.setProperty('--cy', `${cy}px`)
-      menu.current.style.setProperty('--r', `${r}px`)
-    }
-    document.documentElement.classList.toggle('menu-open', next)
-    for (const el of document.querySelectorAll<HTMLElement>('main, footer, #skip')) el.inert = next
-    setOpen(next)
-    if (next) {
-      setTimeout(() => menu.current?.querySelector('a')?.focus({ preventScroll: true }), 350)
-    } else if (restoreFocus) {
-      burger.current?.focus({ preventScroll: true })
-    }
+    if (!lines || !menu.current) return
+    const cx = lines.left + lines.width / 2
+    const cy = lines.top + lines.height / 2
+    const r = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 20
+    menu.current.style.setProperty('--cx', `${cx}px`)
+    menu.current.style.setProperty('--cy', `${cy}px`)
+    menu.current.style.setProperty('--r', `${r}px`)
   }, [])
 
-  // Escape closes, and so does leaving the small-screen layout.
+  // focus: whether focus follows the menu, into its first link when it opens and
+  // back to the button when it closes.
+  const toggle = useCallback(
+    (next: boolean, focus = true) => {
+      placeCircle()
+      document.documentElement.classList.toggle('menu-open', next)
+      for (const el of document.querySelectorAll<HTMLElement>('main, footer, #skip')) el.inert = next
+      setOpen(next)
+      if (!focus) return
+      if (next) {
+        setTimeout(() => menu.current?.querySelector('a')?.focus({ preventScroll: true }), 350)
+      } else {
+        burger.current?.focus({ preventScroll: true })
+      }
+    },
+    [placeCircle],
+  )
+
+  // Escape closes, and so does leaving the small-screen layout. A resize that keeps
+  // it, such as turning the phone, moves the burger: the circle follows.
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && toggle(false)
     const small = matchMedia('(max-width: 48rem)')
     const onResize = () => !small.matches && toggle(false)
     addEventListener('keydown', onKey)
+    addEventListener('resize', placeCircle)
     small.addEventListener('change', onResize)
     return () => {
       removeEventListener('keydown', onKey)
+      removeEventListener('resize', placeCircle)
       small.removeEventListener('change', onResize)
     }
-  }, [open, toggle])
+  }, [open, toggle, placeCircle])
 
   const workHref = localePath(lang, '/#work')
   const aboutHref = localePath(lang, '/about')
@@ -146,7 +158,10 @@ export function SiteHeader({ lang, t }: Props) {
             className="burger"
             aria-expanded={open}
             aria-controls="menu"
-            onClick={() => toggle(!open)}
+            // Focus moves into the menu only when it opens from the keyboard, a click
+            // without a pointer (detail 0). Safari leaves a tapped button unfocused,
+            // so focus moved by script would ring the first link.
+            onClick={(e) => toggle(!open, open || e.detail === 0)}
           >
             <span className="burger-lines" aria-hidden="true">
               <span />

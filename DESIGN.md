@@ -156,7 +156,7 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 
 ### Hierarchy
 - **Display** (600, clamp(2.75rem, 6.4vw, 6rem), 1.02) : titres de page, « Selected work », « Have a mission in mind? ».
-- **Statement** (600, clamp(2.6rem, 5.2vw, 6rem), 1.02) : l'accroche du hero, dont les derniers mots tournent.
+- **Statement** (600, clamp(2.6rem, 5.2vw, 6rem), 1.02) : l'accroche du hero, dont les derniers mots tournent. Sous 390px de large, elle suit la largeur de l'écran pour que la plus longue phrase tournante tienne sur une ligne.
 - **Headline** (600, clamp(2.75rem, 7vw, 6rem), 0.92) : titres de projet dans les scènes ; en scène épinglée il part de clamp(6rem, 16vw, 17rem) et se réduit à 68 px au plus.
 - **Title** (600, clamp(2rem, 3.4vw, 3rem), 1.05) : entreprises du parcours.
 - **Section** (600, clamp(1.5rem, 2.4vw, 2rem), 1.15) : titres de section secondaires.
@@ -173,8 +173,8 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 
 Un conteneur de 90rem centré, avec une gouttière fluide (clamp(1.25rem, 4vw, 4rem)). La barre du haut fait 5rem (4.25rem sous 48rem).
 
-- **Hero** : toute la hauteur de l'écran moins la barre. L'accroche et la colonne de disponibilité sont regroupées en bas, juste au-dessus du nom en pleine largeur, puis une ligne de pied (« Scroll to see the work »).
-- **Scènes de projet** : une par projet, 380vh de défilement, dont l'écran reste épinglé. Le cadre d'image mesure la largeur du conteneur moins les gouttières, et 70 % de la hauteur d'écran au plus, plafonné à la hauteur réelle de la capture (ratio 16:10). Sur un écran haut, le bloc cadre et étiquette se centre verticalement. L'étiquette (titre, description, fiche, lien) vit sous le cadre, jamais au-dessus.
+- **Hero** : toute la hauteur de l'écran moins la barre. L'accroche et la colonne de disponibilité sont regroupées en bas, juste au-dessus du nom en pleine largeur, puis une ligne de pied (« Scroll to see the work »). Sur un téléphone trop court pour ce dessin (moins de 46rem de haut), espacements et accroche se resserrent, et sous 38.75rem la phrase d'introduction quitte le hero : le nom reste sur le premier écran.
+- **Scènes de projet** : une par projet, 380vh de défilement, dont l'écran reste épinglé. Le cadre d'image mesure la largeur du conteneur moins les gouttières, et 70 % de la hauteur d'écran au plus, plafonné à la hauteur réelle de la capture (ratio 16:10). Sur un écran haut, le bloc cadre et étiquette se centre verticalement. L'étiquette (titre, description, fiche, lien) vit sous le cadre, jamais au-dessus. Sans épinglage (sous 56rem, ou en mouvement réduit), les scènes se suivent et chacune commence par le nom et le numéro du projet, puis ses captures, puis la description, la fiche et le lien : ses captures ne se lisent jamais comme celles du projet précédent.
 - **Pages projet** : en-tête, bande de faits en grille automatique (colonnes de 11rem au moins), galerie en pleine largeur, en deux colonnes, ou en paire bureau et mobile.
 - **À propos** : grille 1fr / 2fr ; index de l'expérience fixe à gauche, entrées à droite.
 - **Points de rupture** : 48rem (barre mobile, grilles en une colonne), 56rem (fin de l'épinglage des scènes), 80rem (sources et stack en colonne dédiée).
@@ -203,7 +203,7 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 - **Contenu :** toujours un libellé et une flèche ; lettres qui roulent au survol, flèche qui s'échange.
 
 ### Links
-- **Texte :** libellé qui roule lettre par lettre (0.55s, décalage de 14 ms par lettre, 220 ms au plus), trait qui se trace depuis la gauche au survol et repart vers la droite. Le lien texte principal garde un trait de repos en filet appuyé. Espace de 0.35em entre les lettres et le trait.
+- **Texte :** libellé qui roule lettre par lettre (0.55s, décalage de 14 ms par lettre, 220 ms au plus) et passe à la ligne entre deux mots quand il ne tient pas, trait qui se trace depuis la gauche au survol et repart vers la droite. Le lien texte principal garde un trait de repos en filet appuyé. Espace de 0.35em entre les lettres et le trait.
 - **Flèches :** deux copies superposées ; la première sort dans sa direction, la seconde arrive derrière (diagonale pour ↗, horizontale pour →, verticale pour ↑).
 - **Boîte des lettres :** chaque lettre tient dans une boîte de 1.2em, pour que le centre des capitales tombe au centre du contrôle et s'aligne sur la flèche.
 
@@ -234,7 +234,7 @@ Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s)
 ### Do:
 - **Do** reproduire la maquette `mockup/` au pixel près ; en cas de doute, ouvrir la page et mesurer.
 - **Do** laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.
-- **Do** garder le texte d'une scène de projet sous l'image.
+- **Do** garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.
 - **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, fondus à la place des déplacements.
 - **Do** tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes.
 
