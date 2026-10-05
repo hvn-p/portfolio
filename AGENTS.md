@@ -57,8 +57,11 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
   couche `components`, à côté de leur composant.
 - **Contenu** dans `src/content/<langue>.ts`, typé par `src/content/types.ts` ; les
   pages n'écrivent aucun texte en dur.
-- **Mouvements écrits à la main**, sans bibliothèque d'animation : ce sont les formules
-  de `mockup/site.js`, validées telles quelles.
+- **Mouvements écrits à la main** : ce sont les formules de `mockup/site.js`, validées
+  telles quelles.
+- **Défilement à la molette lissé par Lenis** (`src/components/smooth-scroll.tsx`) : il
+  glisse au lieu d'avancer par crans, pour que les scènes suivent une souris comme un
+  pavé tactile. Le tactile et le mouvement réduit restent natifs.
 - **Langues** sous `src/app/[lang]/`, sans bibliothèque d'i18n. L'anglais n'a pas de
   préfixe : `src/proxy.ts` réécrit ses adresses vers `/en`.
 - **Adresse publique** dans la variable `SITE_URL`, lue au build. Sans elle, le site est

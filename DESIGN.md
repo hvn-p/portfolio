@@ -217,7 +217,7 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 - **Loupe :** au-dessus d'une capture de projet, le curseur natif disparaît au profit d'une loupe de 13rem qui suit le pointeur avec un lissage (facteur 0.24 par image), grossit ×1.9, porte un anneau de texte tournant (« Open project · nom · », 16s par tour) sur une couronne sombre. Pointeur précis uniquement.
 
 ### Project scenes
-Le titre seul et très grand au centre ; au défilement il rétrécit et descend à sa place d'étiquette pendant que la capture s'ouvre au-dessus depuis une ligne médiane, en léger dézoom ; puis la description, la fiche et le lien arrivent, puis les captures suivantes montent en volet, chacune descendant lentement le long de sa page. Légende et compteur (« 2 / 3 ») sous le cadre, à droite.
+Le titre seul et très grand au centre ; au défilement il rétrécit et descend à sa place d'étiquette pendant que la capture s'ouvre au-dessus depuis une ligne médiane, en léger dézoom ; puis la description, la fiche et le lien arrivent, puis les captures suivantes montent en volet, chacune descendant lentement le long de sa page. Légende et compteur (« 2 / 3 ») sous le cadre, à droite. À la molette, le défilement glisse au lieu d'avancer par crans, pour que la scène suive une souris comme un pavé tactile.
 
 ### Page transition
 Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s), affiche la destination en très grand avec un filet de chargement, puis se lève sur la nouvelle page (0.75s). La navigation ne part qu'à la fin réelle de la fermeture ; le volet passe alors dans un état fermé figé. Dans l'implémentation Next.js, le volet est piloté par le routeur, sans rechargement de document.

@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { Curtain } from '@/components/curtain'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
+import { SmoothScroll } from '@/components/smooth-scroll'
 import { getContent } from '@/content'
 import { defaultLocale, hasLocale, locales } from '@/i18n'
 import { indexable, siteUrl, umami } from '@/site'
@@ -77,6 +78,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           {children}
           <SiteFooter t={site} />
         </Curtain>
+        <SmoothScroll />
         {umami && (
           <Script
             src={umami.src}
