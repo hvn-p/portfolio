@@ -297,6 +297,206 @@
     wrap.append(svg, svg.cloneNode(true));
   }
 
+  // Night water seen from above, drawn on a fine grid of short strokes: above the hero's
+  // statement, and in a frame beside the contact call. The moon catches on the water's
+  // slopes as broad reflections that drift and change shape, lighting the strokes they
+  // cover. The pointer's gesture stirs the strokes along its path: they catch more light,
+  // stretch the way it went and are pushed ahead of it, each keeping its own light, then
+  // settle. Faster gestures stir wider and push further. A touch screen gets the water
+  // without the stirring.
+  const STEP_X = 9, STEP_Y = 7; // CSS pixels between strokes
+  // The surface: slow waves crossing in different directions (length in px, heading, speed in px/s).
+  const WAVES = [[360, 0.3, 34], [270, 1.9, 30], [200, 3.6, 26], [150, 5.0, 22], [110, 2.6, 18]].map(([len, dir, speed], i) => {
+    const k = 6.283 / len;
+    return { k, dx: Math.cos(dir), dy: Math.sin(dir), w: k * speed, ph: i * 1.7 };
+  });
+  // The slope that sends moonlight up to the eye, and the tolerance around it.
+  const SX = 0.9, SY = -0.6, SPREAD = 0.6;
+
+  // size() gives the canvas size and how strong the water is along it, top to bottom;
+  // edge() how far down it shows, fading out over the 200 px above (none by default);
+  // still() whether the pointer leaves it alone for now. It redraws when `watch` resizes.
+  const water = (canvas, watch, { size, edge = () => Infinity, still = () => false }) => {
+    const ctx = canvas.getContext("2d");
+    let strokes = [], w = 0, h = 0, seed = 0;
+    // Seeded, so the strokes twinkle the same way on every visit.
+    const rand = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+    // Strokes the pointer has stirred and that have not settled yet.
+    const stirred = new Set();
+    const fit = () => {
+      const s = size();
+      w = s.w;
+      h = s.h;
+      const dpr = Math.min(devicePixelRatio, 2);
+      Object.assign(canvas.style, { width: `${w}px`, height: `${h}px` });
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      strokes = [];
+      stirred.clear();
+      seed = 7;
+      for (let y = 4; y < h; y += STEP_Y) {
+        const fade = s.fade(y);
+        for (let x = STEP_X / 2; x < w; x += STEP_X) {
+          const f = 2 + 3 * rand(), ph = rand() * 6.283;
+          if (fade <= 0.02) continue;
+          // Each wave's phase at this stroke, as a cosine and a sine: a frame then moves it on
+          // with two products, without a cosine per stroke.
+          const at = WAVES.flatMap((v) => { const a = v.k * (v.dx * x + v.dy * y) + v.ph; return [Math.cos(a), Math.sin(a)]; });
+          strokes.push({ x, y, fade, f, ph, at, dx: 0, dy: 0, ox: 0, oy: 0, e: 0 });
+        }
+      }
+    };
+    fit();
+    new ResizeObserver(fit).observe(watch);
+    addEventListener("resize", fit);
+
+    // Drawn only while on screen, and when the page last scrolled.
+    let shown = true, scrolled = 0;
+    const born = performance.now();
+    let raf = 0, drawn = 0, last = born;
+    const loop = (now) => {
+      raf = 0;
+      const limit = edge();
+      if (limit < 0 || !shown || document.hidden) { ctx.clearRect(0, 0, w, h); return; }
+      raf = requestAnimationFrame(loop);
+      // A calm surface needs no more than 30 frames a second, unless the page is scrolling.
+      if (!stirred.size && now - scrolled > 100 && now - drawn < 32) return;
+      const dt = Math.min((now - last) / 16.7, 3);
+      drawn = last = now;
+      const t = now / 1000, intro = smooth(clamp((now - born) / 1800));
+      const relax = 0.93 ** dt, calm = 0.95 ** dt, back = 0.92 ** dt;
+      const turn = WAVES.flatMap((v) => [Math.cos(v.w * t), Math.sin(v.w * t)]);
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = ctx.strokeStyle = "#EDEBE6";
+      for (const s of strokes) {
+        const pull = Math.hypot(s.dx, s.dy);
+        if (stirred.has(s)) {
+          s.dx *= relax;
+          s.dy *= relax;
+          s.e *= calm;
+          s.ox *= back;
+          s.oy *= back;
+          if (pull < 0.3 && s.e < 0.01 && Math.abs(s.ox) + Math.abs(s.oy) < 0.3) {
+            s.dx = s.dy = s.ox = s.oy = s.e = 0;
+            stirred.delete(s);
+          }
+        }
+        if (s.y > limit) continue;
+        let sx = 0, sy = 0;
+        for (let i = 0; i < WAVES.length; i++) {
+          const g = s.at[2 * i] * turn[2 * i] + s.at[2 * i + 1] * turn[2 * i + 1];
+          sx += g * WAVES[i].dx;
+          sy += g * WAVES[i].dy;
+        }
+        // A stirred stroke catches the light more easily and shines brighter than the calm
+        // surface, until it settles. Out of reach of the light, it stays dark: skip it early.
+        const spread = SPREAD * (1 + s.e);
+        const off = ((sx - SX) ** 2 + (sy - SY) ** 2) / (spread * spread);
+        if (off > 3.51 + Math.log1p(s.e)) continue;
+        const lit = Math.exp(-off) * (1 + s.e);
+        const fade = limit === Infinity ? s.fade : s.fade * smooth(clamp((limit - s.y) / 200));
+        const b = fade * intro * lit * (0.75 + 0.25 * Math.sin(s.f * t + s.ph));
+        if (b < 0.03) continue;
+        // Brighter strokes are also longer, in steps of 2 px.
+        const len = 2 + 2 * Math.round(Math.min(b, 1.5) * 2);
+        // A stretched stroke spreads its light over more length.
+        const gain = 0.45 + 0.55 * s.e;
+        ctx.globalAlpha = Math.min(b * gain, gain) / (1 + pull / 80);
+        const x = s.x + s.ox, y = s.y + s.oy;
+        if (pull < 1) { ctx.fillRect(x - len / 2, y, len, 1); continue; }
+        ctx.beginPath();
+        ctx.moveTo(x - len / 2, y + 0.5);
+        ctx.lineTo(x + len / 2 + s.dx, y + 0.5 + s.dy);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    };
+    const wake = () => { if (!raf) raf = requestAnimationFrame(loop); };
+    wake();
+    addEventListener("scroll", () => { scrolled = performance.now(); wake(); }, { passive: true });
+    document.addEventListener("visibilitychange", wake);
+    new IntersectionObserver(([entry]) => { shown = entry.isIntersecting; wake(); }).observe(canvas);
+
+    // The gesture stirs the strokes along its path, wider and brighter as it goes faster,
+    // and pushes them ahead; the closest ones are also pulled along it.
+    let prev = null;
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+      const r = canvas.getBoundingClientRect();
+      if (still() || e.clientX < r.left || e.clientX >= r.right || e.clientY < r.top || e.clientY >= r.bottom) { prev = null; return; }
+      const p = [e.clientX - r.left, e.clientY - r.top];
+      if (prev) {
+        const ux = p[0] - prev[0], uy = p[1] - prev[1], len = Math.hypot(ux, uy);
+        if (len > 0.5) {
+          const pace = clamp(len / 40);
+          const reach = 40 + 110 * pace, grip = 30 + 30 * pace;
+          for (const s of strokes) {
+            const at = clamp(((s.x - prev[0]) * ux + (s.y - prev[1]) * uy) / (len * len));
+            const d = Math.hypot(s.x - prev[0] - ux * at, s.y - prev[1] - uy * at);
+            if (d > reach) continue;
+            const near = (1 - d / reach) ** 2;
+            // Light answers even an unhurried gesture; reach and push need speed.
+            s.e = Math.max(s.e, Math.sqrt(pace) * near);
+            const push = 6 * pace ** 1.5 * near;
+            s.ox += (ux / len) * push;
+            s.oy += (uy / len) * push;
+            const o = Math.hypot(s.ox, s.oy);
+            if (o > 24) { s.ox *= 24 / o; s.oy *= 24 / o; }
+            if (d < grip) {
+              const f = (1 - d / grip) ** 2;
+              s.dx += ux * 0.5 * f;
+              s.dy += uy * 0.5 * f;
+              const m = Math.hypot(s.dx, s.dy);
+              if (m > 34) { s.dx *= 34 / m; s.dy *= 34 / m; }
+            }
+            stirred.add(s);
+          }
+        }
+      }
+      prev = p;
+      wake();
+    }, { passive: true });
+  };
+
+  // Hero: edge to edge of the window, from just under the bar's links down behind the
+  // statement's first line. The canvas is fixed, so the statement scrolls up over still
+  // water and covers it; the pointer stirs it at the top of the page only. On every screen.
+  const heroTop = hero?.querySelector(".hero-top");
+  if (heroTop) {
+    const canvas = document.createElement("canvas");
+    canvas.className = "hero-glints";
+    canvas.setAttribute("aria-hidden", "true");
+    hero.prepend(canvas);
+    let edgeTop = 0;
+    water(canvas, hero, {
+      size: () => {
+        const bar = hero.getBoundingClientRect().top + scrollY;
+        // Where the water has faded out: well into the statement, and never higher than a share
+        // of the hero, so a statement set large or on more lines leaves the water its room.
+        edgeTop = bar + Math.max(heroTop.offsetTop + 100, hero.offsetHeight * 0.42 + 60);
+        const h = Math.round(Math.max(bar + heroTop.offsetTop + heroTop.offsetHeight * 0.6, edgeTop + 20));
+        return { w: document.documentElement.clientWidth, h, fade: (y) => smooth(clamp((y - bar + 10) / 70)) };
+      },
+      edge: () => edgeTop - scrollY,
+      still: () => scrollY > 8,
+    });
+  }
+
+  // Contact: the same water in a frame beside the call, cut clean at its edges. Wide
+  // screens with a mouse only.
+  const contact = document.querySelector(".contact");
+  if (contact && finePointer && wide.matches) {
+    const frame = document.createElement("div");
+    frame.className = "frame contact-water";
+    frame.setAttribute("aria-hidden", "true");
+    const canvas = document.createElement("canvas");
+    frame.append(canvas);
+    contact.append(frame);
+    contact.classList.add("has-water");
+    water(canvas, frame, { size: () => ({ w: frame.clientWidth, h: frame.clientHeight, fade: () => 1 }) });
+  }
+
   if (!finePointer) return;
 
   // The contact button leans toward the pointer, and settles back when it leaves.

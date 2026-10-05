@@ -6,6 +6,7 @@ import { Icon } from './icons'
 import { Magnetic } from './magnetic'
 import { Roll } from './roll'
 import { button, link } from './styles'
+import { ContactWater } from './water'
 
 // A plain <img> with the attributes next/image computes. The next/image component
 // itself calls img.decode() on load, and with it Chromium draws the pinned scenes'
@@ -139,12 +140,12 @@ export function Contact({ t }: { t: Content['site'] }) {
   return (
     <section
       aria-labelledby="contact-title"
-      className="wrap pt-[clamp(6rem,14vw,11rem)] pb-[clamp(3rem,6vw,5rem)]"
+      className="wrap pt-[clamp(6rem,14vw,11rem)] pb-[clamp(3rem,6vw,5rem)] with-water:grid with-water:grid-cols-[minmax(0,1fr)_minmax(16rem,30rem)] with-water:items-end with-water:gap-x-[clamp(2rem,6vw,6rem)]"
     >
-      <h2 id="contact-title" className="m-0 max-w-[14ch] text-display text-balance">
+      <h2 id="contact-title" className="col-start-1 m-0 max-w-[14ch] text-display text-balance">
         {t.contact.title}
       </h2>
-      <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
+      <div className="col-start-1 mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
         <Magnetic href={links.linkedin} className={button.large}>
           <Roll text={t.getInTouch} /> <Icon name="arrow" />
         </Magnetic>
@@ -156,6 +157,7 @@ export function Contact({ t }: { t: Content['site'] }) {
           ]}
         />
       </div>
+      <ContactWater />
     </section>
   )
 }

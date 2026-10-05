@@ -3,7 +3,7 @@ import path from 'node:path'
 import { expect, type Page, test } from '@playwright/test'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
-import { APP_URL, MOCKUP_URL, pages, timeDriven } from './pages'
+import { APP_URL, hideWater, MOCKUP_URL, pages, timeDriven } from './pages'
 
 // Share of differing pixels tolerated in one capture.
 const MAX_DIFF = 0.001
@@ -12,6 +12,7 @@ const NOW = new Date('2026-01-15T09:30:00Z')
 
 async function open(page: Page, url: string) {
   const response = await page.goto(url, { waitUntil: 'load' })
+  await hideWater(page)
   await page.evaluate(() => document.fonts.ready)
   // Let the hero intro play out (2.6 s in site.js).
   await page.waitForTimeout(3000)

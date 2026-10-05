@@ -3,7 +3,7 @@ import path from 'node:path'
 import { type BrowserContext, expect, type Page, test } from '@playwright/test'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
-import { APP_URL, MOCKUP_URL } from './pages'
+import { APP_URL, hideWater, MOCKUP_URL } from './pages'
 
 // Time-driven motion, which compare.spec.ts cannot see: every running animation is
 // frozen at the same instant on both sides, then the two screens are compared.
@@ -149,6 +149,7 @@ async function capture(context: BrowserContext, c: Case, side: Side) {
   if (c.install) await page.clock.install({ time: NOW })
   else await page.clock.setFixedTime(NOW)
   await page.goto((side === 'mockup' ? MOCKUP_URL : APP_URL) + c.page[side])
+  await hideWater(page)
   const shots = new Map<string, Buffer>()
   for await (const at of c.run(page, side)) shots.set(String(at), await page.screenshot())
   await page.close()

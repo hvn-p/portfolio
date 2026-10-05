@@ -8,14 +8,16 @@ import { Icon } from './icons'
 import { Roll } from './roll'
 import { link } from './styles'
 import { Link } from './transition-link'
+import { HeroWater } from './water'
 import { Wordmark } from './wordmark'
 
 export function Hero({ t, site }: { t: Content['home']; site: Content['site'] }) {
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero wrap grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5 short:pt-6"
+      className="hero wrap relative isolate grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5 short:pt-6"
     >
+      <HeroWater />
       <HeroMotion />
       <div className="hero-top row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1 short:gap-y-5">
         <p className="m-0 text-statement short:text-[2.25rem] tiny:text-(length:--statement-fit) short:tiny:text-[min(2.25rem,var(--statement-fit))]">
