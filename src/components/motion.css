@@ -61,10 +61,16 @@
     /* Letters roll up one after another, the copy rising from below. Each letter
        box matches the face's own height, so caps sit on the optical centre of the
        control and line up with its arrow. */
+    /* Wrapped lines keep the body's 1.6 pitch, as the plain label does. */
     .roll {
       display: inline-flex;
+      flex-wrap: wrap;
+      row-gap: 0.4em;
       line-height: 1.2;
       white-space: nowrap;
+    }
+    .roll-word {
+      display: flex;
     }
     .roll .ch {
       display: block;

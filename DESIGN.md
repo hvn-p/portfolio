@@ -203,7 +203,7 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 - **Contenu :** toujours un libellé et une flèche ; lettres qui roulent au survol, flèche qui s'échange.
 
 ### Links
-- **Texte :** libellé qui roule lettre par lettre (0.55s, décalage de 14 ms par lettre, 220 ms au plus), trait qui se trace depuis la gauche au survol et repart vers la droite. Le lien texte principal garde un trait de repos en filet appuyé. Espace de 0.35em entre les lettres et le trait.
+- **Texte :** libellé qui roule lettre par lettre (0.55s, décalage de 14 ms par lettre, 220 ms au plus) et passe à la ligne entre deux mots quand il ne tient pas, trait qui se trace depuis la gauche au survol et repart vers la droite. Le lien texte principal garde un trait de repos en filet appuyé. Espace de 0.35em entre les lettres et le trait.
 - **Flèches :** deux copies superposées ; la première sort dans sa direction, la seconde arrive derrière (diagonale pour ↗, horizontale pour →, verticale pour ↑).
 - **Boîte des lettres :** chaque lettre tient dans une boîte de 1.2em, pour que le centre des capitales tombe au centre du contrôle et s'aligne sur la flèche.
 
