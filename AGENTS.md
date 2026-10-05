@@ -118,10 +118,10 @@ Les pages étant prérendues, la CI écrit trois valeurs dans l'image au build :
 Le dépôt ne contient aucun secret GitHub. Le job `deploy` demande à GitHub un jeton OIDC,
 l'échange auprès du vault Infisical de Pierre contre `DOKPLOY_URL` et `DOKPLOY_TOKEN`
 (projet `ci`, dossier `/apps`, communs à toutes les applications), puis lance le
-provisionneur. Le vault ne répond qu'à un jeton signé pour `main` d'un dépôt inscrit dans
-le dépôt `pikmine-lab/infra` (identité `ci-apps`, dont l'id est la variable de dépôt
-`INFISICAL_IDENTITY_ID`). Le job ne doit donc déclarer aucun `environment:`, qui changerait
-le jeton. Le jeton Dokploy est celui d'un utilisateur `member`, limité aux projets des
+provisionneur. Le vault répond à l'identité `ci-portfolio`, dont l'id est la variable de
+dépôt `INFISICAL_IDENTITY_ID`. Elle se crée à la main, comme l'explique le `CLAUDE.md` du
+dépôt `pikmine-lab/infra`, et n'accepte qu'un jeton signé pour `main` de ce dépôt. Le job ne
+doit donc déclarer aucun `environment:`, qui changerait le jeton. Le jeton Dokploy est celui d'un utilisateur `member`, limité aux projets des
 applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` dans
 `provision/` montre l'écart sans rien changer.
 
