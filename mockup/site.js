@@ -102,7 +102,7 @@
     root.classList.add("intro");
     setTimeout(() => root.classList.remove("intro"), 2600);
   }
-  // The bar's wordmark waits for the hero name to sink before it shows.
+  // The bar's monogram waits for the hero name to sink before it shows.
   const sinkName = !reduce && heroPaths.length > 0;
   if (sinkName) root.classList.add("has-hero-name");
 

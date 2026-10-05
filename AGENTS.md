@@ -146,8 +146,6 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
   (`bench/motion.spec.ts`) les teste.
 - **Captures d'estuaire.fr à 1920 px de large.** Entre 1280 et 1650 px environ, un lien du
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
-- **Le logotype est un SVG tracé**, pas du texte : coupe d'affichage du Bodoni en grand,
-  coupe texte à la taille de la barre, où l'autre perd ses déliés.
 - **Les polices viennent de `src/app/fonts/`, pas de `next/font/google`.** Google sert
   au build une autre coupe de Schibsted Grotesk que celle du CDN chargée par la
   maquette : 2 px d'écart sur une ligne d'accroche, et des retours à la ligne décalés

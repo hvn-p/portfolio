@@ -1,10 +1,10 @@
 import type { CSSProperties } from 'react'
-import { display, text } from './wordmark-paths'
+import { wordmark } from './wordmark-paths'
 
-// "Pierre Hervelin", drawn from the fonts' outlines. --i numbers the letters for
+// "Pierre Hervelin", drawn from the font's outlines. --i numbers the letters for
 // the motion that moves them one after another.
-export function Wordmark({ cut }: { cut: 'display' | 'text' }) {
-  const { viewBox, first, last } = cut === 'display' ? display : text
+export function Wordmark() {
+  const { viewBox, first, last } = wordmark
   const letter = (d: string, i: number) => (
     <path key={i} d={d} style={{ '--i': i } as CSSProperties} className="[transform-box:fill-box]" />
   )
