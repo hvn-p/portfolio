@@ -121,6 +121,16 @@
   }
 }
 
+/* The contact section once its water frame is in (water.tsx): a grid with the frame on
+   the right, on wide screens only. */
+@custom-variant with-water {
+  @media (min-width: 56rem) {
+    &:has(> .contact-water) {
+      @slot;
+    }
+  }
+}
+
 /* A phone narrower than 390px, too narrow for the hero statement as drawn. */
 @custom-variant tiny {
   @media (width < 24.375rem) {

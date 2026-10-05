@@ -5,6 +5,7 @@ node_modules
 .github
 .config
 .impeccable
+.claude
 bench
 deploy
 provision

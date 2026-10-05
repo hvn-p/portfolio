@@ -165,6 +165,9 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
   hauteur suit les barres d'outils, qui se replient au défilement : la mise en page
   bascule à chaque scroll. Le hero lit la hauteur une fois, à l'arrivée, dans
   `data-fit` (script de premier affichage), et ne la relit qu'au changement de largeur.
+- **Un élément qui doit rester immobile au défilement est en `position: fixed`, jamais recalé
+  en JS sur l'événement `scroll`.** Le navigateur fait défiler la page avant que le script ne
+  s'exécute : l'élément suit la page une image, puis revient, et ce tremblement se voit.
 - **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
   `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
   la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers

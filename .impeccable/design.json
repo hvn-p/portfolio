@@ -303,7 +303,7 @@
       "Fond presque noir, encres chaudes à trois niveaux, filets très discrets.",
       "Une seule famille de texte (Schibsted Grotesk), et un italique Bodoni réservé à l'identité.",
       "Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.",
-      "Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures.",
+      "Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.",
       "Des transitions de page qui couvrent, nomment la destination, puis se lèvent."
     ],
     "rules": [
@@ -337,14 +337,14 @@
       "Do reproduire la maquette mockup/ au pixel près ; en cas de doute, ouvrir la page et mesurer.",
       "Do laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.",
       "Do garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.",
-      "Do donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, fondus à la place des déplacements.",
+      "Do donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.",
       "Do tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes."
     ],
     "donts": [
       "Don't introduire une couleur d'accent ; la v1 colorée a été refusée.",
       "Don't présenter les projets en cartes, ni poser le titre d'un projet sur son image à l'arrivée.",
       "Don't afficher de citations de sources du type « Source : CV ».",
-      "Don't remettre de halos ou de lumières d'ambiance en fond ; ils ont été retirés.",
+      "Don't remettre de halos ou de lumières d'ambiance en fond ; ils ont été retirés. L'eau de nuit n'en est pas : elle n'est faite que de traits de la trame, sans flou ni lueur.",
       "Don't laisser traîner de view-transition-name hors d'une vraie transition native : sous Firefox, un nom oublié sur une page suffisait à faire ressortir l'image de l'ancienne page à chaque navigation."
     ]
   }

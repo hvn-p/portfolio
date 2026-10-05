@@ -105,10 +105,13 @@ main { padding-top: var(--bar-h); }
 
 /* ---------- Home hero: the full first screen ---------- */
 .hero {
+  position: relative; isolation: isolate;
   min-height: calc(100svh - var(--bar-h));
   display: grid; grid-template-rows: auto 1fr auto auto;
   padding-top: clamp(2rem, 7vh, 5rem); padding-bottom: 1.25rem;
 }
+/* Moonlit glints above the statement (site.js). Fixed, so the statement scrolls up over still water. */
+.hero-glints { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
 .hero-top { grid-row: 2; align-self: end; display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(16rem, 1fr); gap: 2rem clamp(2rem, 6vw, 6rem); align-items: end; }
 .statement { margin: 0; font-weight: 600; font-size: clamp(2.6rem, 5.2vw, 6rem); line-height: 1.02; letter-spacing: -0.04em; }
 /* The last words of the statement cycle through what Pierre builds (site.js). */
@@ -251,6 +254,12 @@ main { padding-top: var(--bar-h); }
 .contact { padding-top: clamp(6rem, 14vw, 11rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
 .contact .display { max-width: 14ch; }
 .contact-row { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2.5rem; }
+/* The hero's water, in a frame beside the call (site.js, wide screens only). */
+.contact.has-water { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 30rem); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.contact.has-water > :not(.contact-water) { grid-column: 1; }
+.contact-water { grid-column: 2; grid-row: 1 / span 2; }
+.contact-water canvas { display: block; }
+@media (max-width: 56rem) { .contact.has-water { display: block; } .contact-water { display: none; } }
 
 .button {
   display: inline-flex; align-items: center; gap: 0.6rem;

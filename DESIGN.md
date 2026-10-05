@@ -120,7 +120,7 @@ Refusé et à ne pas réintroduire : une palette colorée (la v1 en outremer et 
 - Fond presque noir, encres chaudes à trois niveaux, filets très discrets.
 - Une seule famille de texte (Schibsted Grotesk), et un italique Bodoni réservé à l'identité.
 - Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.
-- Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures.
+- Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.
 - Des transitions de page qui couvrent, nomment la destination, puis se lèvent.
 
 ## Colors
@@ -228,6 +228,8 @@ Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s)
 - **Disponibilité :** point vert qui pulse, à côté de l'heure locale de Bilbao en direct.
 - **Expérience :** index fixe qui suit la lecture avec un filet de progression, grandes années en contour qui défilent en parallaxe derrière le texte.
 - **Pied de page :** « Back to top » au centre, avec défilement doux.
+- **Eau de nuit :** au-dessus de l'accroche, une eau vue de dessus sous la lune, dessinée sur une trame de traits courts (9 × 7 px) en encre. De grands reflets dérivent et changent de forme ; seuls les traits qu'ils couvrent s'allument, à 45 % d'opacité au plus. Le geste de la souris trouble les traits sur son passage : ils captent plus de lumière, s'étirent dans son sens et sont poussés devant lui, d'autant plus large et plus loin qu'il va vite, puis se reposent en une seconde environ. L'eau tient toute la largeur de l'écran, de juste sous les liens de la barre jusqu'à derrière la première ligne de l'accroche, où elle s'efface. Elle est fixe : l'accroche la recouvre en montant. La souris ne la trouble qu'en haut de page. Sur un écran tactile, l'eau est là, sans réaction au doigt.
+- **Cadre d'eau :** la même eau dans un cadre 16:10 à droite de « Have a mission in mind? », coupée net à ses bords, sur les écrans larges avec une souris seulement.
 
 ## Do's and Don'ts
 
@@ -235,12 +237,12 @@ Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s)
 - **Do** reproduire la maquette `mockup/` au pixel près ; en cas de doute, ouvrir la page et mesurer.
 - **Do** laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.
 - **Do** garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.
-- **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, fondus à la place des déplacements.
+- **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.
 - **Do** tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes.
 
 ### Don't:
 - **Don't** introduire une couleur d'accent ; la v1 colorée a été refusée.
 - **Don't** présenter les projets en cartes, ni poser le titre d'un projet sur son image à l'arrivée.
 - **Don't** afficher de citations de sources du type « Source : CV ».
-- **Don't** remettre de halos ou de lumières d'ambiance en fond ; ils ont été retirés.
+- **Don't** remettre de halos ou de lumières d'ambiance en fond ; ils ont été retirés. L'eau de nuit n'en est pas : elle n'est faite que de traits de la trame, sans flou ni lueur.
 - **Don't** laisser traîner de `view-transition-name` hors d'une vraie transition native : sous Firefox, un nom oublié sur une page suffisait à faire ressortir l'image de l'ancienne page à chaque navigation.
