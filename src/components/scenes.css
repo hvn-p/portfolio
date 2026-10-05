@@ -108,6 +108,23 @@
   .scenes:not(.scenes-pinned) .scene-details {
     order: 2;
   }
+  /* On a narrow screen a project's screenshots form a strip swiped sideways, edge
+     to edge, the next one showing at the edge. Wide screens keep the sequence. */
+  @media (max-width: 56rem) {
+    .scenes:not(.scenes-pinned) .scene-shots {
+      display: flex;
+      margin-inline: 0;
+      padding-inline: var(--gutter);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+    }
+    .scenes:not(.scenes-pinned) .shot {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+    }
+  }
 
   .scenes-pinned .scene {
     height: 380vh;
