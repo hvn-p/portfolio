@@ -29,8 +29,13 @@ export const metadata: Metadata = {
 // a script can open it. On the home page with motion allowed, the bar's wordmark
 // waits for the hero name, and a first arrival from outside the site plays the
 // intro: setting both here keeps the final state from flashing first.
+// data-fit sorts the screen height for the hero (globals.css), measured on arrival
+// and again only when the width changes, as on turning the phone: a toolbar that
+// folds away while scrolling must not reflow the hero.
 const home = `^/(?:(?:${locales.filter((l) => l !== defaultLocale).join('|')})/?)?$`
 const firstPaint = `var d=document.documentElement;d.classList.add("js");
+var w=0,fit=function(){if(d.clientWidth===w)return;w=d.clientWidth;var h=d.clientHeight;d.dataset.fit=h<620?"short shorter":h<736?"short":""};
+fit();addEventListener("resize",fit);
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&new RegExp(${JSON.stringify(home)}).test(location.pathname)){
 d.classList.add("has-hero-name");var s=false;
 try{s=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
