@@ -47,8 +47,9 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
 
 ## Stack
 
-- **Next.js** (App Router) et React, hébergés sur Vercel. Un backend est possible, mais
-  la v1 n'en a pas besoin.
+- **Next.js** (App Router) et React, hébergés sur le VPS de Pierre avec Dokploy, en
+  sortie `standalone` pour une image Docker. Un backend est possible, mais la v1 n'en a
+  pas besoin.
 - **Tailwind CSS 4.** Les jetons de la maquette forment le thème
   (`src/app/globals.css`), sans la palette par défaut, pour qu'aucune couleur d'accent
   ne puisse s'y glisser. Les utilitaires couvrent tout, sauf les chorégraphies à
@@ -69,8 +70,8 @@ Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install c
   préchargement de Next chargeait chaque page liée, et ses captures, à chaque visite ;
   le volet couvre le chargement au clic.
 - TypeScript et Biome : `nr lint`, `nr typecheck`.
-- **Umami** pour les statistiques de visite, auto-hébergé sur le VPS de Pierre avec
-  Dokploy. C'est un service à part : ce dépôt ne fait que charger son script.
+- **Umami** pour les statistiques de visite, auto-hébergé sur le même VPS. C'est un
+  service à part : ce dépôt ne fait que charger son script.
 - Gestionnaire de paquets : `ni` (`ni`, `nr`, `nlx`), jamais npm, pnpm ou yarn en direct.
 
 ## Où s'écrit une décision
@@ -96,14 +97,30 @@ couvre la méthode.
 
 ## Mise en ligne
 
-Vercel déploie le site depuis ce dépôt. Les pages étant prérendues, trois variables du
-projet Vercel sont lues au build :
+Chaque commit sur `main` est mis en ligne. La CI construit l'image (`Dockerfile` : sortie
+standalone, utilisateur `node`, port 3000), la publie sur GHCR avec l'étiquette
+`sha-<commit>`, puis `provision/` aligne Dokploy sur le dépôt : projet `portfolio`,
+service compose `deploy/docker-compose.yml`, domaine `pierrehervelin.com`. Une PR
+construit l'image sans la publier. Revenir en arrière, c'est relancer le provisionneur
+avec une étiquette antérieure dans `IMAGE_TAG`.
 
-- `SITE_URL`, l'adresse publique, définie pour l'environnement Production seulement :
-  les aperçus restent ainsi hors des moteurs de recherche ;
-- `NEXT_PUBLIC_UMAMI_SRC` et `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, le script et l'identifiant
-  du site dans Umami. Sans elles, aucune statistique n'est envoyée ; Umami ne compte que
-  les visites sur le domaine de `SITE_URL`.
+Les pages étant prérendues, la CI écrit trois valeurs dans l'image au build :
+
+- `SITE_URL`, l'adresse publique ;
+- `NEXT_PUBLIC_UMAMI_SRC`, le script d'Umami ;
+- `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, l'identifiant du site dans Umami, tiré de la variable
+  `UMAMI_WEBSITE_ID` du dépôt GitHub. Sans lui, aucune statistique n'est envoyée ; Umami
+  ne compte que les visites sur le domaine de `SITE_URL`.
+
+Le dépôt ne contient aucun secret GitHub. Le job `deploy` demande à GitHub un jeton OIDC,
+l'échange auprès du vault Infisical de Pierre contre `DOKPLOY_URL` et `DOKPLOY_TOKEN`
+(projet `ci`, dossier `/apps`, communs à toutes les applications), puis lance le
+provisionneur. Le vault ne répond qu'à un jeton signé pour `main` d'un dépôt inscrit dans
+le dépôt `pikmine-lab/infra` (identité `ci-apps`, dont l'id est la variable de dépôt
+`INFISICAL_IDENTITY_ID`). Le job ne doit donc déclarer aucun `environment:`, qui changerait
+le jeton. Le jeton Dokploy est celui d'un utilisateur `member`, limité aux projets des
+applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` dans
+`provision/` montre l'écart sans rien changer.
 
 ## Refaire des captures
 
