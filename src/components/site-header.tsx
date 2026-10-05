@@ -175,7 +175,16 @@ export function SiteHeader({ lang, t }: Props) {
           </button>
         </div>
       </header>
-      <nav ref={menu} id="menu" className="menu" aria-label={t.menu.label} inert={!open}>
+      <nav
+        ref={menu}
+        id="menu"
+        className="menu"
+        aria-label={t.menu.label}
+        inert={!open}
+        // The wheel scrolls the menu natively: smooth scrolling pauses with the page
+        // behind it, and would otherwise swallow the wheel here too.
+        data-lenis-prevent
+      >
         <div className="wrap menu-inner">
           <ul className="menu-links">
             {[
