@@ -180,6 +180,7 @@ main { padding-top: var(--bar-h); }
   .scenes:not(.scenes-pinned) .scene-shots {
     display: flex; margin-inline: 0; padding-inline: var(--gutter);
     overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
   }
   .scenes:not(.scenes-pinned) .shot { flex: 0 0 85%; scroll-snap-align: start; }
 }
