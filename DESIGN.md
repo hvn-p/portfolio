@@ -156,7 +156,7 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 
 ### Hierarchy
 - **Display** (600, clamp(2.75rem, 6.4vw, 6rem), 1.02) : titres de page, « Selected work », « Have a mission in mind? ».
-- **Statement** (600, clamp(2.6rem, 5.2vw, 6rem), 1.02) : l'accroche du hero, dont les derniers mots tournent.
+- **Statement** (600, clamp(2.6rem, 5.2vw, 6rem), 1.02) : l'accroche du hero, dont les derniers mots tournent. Sous 390px de large, elle suit la largeur de l'écran pour que la plus longue phrase tournante tienne sur une ligne.
 - **Headline** (600, clamp(2.75rem, 7vw, 6rem), 0.92) : titres de projet dans les scènes ; en scène épinglée il part de clamp(6rem, 16vw, 17rem) et se réduit à 68 px au plus.
 - **Title** (600, clamp(2rem, 3.4vw, 3rem), 1.05) : entreprises du parcours.
 - **Section** (600, clamp(1.5rem, 2.4vw, 2rem), 1.15) : titres de section secondaires.
@@ -173,7 +173,7 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 
 Un conteneur de 90rem centré, avec une gouttière fluide (clamp(1.25rem, 4vw, 4rem)). La barre du haut fait 5rem (4.25rem sous 48rem).
 
-- **Hero** : toute la hauteur de l'écran moins la barre. L'accroche et la colonne de disponibilité sont regroupées en bas, juste au-dessus du nom en pleine largeur, puis une ligne de pied (« Scroll to see the work »).
+- **Hero** : toute la hauteur de l'écran moins la barre. L'accroche et la colonne de disponibilité sont regroupées en bas, juste au-dessus du nom en pleine largeur, puis une ligne de pied (« Scroll to see the work »). Sur un téléphone trop court pour ce dessin (moins de 46rem de haut), espacements et accroche se resserrent, et sous 38.75rem la phrase d'introduction quitte le hero : le nom reste sur le premier écran.
 - **Scènes de projet** : une par projet, 380vh de défilement, dont l'écran reste épinglé. Le cadre d'image mesure la largeur du conteneur moins les gouttières, et 70 % de la hauteur d'écran au plus, plafonné à la hauteur réelle de la capture (ratio 16:10). Sur un écran haut, le bloc cadre et étiquette se centre verticalement. L'étiquette (titre, description, fiche, lien) vit sous le cadre, jamais au-dessus.
 - **Pages projet** : en-tête, bande de faits en grille automatique (colonnes de 11rem au moins), galerie en pleine largeur, en deux colonnes, ou en paire bureau et mobile.
 - **À propos** : grille 1fr / 2fr ; index de l'expérience fixe à gauche, entrées à droite.

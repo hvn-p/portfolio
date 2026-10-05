@@ -14,11 +14,11 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero wrap grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5"
+      className="hero wrap grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5 short:pt-6"
     >
       <HeroMotion />
-      <div className="hero-top row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1">
-        <p className="m-0 text-statement">
+      <div className="hero-top row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1 short:gap-y-5">
+        <p className="m-0 text-statement short:text-[2.25rem] tiny:text-(length:--statement-fit) short:tiny:text-[min(2.25rem,var(--statement-fit))]">
           {t.statement.first}
           <br />
           <span className="text-ink-muted">
@@ -27,20 +27,22 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
             <span className="sr-only">{t.statement.spoken}</span>
           </span>
         </p>
-        <div className="grid justify-items-start gap-[1.1rem] pb-2">
+        <div className="grid justify-items-start gap-[1.1rem] pb-2 short:gap-3">
           <Availability text={site.availability} />
           <p className="m-0 text-[0.9375rem] text-ink-muted">
             {site.location}
             <Clock suffix={site.localTime} />
           </p>
-          <p className="m-0 max-w-[44ch] text-[1rem] leading-[1.5] text-pretty text-ink-muted">{t.lede}</p>
+          <p className="m-0 max-w-[44ch] text-[1rem] leading-[1.5] text-pretty text-ink-muted shorter:hidden">
+            {t.lede}
+          </p>
         </div>
       </div>
-      <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6vh,4rem)]">
+      <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6vh,4rem)] short:pt-6">
         <span className="sr-only">{t.nameLabel}</span>
         <Wordmark cut="display" />
       </h1>
-      <div className="hero-foot row-[4] mt-6 flex flex-wrap justify-between gap-4 border-t border-hairline pt-4 text-[0.875rem] text-ink-quiet">
+      <div className="hero-foot row-[4] mt-6 flex flex-wrap justify-between gap-4 border-t border-hairline pt-4 text-[0.875rem] text-ink-quiet short:mt-4">
         <span className="inline-flex items-center gap-3 after:h-px after:w-10 after:bg-[linear-gradient(90deg,var(--color-ink)_0_30%,var(--color-hairline-strong)_30%)] after:bg-size-[200%_100%] motion-safe:after:animate-cue">
           {t.scrollCue}
         </span>

@@ -100,9 +100,33 @@
   }
 }
 
+/* A phone whose visible height is too short for the hero as drawn: it tightens
+   (short), then drops its lede (shorter), so the name stays on the first screen. */
+@custom-variant short {
+  @media (max-width: 48rem) and (max-height: 46rem) {
+    @slot;
+  }
+}
+
+@custom-variant shorter {
+  @media (max-width: 48rem) and (max-height: 38.75rem) {
+    @slot;
+  }
+}
+
+/* A phone narrower than 390px, too narrow for the hero statement as drawn. */
+@custom-variant tiny {
+  @media (width < 24.375rem) {
+    @slot;
+  }
+}
+
 :root {
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --bar-h: 5rem;
+  /* The statement size at which its widest rotating phrase, about 8.4em long,
+     fits the line with a margin. */
+  --statement-fit: calc((100vw - 2 * var(--gutter)) / 8.6);
   color-scheme: dark;
 }
 
