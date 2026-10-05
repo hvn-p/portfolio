@@ -39,7 +39,7 @@ export const fr: Content = {
     statement: {
       first: 'Développeur full stack.',
       lead: 'Je construis ',
-      rotating: ['des agents IA.', 'du sur-mesure.', 'avec l’IA.'],
+      rotating: ['des systèmes d’IA.', 'du sur-mesure.', 'avec l’IA.'],
       spoken: 'des systèmes d’IA, du sur-mesure, avec l’IA.',
     },
     lede: 'De l’interface à l’infrastructure, et les systèmes d’IA qui tournent dedans : serveurs MCP, agents, harnais de validation. Près de cinq ans en startup.',
