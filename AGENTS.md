@@ -158,6 +158,10 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
   avec `decoding="async"` (que `getImageProps` ajoute et que `Screenshot` retire), ou sous
   la charge de quatre navigateurs en parallèle. Les deux font échouer le banc au hasard,
   sur la dernière capture d'Abacus.
+- **Pas de media query sur la hauteur pour mettre en page.** Dans Brave sur iOS, la
+  hauteur suit les barres d'outils, qui se replient au défilement : la mise en page
+  bascule à chaque scroll. Le hero lit la hauteur une fois, à l'arrivée, dans
+  `data-fit` (script de premier affichage), et ne la relit qu'au changement de largeur.
 - **`next start --hostname 127.0.0.1` fait boucler le proxy.** `NextURL` ramène
   `127.0.0.1` à `localhost`, mais l'origine de la requête garde le nom passé au serveur :
   la réécriture vers `/en` passe alors pour externe, repasse par le proxy et redirige vers

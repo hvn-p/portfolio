@@ -101,16 +101,23 @@
 }
 
 /* A phone whose visible height is too short for the hero as drawn: it tightens
-   (short), then drops its lede (shorter), so the name stays on the first screen. */
+   (short, under 736px), then drops its lede (shorter, under 620px), so the name
+   stays on the first screen. The height comes from data-fit, measured once by the
+   first-paint script: a height media query follows the toolbars of some mobile
+   browsers as they fold away, and the hero would reflow at every scroll. */
 @custom-variant short {
-  @media (max-width: 48rem) and (max-height: 46rem) {
-    @slot;
+  @media (max-width: 48rem) {
+    &:where(:root[data-fit~="short"] *) {
+      @slot;
+    }
   }
 }
 
 @custom-variant shorter {
-  @media (max-width: 48rem) and (max-height: 38.75rem) {
-    @slot;
+  @media (max-width: 48rem) {
+    &:where(:root[data-fit~="shorter"] *) {
+      @slot;
+    }
   }
 }
 
