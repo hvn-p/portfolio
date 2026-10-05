@@ -71,7 +71,7 @@ jobs:
           # every page. Until it is set the site ships without statistics.
           build-args: |
             SITE_URL=https://pierrehervelin.com
-            NEXT_PUBLIC_UMAMI_SRC=https://stats.pierrehervelin.com/script.js
+            NEXT_PUBLIC_UMAMI_SRC=https://analytics.np4.dev/script.js
             NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.UMAMI_WEBSITE_ID }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
