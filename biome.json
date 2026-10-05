@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!mockup", "!.impeccable", "!pnpm-lock.yaml"]
+    "includes": ["**", "!mockup", "!.impeccable", "!.claude", "!pnpm-lock.yaml"]
   },
   "formatter": {
     "enabled": true,
