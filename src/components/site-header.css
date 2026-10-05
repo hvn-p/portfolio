@@ -74,6 +74,7 @@
     position: fixed;
     inset: 0;
     z-index: 29;
+    padding-top: var(--bar-h);
     background: var(--color-surface);
     clip-path: circle(0px at var(--cx, calc(100% - 2rem)) var(--cy, 2rem));
     visibility: hidden;
@@ -88,11 +89,15 @@
       clip-path 0.8s var(--ease-soft),
       visibility 0s;
   }
+  /* Scrolls on its own, below the bar, when its content outgrows the screen, as on
+     a phone held sideways; the page behind stays put. */
   .menu-inner {
     height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     display: grid;
     grid-template-rows: 1fr auto;
-    padding-top: calc(var(--bar-h) + 1rem);
+    padding-top: 1rem;
     padding-bottom: 2rem;
   }
   .menu-links {
