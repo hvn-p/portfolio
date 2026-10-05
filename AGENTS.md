@@ -112,8 +112,14 @@ Les pages étant prérendues, la CI écrit trois valeurs dans l'image au build :
   `UMAMI_WEBSITE_ID` du dépôt GitHub. Sans lui, aucune statistique n'est envoyée ; Umami
   ne compte que les visites sur le domaine de `SITE_URL`.
 
-Le déploiement lit `DOKPLOY_URL` et `DOKPLOY_AUTH_TOKEN` dans l'environnement GitHub
-`production`, réservé à `main`. En local, `provision/.env` les fournit, et `nr plan` dans
+Le dépôt ne contient aucun secret GitHub. Le job `deploy` demande à GitHub un jeton OIDC,
+l'échange auprès du vault Infisical de Pierre contre `DOKPLOY_URL` et `DOKPLOY_TOKEN`
+(projet `ci`, dossier `/apps`, communs à toutes les applications), puis lance le
+provisionneur. Le vault ne répond qu'à un jeton signé pour `main` d'un dépôt inscrit dans
+le dépôt `pikmine-lab/infra` (identité `ci-apps`, dont l'id est la variable de dépôt
+`INFISICAL_IDENTITY_ID`). Le job ne doit donc déclarer aucun `environment:`, qui changerait
+le jeton. Le jeton Dokploy est celui d'un utilisateur `member`, limité aux projets des
+applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` dans
 `provision/` montre l'écart sans rien changer.
 
 ## Refaire des captures

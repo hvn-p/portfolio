@@ -7,9 +7,9 @@
 # Dokploy against the repository through the embedded provisioner
 # (provision/). Pull requests build the image without pushing it.
 #
-# The deploy job is separate on purpose: environment secrets are only handed to
-# the job that declares the environment, so the Dokploy token (instance-wide,
-# not scoped to one project) never shares a process with the Docker actions.
+# The deploy job is separate on purpose: it alone may request an OIDC token, and
+# trades it for the Dokploy credentials in the vault (provision/src/vault.ts), so
+# they never share a process with the Docker actions. No GitHub secret is used.
 #
 # Actions are pinned by commit rather than by tag: a tag is a moving target its
 # owner can repoint (see the tj-actions/changed-files leak, 2025).
@@ -80,11 +80,16 @@ jobs:
     needs: image
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    # Holds the Dokploy secrets. Restricted to main in the repository settings:
-    # a workflow on any other branch cannot read them.
-    environment: production
+    # No `environment:` here: it would change the token's subject, and the vault
+    # identity only accepts `ref:refs/heads/main`. That binding, not this `if`,
+    # is what keeps other branches away from the credentials.
     permissions:
       contents: read
+      id-token: write
+    env:
+      # A repository variable, not a secret: the vault honours it only with a
+      # token GitHub signed for main of a listed repository.
+      INFISICAL_IDENTITY_ID: ${{ vars.INFISICAL_IDENTITY_ID }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
@@ -93,9 +98,6 @@ jobs:
       # The provisioner has zero dependencies (Node runs the TypeScript
       # directly), so nothing is installed in the job that holds the token.
       - name: Reconcile Dokploy against the repository
-        env:
-          DOKPLOY_URL: ${{ secrets.DOKPLOY_URL }}
-          DOKPLOY_AUTH_TOKEN: ${{ secrets.DOKPLOY_AUTH_TOKEN }}
         run: |
           export IMAGE_TAG="sha-$(echo "$GITHUB_SHA" | cut -c1-7)"
           node provision/src/provision.ts
