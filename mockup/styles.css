@@ -163,6 +163,15 @@ main { padding-top: var(--bar-h); }
 .scene-sub { margin: 0.9rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; font-size: 0.9375rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .scene-sub span:first-child { color: var(--ink); }
 
+/* In the plain sequence each project leads with its name and numbering, so its
+   screenshots never read as the previous project's. */
+.scenes:not(.scenes-pinned) .scene-pin { display: flex; flex-direction: column; }
+.scenes:not(.scenes-pinned) .scene-info { display: contents; }
+.scenes:not(.scenes-pinned) :is(.scene-title, .scene-sub, .scene-details) { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.scenes:not(.scenes-pinned) .scene-title { padding-top: clamp(3rem, 6vw, 5rem); }
+.scenes:not(.scenes-pinned) .scene-shots { order: 1; }
+.scenes:not(.scenes-pinned) .scene-details { order: 2; }
+
 .scenes-pinned .scene { height: 380vh; }
 .scenes-pinned .scene-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .scenes-pinned .scene-shots { position: absolute; inset: 0; margin: 0; display: block; pointer-events: none; }

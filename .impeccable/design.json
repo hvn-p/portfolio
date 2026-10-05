@@ -336,7 +336,7 @@
     "dos": [
       "Do reproduire la maquette mockup/ au pixel près ; en cas de doute, ouvrir la page et mesurer.",
       "Do laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.",
-      "Do garder le texte d'une scène de projet sous l'image.",
+      "Do garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.",
       "Do donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, fondus à la place des déplacements.",
       "Do tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes."
     ],
