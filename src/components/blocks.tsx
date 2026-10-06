@@ -165,7 +165,7 @@ export function Contact({ t }: { t: Content['site'] }) {
 // A page header: title, then its lede.
 export function PageHead({ children, title, lede }: { children?: ReactNode; title: string; lede: string }) {
   return (
-    <header className="wrap pt-[clamp(3rem,9vh,6rem)] pb-[clamp(2.5rem,6vh,4rem)]">
+    <header className="wrap pt-[clamp(3rem,9*var(--vh,1vh),6rem)] pb-[clamp(2.5rem,6*var(--vh,1vh),4rem)]">
       {children}
       <h1 className="m-0 text-display text-balance">{title}</h1>
       <p className="mt-6 mb-0 max-w-[52ch] text-lede text-pretty text-ink-muted">{lede}</p>
