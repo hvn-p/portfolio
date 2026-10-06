@@ -479,7 +479,8 @@
         return { w: document.documentElement.clientWidth, h, fade: (y) => smooth(clamp((y - bar + 10) / 70)) };
       },
       edge: () => edgeTop - scrollY,
-      still: () => scrollY > 8,
+      // Three wheel notches of 100 px, about three quarters of the way to where the water has gone at 1280×720.
+      still: () => scrollY > 300,
     });
   }
 
