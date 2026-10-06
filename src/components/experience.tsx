@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import type { Role } from '@/content/types'
+import { Rise } from './rise'
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
@@ -78,7 +79,7 @@ export function Experience({ roles, label }: { roles: Role[]; label: string }) {
           <li
             key={role.id}
             id={role.id}
-            className="relative min-h-[calc(72*var(--vh,1vh))] border-t border-hairline pt-10 pb-16 *:relative *:z-1 narrow:min-h-0"
+            className="rv-rule rv-rule-t relative min-h-[calc(72*var(--vh,1vh))] border-t border-hairline pt-10 pb-16 *:relative *:z-1 narrow:min-h-0"
           >
             <span
               data-year
@@ -87,19 +88,23 @@ export function Experience({ roles, label }: { roles: Role[]; label: string }) {
             >
               {role.year}
             </span>
-            <p className="mt-0 mb-[0.9rem] text-[0.9375rem] text-ink-quiet tabular-nums">{role.when}</p>
-            <h3 className="m-0 text-[clamp(2rem,3.4vw,3rem)] leading-[1.05] font-semibold tracking-[-0.025em]">
-              {role.company}
+            <p className="rv-fade mt-0 mb-[0.9rem] text-[0.9375rem] text-ink-quiet tabular-nums">
+              {role.when}
+            </p>
+            <h3 className="rv-title m-0 text-[clamp(2rem,3.4vw,3rem)] leading-[1.05] font-semibold tracking-[-0.025em]">
+              <Rise text={role.company} />
             </h3>
-            <p className="mt-[0.6rem] mb-6 max-w-[52ch] text-[1.125rem] text-ink-muted">{role.what}</p>
+            <p className="rv-fade mt-[0.6rem] mb-6 max-w-[52ch] text-[1.125rem] text-ink-muted">
+              {role.what}
+            </p>
             <ul className="m-0 max-w-[60ch] list-disc pl-[1.1rem]">
               {role.bullets.map((text) => (
-                <li key={text} className="mb-[0.6rem] marker:text-ink-quiet">
+                <li key={text} className="rv-fade mb-[0.6rem] marker:text-ink-quiet">
                   {text}
                 </li>
               ))}
             </ul>
-            <p className="mt-[1.4rem] mb-0 text-[0.9375rem] text-ink-quiet">{role.stack}</p>
+            <p className="rv-fade mt-[1.4rem] mb-0 text-[0.9375rem] text-ink-quiet">{role.stack}</p>
           </li>
         ))}
       </ol>

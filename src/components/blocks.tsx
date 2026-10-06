@@ -4,6 +4,7 @@ import { links } from '@/content/links'
 import type { Capability, Content, Row } from '@/content/types'
 import { Icon } from './icons'
 import { Magnetic } from './magnetic'
+import { Rise } from './rise'
 import { Roll } from './roll'
 import { button, link } from './styles'
 import { ContactWater } from './water'
@@ -56,11 +57,11 @@ export function SectionHead({
   titleClass?: string
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b border-hairline pb-5">
-      <h2 id={id} className={titleClass}>
-        {title}
+    <div className="rv-rule rv-rule-b flex items-baseline justify-between gap-4 border-b border-hairline pb-5">
+      <h2 id={id} className={`rv-title ${titleClass}`}>
+        <Rise text={title} />
       </h2>
-      {count && <span className="text-[0.9375rem] text-ink-quiet tabular-nums">{count}</span>}
+      {count && <span className="rv-fade text-[0.9375rem] text-ink-quiet tabular-nums">{count}</span>}
     </div>
   )
 }
@@ -72,25 +73,25 @@ export function Split({ id, title, children }: { id: string; title: string; chil
       aria-labelledby={id}
       className="wrap grid grid-cols-[minmax(12rem,1fr)_2fr] gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 pt-[clamp(5rem,11vw,9rem)] narrow:grid-cols-1"
     >
-      <h2 id={id} className="m-0 text-section">
-        {title}
+      <h2 id={id} className="rv-title m-0 text-section">
+        <Rise text={title} />
       </h2>
       <div>{children}</div>
     </section>
   )
 }
 
-export const splitText = 'mt-0 mb-5 max-w-[56ch] text-[1.1875rem] leading-[1.55]'
+export const splitText = 'rv-fade mt-0 mb-5 max-w-[56ch] text-[1.1875rem] leading-[1.55]'
 
 export function Capabilities({ items, flush = false }: { items: Capability[]; flush?: boolean }) {
   return (
     <ul
-      className={`m-0 grid list-none grid-cols-3 p-0 narrow:grid-cols-1 ${flush ? '' : 'mt-9 border-t border-hairline'}`}
+      className={`m-0 grid list-none grid-cols-3 p-0 narrow:grid-cols-1 ${flush ? '' : 'rv-rule rv-rule-t mt-9 border-t border-hairline'}`}
     >
       {items.map((item, i) => (
         <li
           key={item.title}
-          className={`pt-[1.4rem] pr-6 narrow:border-b narrow:border-l-0 narrow:border-hairline narrow:px-0 narrow:py-[1.1rem] ${i > 0 ? 'border-l border-hairline pl-6' : ''}`}
+          className={`rv-fade pt-[1.4rem] pr-6 narrow:border-b narrow:border-l-0 narrow:border-hairline narrow:px-0 narrow:py-[1.1rem] ${i > 0 ? 'border-l border-hairline pl-6' : ''}`}
         >
           <strong className="mb-[0.4rem] block font-semibold">{item.title}</strong>
           <span className="text-[0.9688rem] text-ink-muted">{item.text}</span>
@@ -106,7 +107,7 @@ export function Rows({ rows }: { rows: Row[] }) {
       {rows.map((row) => (
         <li
           key={row.text}
-          className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-b border-hairline pb-[0.9rem] narrow:grid-cols-1"
+          className="rv-fade rv-rule rv-rule-b grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-b border-hairline pb-[0.9rem] narrow:grid-cols-1"
         >
           <span>{row.text}</span>
           <span className="text-right text-ink-muted narrow:text-left">{row.aside}</span>
@@ -142,10 +143,10 @@ export function Contact({ t }: { t: Content['site'] }) {
       aria-labelledby="contact-title"
       className="wrap pt-[clamp(6rem,14vw,11rem)] pb-[clamp(3rem,6vw,5rem)] with-water:grid with-water:grid-cols-[minmax(0,1fr)_minmax(16rem,30rem)] with-water:items-end with-water:gap-x-[clamp(2rem,6vw,6rem)]"
     >
-      <h2 id="contact-title" className="col-start-1 m-0 max-w-[14ch] text-display text-balance">
-        {t.contact.title}
+      <h2 id="contact-title" className="rv-title col-start-1 m-0 max-w-[14ch] text-display text-balance">
+        <Rise text={t.contact.title} />
       </h2>
-      <div className="col-start-1 mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
+      <div className="rv-fade col-start-1 mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
         <Magnetic href={links.linkedin} className={button.large}>
           <Roll text={t.getInTouch} /> <Icon name="arrow" />
         </Magnetic>
@@ -167,8 +168,10 @@ export function PageHead({ children, title, lede }: { children?: ReactNode; titl
   return (
     <header className="wrap pt-[clamp(3rem,9*var(--vh,1vh),6rem)] pb-[clamp(2.5rem,6*var(--vh,1vh),4rem)]">
       {children}
-      <h1 className="m-0 text-display text-balance">{title}</h1>
-      <p className="mt-6 mb-0 max-w-[52ch] text-lede text-pretty text-ink-muted">{lede}</p>
+      <h1 className="rv-title m-0 text-display text-balance">
+        <Rise text={title} />
+      </h1>
+      <p className="rv-fade mt-6 mb-0 max-w-[52ch] text-lede text-pretty text-ink-muted">{lede}</p>
     </header>
   )
 }

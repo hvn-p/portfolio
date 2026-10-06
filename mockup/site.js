@@ -96,11 +96,77 @@
     small.addEventListener("change", () => { if (!small.matches && isOpen()) setOpen(false); });
   }
 
-  // ---------- Intro: the hero name rises letter by letter on a first arrival ----------
-  const fromSite = document.referrer && new URL(document.referrer).origin === location.origin;
-  if (!reduce && heroPaths.length && !fromSite && !root.classList.contains("curtain-in")) {
+  // ---------- Intro: the hero name rises letter by letter on every arrival ----------
+  // Through the curtain, it waits for the curtain to lift.
+  const lift = root.classList.contains("curtain-in") ? 450 : 0;
+  if (!reduce && heroPaths.length) {
+    root.style.setProperty("--intro-at", `${lift}ms`);
     root.classList.add("intro");
-    setTimeout(() => root.classList.remove("intro"), 2600);
+    setTimeout(() => root.classList.remove("intro"), 2600 + lift);
+  }
+
+  // ---------- Scroll reveals: the page builds as it comes into view ----------
+  // Rules draw from the left, titles rise line by line from under their baseline, the
+  // rest fades up; under reduced motion, everything only fades. Each runs once, and
+  // what arrives together follows on in reading order.
+  if ("IntersectionObserver" in window) {
+    const pending = new Set();
+    const inOrder = (els) => [...els].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    for (const el of document.querySelectorAll(".crumb, .case-head .lede, .work-head .count, .split > div > p, .split .text-link, .split .elsewhere, .capabilities li, .mini-list li, .facts > div, .case-text p, .case-text li, .exp-entry :is(.when, .what, li, .stack), .contact-row, .next-project .label, .footer > *")) {
+      el.classList.add("rv-fade");
+      pending.add(el);
+    }
+    // Titles hold plain text. Screen readers keep it whole; the words shown each rise in their own mask.
+    for (const el of document.querySelectorAll(".case-head .display, .contact .display, .next-project .display, .section-title, .case-text h2, .exp-entry h3")) {
+      pending.add(el);
+      if (reduce) { el.classList.add("rv-fade"); continue; }
+      const text = el.textContent.trim();
+      const shown = document.createElement("span");
+      shown.setAttribute("aria-hidden", "true");
+      text.split(/\s+/).forEach((word, i) => {
+        const mask = Object.assign(document.createElement("span"), { className: "rv-word" });
+        mask.append(Object.assign(document.createElement("span"), { textContent: word }));
+        shown.append(i ? " " : "", mask);
+      });
+      el.replaceChildren(Object.assign(document.createElement("span"), { className: "sr-only", textContent: text }), shown);
+      el.classList.add("rv-title");
+    }
+    if (!reduce) for (const el of document.querySelectorAll(".work-head, .facts, .capabilities, .mini-list li, .exp-entry, .next-project, .footer")) {
+      const s = getComputedStyle(el);
+      const top = parseFloat(s.borderTopWidth) > 0, bottom = parseFloat(s.borderBottomWidth) > 0;
+      if (!top && !bottom) continue;
+      el.classList.add("rv-rule", top && bottom ? "rv-rule-y" : top ? "rv-rule-t" : "rv-rule-b");
+      pending.add(el);
+    }
+
+    let io;
+    const reveal = (el, k) => {
+      if (!pending.has(el)) return;
+      io.unobserve(el);
+      pending.delete(el);
+      el.style.setProperty("--rd", `${Math.min(k, 8) * 80}ms`);
+      // Each line of a title rises a beat after the one above.
+      let line = -1, top = -Infinity;
+      for (const word of el.querySelectorAll(".rv-word")) {
+        if (word.offsetTop > top + 2) { top = word.offsetTop; line++; }
+        word.style.setProperty("--l", line);
+      }
+      el.classList.add("is-in");
+    };
+    io = new IntersectionObserver((entries) => {
+      inOrder(entries.filter((e) => e.isIntersecting).map((e) => e.target)).forEach(reveal);
+    }, { rootMargin: "0px 0px -10% 0px" });
+    // The last rows of a page can stay below the reveal line even fully scrolled, or on
+    // a page too short to scroll.
+    const atEnd = () => {
+      if (pending.size && scrollY + innerHeight >= document.documentElement.scrollHeight - 2) inOrder(pending).forEach(reveal);
+    };
+    // Through the curtain, the page starts building as it lifts.
+    document.fonts.ready.then(() => setTimeout(() => {
+      pending.forEach((el) => io.observe(el));
+      atEnd();
+      addEventListener("scroll", atEnd, { passive: true });
+    }, lift));
   }
   // The bar's monogram waits for the hero name to sink before it shows.
   const sinkName = !reduce && heroPaths.length > 0;

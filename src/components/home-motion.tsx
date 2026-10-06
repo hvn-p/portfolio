@@ -4,6 +4,7 @@
 
 import { type CSSProperties, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useArrival } from './curtain'
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v))
 const easeOut = (t: number) => 1 - (1 - t) ** 3
@@ -61,6 +62,32 @@ export function Rotator({ words }: { words: string[] }) {
 // The hero name's letters sink below the baseline one after another; the bar's
 // monogram waits for them to be gone.
 export function HeroMotion() {
+  const arrive = useArrival()
+
+  // The intro on an arrival by the router, once the page is in view; on the document's
+  // first load, the first-paint script has started it already (layout.tsx).
+  useEffect(() => {
+    if (reducedMotion()) return
+    const root = document.documentElement
+    let played = false
+    let timer = 0
+    const cancel = arrive((via) => {
+      if (via === 'load' || root.classList.contains('intro')) return
+      played = true
+      const at = via === 'curtain' ? 300 : 0
+      root.style.setProperty('--intro-at', `${at}ms`)
+      root.classList.add('intro')
+      timer = window.setTimeout(() => root.classList.remove('intro'), 2600 + at)
+    })
+    return () => {
+      cancel()
+      if (!played) return
+      clearTimeout(timer)
+      root.classList.remove('intro')
+      root.style.removeProperty('--intro-at')
+    }
+  }, [arrive])
+
   useEffect(() => {
     const root = document.documentElement
     const hero = document.querySelector<HTMLElement>('.hero')

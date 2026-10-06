@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Curtain } from '@/components/curtain'
 import { NotFoundPage } from '@/components/not-found-page'
+import { Reveals } from '@/components/reveals'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { getContent } from '@/content'
@@ -29,6 +30,7 @@ export default function GlobalNotFound() {
           <SiteHeader lang={defaultLocale} t={site} />
           <NotFoundPage lang={defaultLocale} t={site} />
           <SiteFooter t={site} />
+          <Reveals />
         </Curtain>
       </body>
     </html>
