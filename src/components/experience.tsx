@@ -78,7 +78,7 @@ export function Experience({ roles, label }: { roles: Role[]; label: string }) {
           <li
             key={role.id}
             id={role.id}
-            className="relative min-h-[72vh] border-t border-hairline pt-10 pb-16 *:relative *:z-1 narrow:min-h-0"
+            className="relative min-h-[calc(72*var(--vh,1vh))] border-t border-hairline pt-10 pb-16 *:relative *:z-1 narrow:min-h-0"
           >
             <span
               data-year

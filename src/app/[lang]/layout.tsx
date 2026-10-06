@@ -32,10 +32,16 @@ export const metadata: Metadata = {
 // intro: setting both here keeps the final state from flashing first.
 // data-fit sorts the screen height for the hero (globals.css), measured on arrival
 // and again only when the width changes, as on turning the phone: a toolbar that
-// folds away while scrolling must not reflow the hero.
+// folds away while scrolling must not reflow the hero. On a touch screen, --vh and
+// --svh hold 1vh and 1svh from the same measure, for the layout to read in place of
+// the units: some browsers (Brave on iOS) resize the page as their toolbars fold, and
+// every viewport unit follows. With a mouse, the units stay live and follow the window.
 const home = `^/(?:(?:${locales.filter((l) => l !== defaultLocale).join('|')})/?)?$`
 const firstPaint = `var d=document.documentElement;d.classList.add("js");
-var w=0,fit=function(){if(d.clientWidth===w)return;w=d.clientWidth;var h=d.clientHeight;d.dataset.fit=h<620?"short shorter":h<736?"short":""};
+var touch=matchMedia("(pointer: coarse)").matches;
+var w=0,fit=function(){if(d.clientWidth===w)return;w=d.clientWidth;var h=d.clientHeight;d.dataset.fit=h<620?"short shorter":h<736?"short":"";
+if(!touch)return;var p=document.createElement("div");p.style.cssText="position:absolute;height:100vh";d.appendChild(p);
+d.style.setProperty("--vh",p.getBoundingClientRect().height/100+"px");d.style.setProperty("--svh",h/100+"px");p.remove()};
 fit();addEventListener("resize",fit);
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&new RegExp(${JSON.stringify(home)}).test(location.pathname)){
 d.classList.add("has-hero-name");var s=false;

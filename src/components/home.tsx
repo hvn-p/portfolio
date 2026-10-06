@@ -15,7 +15,7 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero wrap relative isolate grid min-h-[calc(100svh-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7vh,5rem)] pb-5 short:pt-6"
+      className="hero wrap relative isolate grid min-h-[calc(100*var(--svh,1svh)-var(--bar-h))] grid-rows-[auto_1fr_auto_auto] pt-[clamp(2rem,7*var(--vh,1vh),5rem)] pb-5 short:pt-6"
     >
       <HeroWater />
       <HeroMotion />
@@ -40,7 +40,7 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
           </p>
         </div>
       </div>
-      <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6vh,4rem)] short:pt-6">
+      <h1 id="hero-title" className="hero-name row-[3] m-0 pt-[clamp(2rem,6*var(--vh,1vh),4rem)] short:pt-6">
         <span className="sr-only">{t.nameLabel}</span>
         <Wordmark />
       </h1>
@@ -69,7 +69,7 @@ export function Scenes({
   projects: Project[]
 }) {
   return (
-    <section id="work" aria-labelledby="work-title" className="pt-[clamp(5rem,14vh,10rem)]">
+    <section id="work" aria-labelledby="work-title" className="pt-[clamp(5rem,14*var(--vh,1vh),10rem)]">
       <div className="wrap">
         <SectionHead
           id="work-title"

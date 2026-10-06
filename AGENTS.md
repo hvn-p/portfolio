@@ -159,10 +159,14 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
   avec `decoding="async"` (que `getImageProps` ajoute et que `Screenshot` retire), ou sous
   la charge de quatre navigateurs en parallèle. Les deux font échouer le banc au hasard,
   sur la dernière capture d'Abacus.
-- **Pas de media query sur la hauteur pour mettre en page.** Dans Brave sur iOS, la
-  hauteur suit les barres d'outils, qui se replient au défilement : la mise en page
-  bascule à chaque scroll. Le hero lit la hauteur une fois, à l'arrivée, dans
-  `data-fit` (script de premier affichage), et ne la relit qu'au changement de largeur.
+- **Ni media query sur la hauteur, ni `vh` ou `svh` nus pour mettre en page.** Brave sur
+  iOS redimensionne la page quand ses barres d'outils se replient au défilement : la
+  hauteur et toutes les unités d'écran les suivent, et la page saute à chaque scroll. Le
+  script de premier affichage mesure la hauteur à l'arrivée et ne la relit qu'au
+  changement de largeur : `data-fit` pour les variantes du hero, et sur écran tactile
+  `--vh` et `--svh`, que la mise en page écrit `var(--vh,1vh)` et `var(--svh,1svh)`. À la
+  souris, les variables restent vides et la mise en page suit la fenêtre. Les scènes
+  épinglées, sur grand écran, gardent `vh` : leur script calcule avec `innerHeight`.
 - **Un élément qui doit rester immobile au défilement est en `position: fixed`, jamais recalé
   en JS sur l'événement `scroll`.** Le navigateur fait défiler la page avant que le script ne
   s'exécute : l'élément suit la page une image, puis revient, et ce tremblement se voit.
