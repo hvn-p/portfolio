@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { Curtain } from '@/components/curtain'
+import { Reticle } from '@/components/reticle'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { SmoothScroll } from '@/components/smooth-scroll'
@@ -85,6 +86,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           <SiteFooter t={site} />
         </Curtain>
         <SmoothScroll />
+        <Reticle />
         {umami && (
           <Script
             src={umami.src}

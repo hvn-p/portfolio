@@ -202,8 +202,13 @@
         "purpose": "Volet qui se lève sur la nouvelle page."
       },
       {
+        "name": "reticle",
+        "value": "ring lerp 0.4 per frame; target ×0.6 in 0.45s, press ×0.8 in 0.12s, caret in 0.4s, into the lens in 0.6s",
+        "purpose": "Curseur : un seul anneau qui se déforme d'un état à l'autre."
+      },
+      {
         "name": "lens-follow",
-        "value": "lerp 0.24 per frame, zoom 1.9, ring 16s per turn",
+        "value": "lerp 0.24 per frame, zoom 1.9, ring 16s per turn, grows from scale 0.146",
         "purpose": "Loupe au-dessus des captures."
       },
       {
@@ -299,7 +304,7 @@
       "Fond presque noir, encres chaudes à trois niveaux, filets très discrets.",
       "Une seule famille, Schibsted Grotesk, du texte courant jusqu'au nom, qui la porte en graisse 800.",
       "Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.",
-      "Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.",
+      "Des micro-interactions précises : un réticule pour curseur, lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.",
       "Des transitions de page qui couvrent, nomment la destination, puis se lèvent."
     ],
     "rules": [
@@ -333,7 +338,7 @@
       "Do reproduire la maquette mockup/ au pixel près ; en cas de doute, ouvrir la page et mesurer.",
       "Do laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.",
       "Do garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.",
-      "Do donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.",
+      "Do donner à chaque mouvement une alternative en mouvement réduit : pas de réticule, pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.",
       "Do tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes."
     ],
     "donts": [

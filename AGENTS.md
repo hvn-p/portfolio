@@ -25,7 +25,7 @@ en mouvement normal et réduit, et range les écarts dans `bench/output/` :
 
 - `compare.spec.ts` capture les deux côtés aux mêmes positions de défilement ;
 - `motion.spec.ts` fige toutes les animations au même instant des deux côtés : intro,
-  accroche tournante, survols, bouton aimanté, loupe, volet ;
+  accroche tournante, survols, bouton aimanté, réticule, loupe, volet ;
 - `a11y.spec.ts` passe chaque page à axe (WCAG 2.2 AA).
 
 Sur un poste neuf, installer d'abord les navigateurs : `nlx playwright install chromium firefox`.
@@ -141,9 +141,9 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
 - **Pas de `view-transition-name` hors d'une transition native réellement utilisée.**
   Sous Firefox, un nom oublié sur une page faisait ressortir l'image de l'ancienne page à
   chaque navigation suivante.
-- **Le Chromium d'agent-browser ne déclare aucune souris** (`pointer: none`) : la loupe
-  et le bouton aimanté ne s'y activent pas. Celui de Playwright en déclare une, et le banc
-  (`bench/motion.spec.ts`) les teste.
+- **Le Chromium d'agent-browser ne déclare aucune souris** (`pointer: none`) : le
+  réticule, la loupe et le bouton aimanté ne s'y activent pas. Celui de Playwright en
+  déclare une, et le banc (`bench/motion.spec.ts`) les teste.
 - **Captures d'estuaire.fr à 1920 px de large.** Entre 1280 et 1650 px environ, un lien du
   menu du site chevauche la frontière entre son panneau sombre et le fond blanc.
 - **Les polices viennent de `src/app/fonts/`, pas de `next/font/google`.** Google sert

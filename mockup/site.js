@@ -500,6 +500,88 @@
 
   if (!finePointer) return;
 
+  // The cursor is a reticle: one ring that closes on anything clickable, flattens into a
+  // caret over text and widens into the lens over screenshots. The point is exact; the
+  // ring trails a little.
+  {
+    const ring = document.createElement("div");
+    ring.className = "reticle";
+    ring.setAttribute("aria-hidden", "true");
+    ring.innerHTML = `<svg viewBox="-32 -32 64 64"><circle class="r-ring" r="12"/></svg>`;
+    const point = document.createElement("div");
+    point.className = "reticle-point";
+    point.setAttribute("aria-hidden", "true");
+    point.innerHTML = `<svg viewBox="-32 -32 64 64"><circle class="r-dot" r="2"/></svg>`;
+    document.body.append(ring, point);
+    root.classList.add("has-reticle");
+
+    // Each page is a new document here, so the last position carries over to the next one.
+    let x = -999, y = -999;
+    try { [x, y] = JSON.parse(sessionStorage.getItem("reticle-at") ?? "[-999,-999]"); } catch {}
+    addEventListener("pagehide", () => { try { sessionStorage.setItem("reticle-at", JSON.stringify([x, y])); } catch {} });
+    // ty is where the ring heads vertically: the pointer, or the middle of the line of text under it.
+    let rx = x, ry = y, ty = y, raf = 0;
+    const loop = () => {
+      rx += (x - rx) * 0.4;
+      ry += (ty - ry) * 0.4;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+      raf = Math.abs(x - rx) > 0.1 || Math.abs(ty - ry) > 0.1 ? requestAnimationFrame(loop) : 0;
+    };
+
+    // The line of text under the pointer, leading included so the gap between two lines
+    // still counts, or null when the pointer is not on one.
+    const textLine = () => {
+      const pos = document.caretPositionFromPoint?.(x, y);
+      const node = pos ? pos.offsetNode : document.caretRangeFromPoint?.(x, y)?.startContainer;
+      if (node?.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return null;
+      const style = getComputedStyle(node.parentElement);
+      const size = parseFloat(style.fontSize);
+      const lineHeight = parseFloat(style.lineHeight) || size * 1.2;
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      for (const b of range.getClientRects()) {
+        const mid = b.top + b.height / 2;
+        if (x >= b.left && x <= b.right && Math.abs(y - mid) <= Math.max(b.height, lineHeight) / 2) return { mid, size };
+      }
+      return null;
+    };
+
+    // Hit-test from the pointer position, so scrolling under a still pointer also counts.
+    const hitTest = () => {
+      if (x <= -999) return;
+      const el = document.elementFromPoint(x, y);
+      const lensed = root.classList.contains("has-lens") && !!el?.closest(".project-link .frame, .project-link .shot");
+      const target = !lensed && !!el?.closest('a[href], button:not(:disabled), [role="button"], label[for], summary, select');
+      const line = lensed || target ? null : textLine();
+      root.classList.toggle("reticle-lensed", lensed);
+      ring.classList.toggle("is-target", target);
+      ring.classList.toggle("is-text", !!line);
+      point.classList.toggle("is-text", !!line);
+      // The caret sits on the line, as tall as the text: the 24 px ring stretched to 1.1 em.
+      if (line) ring.style.setProperty("--caret", ((Math.max(16, line.size) * 1.1) / 24).toFixed(3));
+      ty = line ? line.mid : y;
+      // Entering the lens, the ring starts from the pointer so it grows into the lens outline.
+      if (lensed) { rx = x; ry = y; }
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+    const place = () => { point.style.transform = `translate3d(${x}px, ${y}px, 0)`; };
+
+    if (x > -999) { rx = x; ry = y; place(); hitTest(); root.classList.add("reticle-on"); }
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+      x = e.clientX;
+      y = e.clientY;
+      if (!root.classList.contains("reticle-on")) { rx = x; ry = y; root.classList.add("reticle-on"); }
+      place();
+      hitTest();
+    }, { passive: true });
+    addEventListener("scroll", hitTest, { passive: true });
+    addEventListener("pointerdown", (e) => { if (e.button === 0) ring.classList.add("is-pressed"); });
+    addEventListener("pointerup", () => ring.classList.remove("is-pressed"));
+    root.addEventListener("pointerleave", () => root.classList.remove("reticle-on"));
+    addEventListener("blur", () => root.classList.remove("reticle-on"));
+  }
+
   // The contact button leans toward the pointer, and settles back when it leaves.
   for (const button of document.querySelectorAll(".button")) {
     button.addEventListener("pointermove", (e) => {

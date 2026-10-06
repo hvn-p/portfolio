@@ -232,7 +232,8 @@ main { padding-top: var(--bar-h); }
    ringed by the project's name. Built by site.js for fine pointers only. */
 .has-lens .project-link .frame, .has-lens .project-link .shot { cursor: none; }
 .lens { will-change: transform; position: fixed; left: 0; top: 0; z-index: 40; width: 13rem; height: 13rem; margin: -6.5rem 0 0 -6.5rem; pointer-events: none; }
-.lens-body { position: absolute; inset: 0; opacity: 0; transform: scale(0.3); transition: transform 0.3s var(--ease), opacity 0.2s linear; }
+/* It grows from the reticle's ring: 24px of its 10.3rem outline. */
+.lens-body { position: absolute; inset: 0; opacity: 0; transform: scale(0.146); transition: transform 0.3s var(--ease), opacity 0.2s linear; }
 .lens.is-on .lens-body { opacity: 1; transform: scale(1); transition-duration: 0.6s, 0.25s; }
 /* A dark band under the ring keeps its letters readable over light screenshots. */
 .lens-body::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, transparent 0 62%, rgba(13, 13, 14, 0.86) 62.5% 100%); }
@@ -244,6 +245,33 @@ main { padding-top: var(--bar-h); }
 .lens-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: lens-spin 16s linear infinite; }
 .lens-ring text { fill: var(--ink); font-family: var(--font); font-size: 9.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
 @keyframes lens-spin { to { transform: rotate(1turn); } }
+
+/* The cursor is a reticle: one ring reshaped from state to state, so every change reads as
+   a morph. Built by site.js for fine pointers with motion allowed. */
+.has-reticle, .has-reticle * { cursor: none !important; }
+/* Difference keeps it light on the dark ground and dark on the light buttons. */
+.reticle, .reticle-point {
+  position: fixed; left: 0; top: 0; z-index: 110; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+  pointer-events: none; mix-blend-mode: difference; opacity: 0; transition: opacity 0.2s linear; will-change: transform;
+}
+.reticle-on .reticle, .reticle-on .reticle-point { opacity: 1; }
+.reticle svg, .reticle-point svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.r-ring, .r-dot { transform-box: view-box; transform-origin: 0 0; }
+.r-ring {
+  fill: none; stroke: var(--ink); stroke-width: 1; stroke-opacity: 0.55; vector-effect: non-scaling-stroke;
+  transform: scale(calc(var(--sx, var(--s, 1)) * var(--press, 1)), calc(var(--sy, var(--s, 1)) * var(--press, 1)));
+  transition: transform 0.3s var(--ease), stroke-opacity 0.3s linear, opacity 0.2s linear;
+}
+.r-dot { fill: var(--ink); transform: scale(var(--d, 1)); transition: transform 0.3s var(--ease); }
+/* Over anything clickable the ring closes on the point and lights up; a press squeezes it. */
+.is-target .r-ring { --s: 0.6; stroke-opacity: 1; transition-duration: 0.45s, 0.45s, 0.2s; }
+.is-pressed .r-ring { --press: 0.8; transition-duration: 0.12s, 0.12s, 0.2s; }
+/* Over text it flattens into a caret as tall as the text (--caret, from site.js), and the dot folds into it. */
+.is-text .r-ring { --sx: 0.005; --sy: var(--caret, 0.75); stroke-opacity: 1; transition-duration: 0.4s, 0.4s, 0.2s; }
+.is-text .r-dot { --d: 0; }
+/* Over a screenshot it widens into the lens outline, 10.3rem from 24px, and hands over to it. */
+.reticle-lensed .r-ring { --s: 6.867; opacity: 0; transition: transform 0.6s var(--ease), stroke-opacity 0.3s linear, opacity 0.25s linear; }
+.reticle-lensed .r-dot { --d: 0; }
 
 /* ---------- About teaser, contact ---------- */
 .split {

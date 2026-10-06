@@ -5,6 +5,7 @@
 @import "../components/scenes.css";
 @import "../components/motion.css";
 @import "../components/curtain.css";
+@import "../components/reticle.css";
 
 /* Tokens from the validated mockup (mockup/styles.css, DESIGN.md). The default
    palette is dropped on purpose: the interface carries no accent color. */

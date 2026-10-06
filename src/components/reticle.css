@@ -1,0 +1,95 @@
+/* The cursor, ported from mockup/styles.css: one ring reshaped from state to state, so
+   every change reads as a morph. Rendered by reticle.tsx for fine pointers with motion
+   allowed. */
+@layer components {
+  .has-reticle,
+  .has-reticle * {
+    /* biome-ignore lint/complexity/noImportantStyles: every cursor the page declares gives way to the reticle */
+    cursor: none !important;
+  }
+  /* Difference keeps it light on the dark ground and dark on the light buttons. */
+  .reticle,
+  .reticle-point {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+    will-change: transform;
+  }
+  .reticle-on .reticle,
+  .reticle-on .reticle-point {
+    opacity: 1;
+  }
+  .reticle svg,
+  .reticle-point svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .r-ring,
+  .r-dot {
+    transform-box: view-box;
+    transform-origin: 0 0;
+  }
+  .r-ring {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    stroke-opacity: 0.55;
+    vector-effect: non-scaling-stroke;
+    transform: scale(
+      calc(var(--sx, var(--s, 1)) * var(--press, 1)),
+      calc(var(--sy, var(--s, 1)) * var(--press, 1))
+    );
+    transition:
+      transform 0.3s var(--ease-soft),
+      stroke-opacity 0.3s linear,
+      opacity 0.2s linear;
+  }
+  .r-dot {
+    fill: var(--color-ink);
+    transform: scale(var(--d, 1));
+    transition: transform 0.3s var(--ease-soft);
+  }
+  /* Over anything clickable the ring closes on the point and lights up; a press squeezes it. */
+  .is-target .r-ring {
+    --s: 0.6;
+    stroke-opacity: 1;
+    transition-duration: 0.45s, 0.45s, 0.2s;
+  }
+  .is-pressed .r-ring {
+    --press: 0.8;
+    transition-duration: 0.12s, 0.12s, 0.2s;
+  }
+  /* Over text it flattens into a caret as tall as the text (--caret, from reticle.tsx),
+     and the dot folds into it. */
+  .is-text .r-ring {
+    --sx: 0.005;
+    --sy: var(--caret, 0.75);
+    stroke-opacity: 1;
+    transition-duration: 0.4s, 0.4s, 0.2s;
+  }
+  .is-text .r-dot {
+    --d: 0;
+  }
+  /* Over a screenshot it widens into the lens outline, 10.3rem from 24px, and hands over to it. */
+  .reticle-lensed .r-ring {
+    --s: 6.867;
+    opacity: 0;
+    transition:
+      transform 0.6s var(--ease-soft),
+      stroke-opacity 0.3s linear,
+      opacity 0.25s linear;
+  }
+  .reticle-lensed .r-dot {
+    --d: 0;
+  }
+}
