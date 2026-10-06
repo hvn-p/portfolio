@@ -116,7 +116,7 @@ Refusé et à ne pas réintroduire : une palette colorée (la v1 en outremer et 
 - Fond presque noir, encres chaudes à trois niveaux, filets très discrets.
 - Une seule famille, Schibsted Grotesk, du texte courant jusqu'au nom, qui la porte en graisse 800.
 - Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.
-- Des micro-interactions précises : lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.
+- Des micro-interactions précises : un réticule pour curseur, lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.
 - Des transitions de page qui couvrent, nomment la destination, puis se lèvent.
 
 ## Colors
@@ -187,7 +187,7 @@ Le système est plat et tonal. La profondeur vient du passage du fond à la surf
 
 ## Shapes
 
-Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre d'une scène épinglée, des pilules (999px) pour les boutons et les petits contrôles, des cercles pour les icônes sociales, le point de statut et la loupe. Les séparations sont des filets d'un pixel, jamais des bordures de couleur.
+Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre d'une scène épinglée, des pilules (999px) pour les boutons et les petits contrôles, des cercles pour les icônes sociales, le point de statut, le réticule et la loupe. Les séparations sont des filets d'un pixel, jamais des bordures de couleur.
 
 ## Components
 
@@ -207,9 +207,16 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 - **Contenu :** monogramme à gauche ; à droite Work, About, puis le groupe réseaux et contact (icônes LinkedIn et GitHub professionnel, bouton « Get in touch »), puis les langues. Sur l'accueil, le monogramme de la barre n'apparaît qu'une fois le grand nom du hero enfoncé.
 - **Mobile :** monogramme et bouton « Menu » seulement. Les deux traits se rejoignent puis pivotent en croix, le libellé roule vers « Close ». Le menu s'ouvre en cercle depuis le bouton (0.8s ; fermeture en 0.5s), sur la surface ; les liens montent en très grand un à un, la page courante en graisse 800 et en encre pleine ; en bas, disponibilité, réseaux et langues.
 
+### Cursor
+- **Réticule :** le curseur du système laisse place à un point exact de 4px et à un anneau de 24px, trait de 1px à 55 % de l'encre, qui le suit avec un lissage (facteur 0.4 par image). Il est dessiné en différence : clair sur le fond, sombre sur un bouton plein. Pointeur précis et mouvement autorisé uniquement ; sinon, le curseur du système reste.
+- **Un seul anneau :** chaque état déforme le même anneau au lieu de le remplacer, pour que tout changement se lise comme une transformation. Un nouvel état suit cette règle.
+- **Sur un élément cliquable :** l'anneau se resserre autour du point (×0.6, 0.45s) et passe en encre pleine ; un clic le resserre encore (×0.8).
+- **Sur une ligne de texte :** l'anneau s'aplatit en une barre de 1px (0.4s), haute de 1.1 fois le corps du texte et calée sur le milieu de la ligne ; le point s'y résorbe. Entre deux lignes, la barre glisse de l'une à l'autre.
+- **Sur une capture de projet :** l'anneau s'élargit jusqu'au contour de la loupe (0.6s) et lui laisse la place ; en sortant, la loupe se rétracte dans l'anneau.
+
 ### Frames and lens
 - **Cadre :** surface, 14px, image en `object-fit: cover` calée en haut, contour intérieur en filet.
-- **Loupe :** au-dessus d'une capture de projet, le curseur natif disparaît au profit d'une loupe de 13rem qui suit le pointeur avec un lissage (facteur 0.24 par image), grossit ×1.9, porte un anneau de texte tournant (« Open project · nom · », 16s par tour) sur une couronne sombre. Pointeur précis uniquement.
+- **Loupe :** au-dessus d'une capture de projet, le réticule devient une loupe de 13rem, qui part de la taille de son anneau, suit le pointeur avec un lissage (facteur 0.24 par image), grossit ×1.9 et porte un anneau de texte tournant (« Open project · nom · », 16s par tour) sur une couronne sombre. Pointeur précis uniquement.
 
 ### Project scenes
 Le titre seul et très grand au centre ; au défilement il rétrécit et descend à sa place d'étiquette pendant que la capture s'ouvre au-dessus depuis une ligne médiane, en léger dézoom ; puis la description, la fiche et le lien arrivent, puis les captures suivantes montent en volet, chacune descendant lentement le long de sa page. Légende et compteur (« 2 / 3 ») sous le cadre, à droite. À la molette, le défilement glisse au lieu d'avancer par crans, pour que la scène suive une souris comme un pavé tactile.
@@ -232,7 +239,7 @@ Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s)
 - **Do** reproduire la maquette `mockup/` au pixel près ; en cas de doute, ouvrir la page et mesurer.
 - **Do** laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.
 - **Do** garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.
-- **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.
+- **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de réticule, pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.
 - **Do** tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes.
 
 ### Don't:

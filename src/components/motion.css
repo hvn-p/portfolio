@@ -150,11 +150,12 @@
     margin: -6.5rem 0 0 -6.5rem;
     pointer-events: none;
   }
+  /* It grows from the reticle's ring: 24px of its 10.3rem outline. */
   .lens-body {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.146);
     transition:
       transform 0.3s var(--ease-soft),
       opacity 0.2s linear;

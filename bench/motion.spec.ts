@@ -31,8 +31,11 @@ type Case = {
   name: string
   page: Record<Side, string>
   install?: boolean
-  run: (page: Page, side: Side) => AsyncGenerator<string | number>
+  run: (page: Page, side: Side) => AsyncGenerator<string | number | Step>
 }
+// A capture cropped around the pointer: on the full screen, a 1px caret or a 24px ring
+// stays far below MAX_DIFF.
+type Step = { at: string; around: [number, number]; size: number }
 
 const cases: Case[] = [
   {
@@ -111,6 +114,70 @@ const cases: Case[] = [
     },
   },
   {
+    // The reticle at rest, closing on a link, then flattening into a caret over text.
+    // Each change is frozen as soon as it starts, then the trailing ring is left to
+    // catch up with the pointer before the capture.
+    name: 'reticle',
+    page: { mockup: '/about.html', app: '/about' },
+    async *run(page) {
+      await page.waitForTimeout(800)
+      await page.mouse.move(700, 120)
+      await page.waitForTimeout(500)
+      await freeze(page, 0)
+      yield { at: 'rest', around: [700, 120], size: 80 }
+      for (const [label, box, times] of [
+        ['link', await page.locator('header a', { hasText: 'Work' }).first().boundingBox(), [150, 450]],
+        ['text', await page.locator('main p').first().boundingBox(), [150, 400]],
+      ] as const) {
+        if (!box) throw new Error(`no ${label}`)
+        const around: [number, number] = [box.x + 30, box.y + 10]
+        await page.mouse.move(...around)
+        await frames(page)
+        await freeze(page, times[0])
+        await page.waitForTimeout(500)
+        for (const t of times) {
+          await freeze(page, t)
+          yield { at: `${label}-${t}`, around, size: 80 }
+        }
+      }
+    },
+  },
+  {
+    // The ring widening into the lens as the pointer enters a screenshot, then back.
+    name: 'reticle-lens',
+    page: { mockup: '/index.html', app: '/' },
+    async *run(page) {
+      await page.waitForTimeout(800)
+      await page.evaluate(() => window.scrollTo({ top: 2250, behavior: 'instant' }))
+      await frames(page)
+      const outside = await page.evaluate(() =>
+        [
+          [720, 20],
+          [720, 880],
+          [20, 450],
+        ].find(([x, y]) => !document.elementFromPoint(x, y)?.closest('.project-link .shot')),
+      )
+      if (!outside) throw new Error('no point outside the screenshot')
+      for (const [label, [x, y], times] of [
+        ['in', [720, 420], [100, 250, 600]],
+        ['out', outside, [100, 300]],
+      ] as const) {
+        if (label === 'in') {
+          await page.mouse.move(outside[0], outside[1])
+          await page.waitForTimeout(500)
+        }
+        await page.mouse.move(x, y)
+        await frames(page)
+        await freeze(page, times[0])
+        await page.waitForTimeout(800)
+        for (const t of times) {
+          await freeze(page, t)
+          yield { at: `${label}-${t}`, around: [x, y], size: 280 }
+        }
+      }
+    },
+  },
+  {
     name: 'curtain-cover',
     page: { mockup: '/index.html', app: '/' },
     async *run(page) {
@@ -151,7 +218,20 @@ async function capture(context: BrowserContext, c: Case, side: Side) {
   await page.goto((side === 'mockup' ? MOCKUP_URL : APP_URL) + c.page[side])
   await hideWater(page)
   const shots = new Map<string, Buffer>()
-  for await (const at of c.run(page, side)) shots.set(String(at), await page.screenshot())
+  for await (const step of c.run(page, side)) {
+    if (typeof step !== 'object') {
+      shots.set(String(step), await page.screenshot())
+      continue
+    }
+    const [x, y] = step.around
+    const clip = {
+      x: Math.max(0, x - step.size / 2),
+      y: Math.max(0, y - step.size / 2),
+      width: step.size,
+      height: step.size,
+    }
+    shots.set(step.at, await page.screenshot({ clip }))
+  }
   await page.close()
   return shots
 }
