@@ -212,6 +212,11 @@
         "purpose": "Loupe au-dessus des captures."
       },
       {
+        "name": "scroll-reveal",
+        "value": "once, top past 90% of the screen; rules draw 1.4s, title words rise 1.1s +90ms per line, blocks fade up 1.25rem 1s; 80ms apart in reading order",
+        "purpose": "La page qui se construit au défilement."
+      },
+      {
         "name": "menu-reveal",
         "value": "circle clip 0.8s open, 0.5s close, links +0.22s then 0.08s apart",
         "purpose": "Menu mobile."

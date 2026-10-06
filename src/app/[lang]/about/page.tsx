@@ -38,7 +38,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
       <Split id="side-title" title={about.side.title}>
         <p className={splitText}>{about.side.text}</p>
-        <Elsewhere items={about.side.links} className="mb-10" />
+        <Elsewhere items={about.side.links} className="rv-fade mb-10" />
         <Rows rows={about.side.rows} />
       </Split>
       <Split id="edu-title" title={about.education.title}>

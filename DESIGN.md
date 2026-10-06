@@ -224,8 +224,11 @@ Le titre seul et très grand au centre ; au défilement il rétrécit et descend
 ### Page transition
 Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s), affiche la destination en très grand avec un filet de chargement, puis se lève sur la nouvelle page (0.75s). La navigation ne part qu'à la fin réelle de la fermeture ; le volet passe alors dans un état fermé figé. Dans l'implémentation Next.js, le volet est piloté par le routeur, sans rechargement de document.
 
+### Scroll reveals
+La page se construit à mesure qu'elle entre à l'écran. Les filets se tracent depuis la gauche (1.4s). Les titres montent mot à mot de sous leur ligne de base (1.1s), chaque ligne 90ms après celle du dessus. Le reste monte en fondu de 1.25rem (1s). Un élément ne s'anime qu'une fois, quand son haut passe à 90 % de la hauteur de l'écran ; ce qui arrive ensemble suit l'ordre de lecture, à 80ms d'écart. Ce qui est à l'écran à l'arrivée se construit au chargement, ou pendant que le volet se lève. Le hero, les scènes de projet, la galerie, l'index du parcours et les grandes années gardent leur propre mouvement. En mouvement réduit : des fondus seuls, et les filets sont déjà tracés.
+
 ### Signature details
-- **Hero :** les lettres du nom montent une à une à la première arrivée, puis s'enfoncent sous la ligne de base au défilement.
+- **Hero :** les lettres du nom montent une à une à chaque arrivée sur l'accueil, rechargement compris, et pendant que le volet se lève quand on y revient par un lien du site ; puis elles s'enfoncent sous la ligne de base au défilement.
 - **Accroche :** « I build AI systems. / with AI. / end to end. » tourne toutes les 2.8s.
 - **Disponibilité :** point vert qui pulse, à côté de l'heure locale de Bilbao en direct.
 - **Expérience :** index fixe qui suit la lecture avec un filet de progression, grandes années en contour qui défilent en parallaxe derrière le texte.

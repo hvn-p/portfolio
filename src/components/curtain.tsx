@@ -21,6 +21,19 @@ const CurtainContext = createContext<(href: string) => boolean>(() => false)
 // Starts a curtain navigation; false means the caller lets the link navigate itself.
 export const useCurtain = () => useContext(CurtainContext)
 
+// How a page came into view: the document's first load, the curtain lifting off it,
+// or a navigation without the curtain (reduced motion, back and forward).
+export type Arrival = 'load' | 'curtain' | 'direct'
+
+const ArrivalContext = createContext<(fn: (via: Arrival) => void) => () => void>((fn) => {
+  fn('load')
+  return () => {}
+})
+
+// Calls back once the page is in view: at once, or as the curtain starts lifting.
+// Returns a function that cancels a call still waiting for the curtain.
+export const useArrival = () => useContext(ArrivalContext)
+
 // Where sequential focus starts after a navigation: the hash target, or the top of
 // the page as after a full load. Focusing then blurring moves the start silently.
 function resetFocusStart(hash: string) {
@@ -40,6 +53,24 @@ export function Curtain({ labels, children }: { labels: CurtainLabels; children:
   const [pending, startTransition] = useTransition()
   const navigating = useRef(false)
   const panel = useRef<HTMLDivElement>(null)
+  // While the curtain hides a page, the calls waiting for it to lift.
+  const waiting = useRef<Set<() => void> | null>(null)
+  // Set once the first page is mounted: its children's effects run before this one.
+  const loaded = useRef(false)
+  useEffect(() => {
+    loaded.current = true
+  }, [])
+
+  const arrive = useCallback((fn: (via: Arrival) => void) => {
+    const queue = waiting.current
+    if (!queue) {
+      fn(loaded.current ? 'direct' : 'load')
+      return () => {}
+    }
+    const call = () => fn('curtain')
+    queue.add(call)
+    return () => queue.delete(call)
+  }, [])
 
   const labelFor = useCallback(
     (url: URL) => {
@@ -68,6 +99,7 @@ export function Curtain({ labels, children }: { labels: CurtainLabels; children:
         gone = true
         setPhase('covered')
         navigating.current = true
+        waiting.current = new Set()
         startTransition(() => router.push(href))
       }
       panel.current?.addEventListener('animationend', go, { once: true })
@@ -85,6 +117,9 @@ export function Curtain({ labels, children }: { labels: CurtainLabels; children:
     requestAnimationFrame(() =>
       setTimeout(() => {
         setPhase('lifting')
+        const calls = waiting.current ?? []
+        waiting.current = null
+        for (const call of calls) call()
         setTimeout(() => setPhase('idle'), 900)
       }, 140),
     )
@@ -102,15 +137,17 @@ export function Curtain({ labels, children }: { labels: CurtainLabels; children:
   const state = phase === 'idle' ? '' : `is-${phase}`
   return (
     <CurtainContext.Provider value={cover}>
-      <div className={`curtain ${state}`} aria-hidden="true">
-        <div ref={panel} className="curtain-panel">
-          <span className="curtain-label">
-            <span>{label}</span>
-          </span>
-          <span className="curtain-bar" />
+      <ArrivalContext.Provider value={arrive}>
+        <div className={`curtain ${state}`} aria-hidden="true">
+          <div ref={panel} className="curtain-panel">
+            <span className="curtain-label">
+              <span>{label}</span>
+            </span>
+            <span className="curtain-bar" />
+          </div>
         </div>
-      </div>
-      {children}
+        {children}
+      </ArrivalContext.Provider>
     </CurtainContext.Provider>
   )
 }

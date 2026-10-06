@@ -20,6 +20,13 @@ const freeze = (page: Page, t: number) =>
   }, t)
 const frames = (page: Page) =>
   page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))))
+// Reveals start on a timer of their own, which freezing cannot line up: a case about
+// other motion shows them settled, and the 'reveal' case covers them.
+const settleReveals = (page: Page) =>
+  page.addStyleTag({
+    content: `.rv-fade, .rv-title, .rv-word > span { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .rv-rule { animation: none !important; background-size: 100% 1px !important; }`,
+  })
 const clickLink = (page: Page, where: string, text: string) =>
   page
     .locator(`${where} a`, { hasText: text })
@@ -178,6 +185,33 @@ const cases: Case[] = [
     },
   },
   {
+    // An experience entry building as it scrolls into view: its rule drawing, its title
+    // rising, its lines fading up one after another. Frozen once they have all started.
+    name: 'reveal',
+    page: { mockup: '/about.html', app: '/about' },
+    async *run(page) {
+      await page.evaluate(() => document.fonts.ready)
+      await page.waitForTimeout(1500)
+      // First just short of the entry, long enough for the bar to hide and for what
+      // that scroll revealed to settle; then the entry comes into view.
+      const scrollEntryTo = (at: number) =>
+        page.evaluate((share) => {
+          const top = document.getElementById('exp-techup')?.getBoundingClientRect().top ?? 0
+          window.scrollTo({ top: scrollY + top - innerHeight * share, behavior: 'instant' })
+        }, at)
+      await scrollEntryTo(1.05)
+      await page.waitForTimeout(2500)
+      await scrollEntryTo(0.5)
+      await page.waitForFunction(() =>
+        document.getAnimations().some((a) => a instanceof CSSAnimation && a.animationName === 'rv-rise'),
+      )
+      for (const t of [150, 400, 700, 1200]) {
+        await freeze(page, t)
+        yield t
+      }
+    },
+  },
+  {
     name: 'curtain-cover',
     page: { mockup: '/index.html', app: '/' },
     async *run(page) {
@@ -202,6 +236,7 @@ const cases: Case[] = [
       } else {
         await clickLink(page, 'header', 'About')
       }
+      await settleReveals(page)
       await page.waitForSelector('.curtain.is-lifting', { timeout: 5000 })
       for (const t of [100, 300, 500]) {
         await freeze(page, t)

@@ -26,7 +26,7 @@ export default async function Home({ params }: Props) {
       <Scenes lang={lang} t={home} site={site} projects={Object.values(projects)} />
       <Split id="about-title" title={home.about.title}>
         <p className={splitText}>{home.about.text}</p>
-        <Link href={localePath(lang, '/about')} className={link.text}>
+        <Link href={localePath(lang, '/about')} className={`${link.text} rv-fade`}>
           <Roll text={home.about.link} /> <Icon name="right" />
         </Link>
         <Capabilities items={home.about.capabilities} />

@@ -2,13 +2,14 @@ import type { Fact, GalleryRow, Section, Shot } from '@/content/types'
 import { Screenshot } from './blocks'
 import { GallerySettle } from './gallery-settle'
 import { Icon } from './icons'
+import { Rise } from './rise'
 import { link } from './styles'
 
 export function Facts({ facts }: { facts: Fact[] }) {
   return (
-    <dl className="m-0 grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-x-8 gap-y-5 border-y border-hairline py-6">
+    <dl className="rv-rule rv-rule-y m-0 grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-x-8 gap-y-5 border-y border-hairline py-6">
       {facts.map((fact) => (
-        <div key={fact.label}>
+        <div key={fact.label} className="rv-fade">
           <dt className="text-[0.8125rem] text-ink-quiet">{fact.label}</dt>
           <dd className="mt-1 mb-0 ml-0 text-[1rem]">
             {fact.href ? (
@@ -94,18 +95,18 @@ export function CaseSections({ sections }: { sections: Section[] }) {
           aria-labelledby={section.id}
           className="wrap grid grid-cols-[minmax(12rem,1fr)_2fr] gap-x-[clamp(2rem,6vw,6rem)] gap-y-4 pt-[clamp(4rem,9vw,7rem)] pb-[clamp(1rem,3vw,2rem)] narrow:grid-cols-1"
         >
-          <h2 id={section.id} className="m-0 text-[1.25rem] font-semibold tracking-[-0.01em]">
-            {section.title}
+          <h2 id={section.id} className="rv-title m-0 text-[1.25rem] font-semibold tracking-[-0.01em]">
+            <Rise text={section.title} />
           </h2>
           <div>
             {section.paragraphs.map((text) => (
-              <p key={text} className="mt-0 mb-[1.1rem] max-w-[60ch] text-[1.125rem]">
+              <p key={text} className="rv-fade mt-0 mb-[1.1rem] max-w-[60ch] text-[1.125rem]">
                 {text}
               </p>
             ))}
             <ul className="m-0 max-w-[60ch] list-disc pl-[1.1rem] text-ink">
               {section.bullets.map((text) => (
-                <li key={text} className="mb-[0.55rem] marker:text-ink-quiet">
+                <li key={text} className="rv-fade mb-[0.55rem] marker:text-ink-quiet">
                   {text}
                 </li>
               ))}

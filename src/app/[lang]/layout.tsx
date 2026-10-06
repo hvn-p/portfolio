@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { Curtain } from '@/components/curtain'
 import { Reticle } from '@/components/reticle'
+import { Reveals } from '@/components/reveals'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { SmoothScroll } from '@/components/smooth-scroll'
@@ -29,8 +30,8 @@ export const metadata: Metadata = {
 
 // Runs before the first paint. The small-screen menu only replaces the links once
 // a script can open it. On the home page with motion allowed, the bar's monogram
-// waits for the hero name, and a first arrival from outside the site plays the
-// intro: setting both here keeps the final state from flashing first.
+// waits for the hero name, and the intro plays: setting both here keeps the final
+// state from flashing first. Later arrivals by the router play it from home-motion.tsx.
 // data-fit sorts the screen height for the hero (globals.css), measured on arrival
 // and again only when the width changes, as on turning the phone: a toolbar that
 // folds away while scrolling must not reflow the hero. On a touch screen, --vh and
@@ -45,9 +46,7 @@ if(!touch)return;var p=document.createElement("div");p.style.cssText="position:a
 d.style.setProperty("--vh",p.getBoundingClientRect().height/100+"px");d.style.setProperty("--svh",h/100+"px");p.remove()};
 fit();addEventListener("resize",fit);
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&new RegExp(${JSON.stringify(home)}).test(location.pathname)){
-d.classList.add("has-hero-name");var s=false;
-try{s=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
-if(!s){d.classList.add("intro");setTimeout(function(){d.classList.remove("intro")},2600)}}`
+d.classList.add("has-hero-name","intro");setTimeout(function(){d.classList.remove("intro")},2600)}`
 
 export default async function RootLayout({ children, params }: LayoutProps<'/[lang]'>) {
   const { lang } = await params
@@ -84,6 +83,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
           <SiteHeader lang={lang} t={site} />
           {children}
           <SiteFooter t={site} />
+          <Reveals />
         </Curtain>
         <SmoothScroll />
         <Reticle />

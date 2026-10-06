@@ -9,8 +9,18 @@ for (const lang of ['en', 'fr', 'es']) {
     test(`a11y ${lang} ${target.name}`, async ({ page }) => {
       const response = await page.goto(APP_URL + path)
       test.skip(response?.status() === 404, 'not ported yet')
-      // Contrast is measured on the settled page, not halfway through the intro's fades.
-      await page.waitForFunction(() => !document.documentElement.classList.contains('intro'))
+      // Contrast is measured on the settled page, not halfway through a fade. Every
+      // reveal is played at once: axe skips what is still hidden further down.
+      await page.evaluate(() => {
+        for (const el of document.querySelectorAll('.rv-fade, .rv-title, .rv-rule')) el.classList.add('is-in')
+      })
+      await page.waitForFunction(
+        () =>
+          !document.documentElement.classList.contains('intro') &&
+          document
+            .getAnimations()
+            .every((a) => a.playState !== 'running' || a.effect?.getTiming().iterations === Infinity),
+      )
       const { violations } = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
         .analyze()
