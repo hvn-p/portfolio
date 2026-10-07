@@ -58,7 +58,10 @@ export const fr: Content = {
           title: 'Programmer avec l’IA',
           text: 'Le harnais qui fait bien coder une IA : specs, instructions, données, tests. Code agentique avec Claude Code.',
         },
-        { title: 'Systèmes d’IA', text: 'Serveurs MCP, agents et harnais de validation en production' },
+        {
+          title: 'Systèmes d’IA',
+          text: 'Serveurs MCP, agents et harnais de validation en production. Télémétrie de l’usage de l’IA avec OpenTelemetry.',
+        },
       ],
     },
   },
@@ -307,7 +310,7 @@ export const fr: Content = {
         },
         {
           title: 'Systèmes d’IA',
-          text: 'Serveurs MCP sur mesure, agents et harnais de validation, avec authentification et multi-tenant intégrés.',
+          text: 'Serveurs MCP sur mesure, agents et harnais de validation, avec authentification et multi-tenant intégrés. Télémétrie de l’usage de l’IA avec OpenTelemetry, qui rattache chaque usage à son système d’IA.',
         },
       ],
     },
@@ -326,7 +329,8 @@ export const fr: Content = {
           bullets: [
             'Administrateur de l’infrastructure Azure du produit, chargé de son DevOps et des évolutions d’infrastructure jusqu’en production.',
             'Construction, à partir de zéro, du module de gouvernance de l’IA : registre des systèmes d’IA, évaluations de maturité, conformité à l’AI Act, calculateur de ROI. En production avec ses premiers clients payants.',
-            'Conception du serveur MCP du produit avec OAuth 2.1, et du pipeline de télémétrie qui attribue l’usage de l’IA.',
+            'Conception du serveur MCP du produit avec OAuth 2.1.',
+            'Mise en place de la télémétrie de l’IA avec OpenTelemetry : ingestion OTLP, règles qui rattachent l’usage à chaque système.',
             'Introduction de l’IA dans l’outil d’audit d’accessibilité (RGAA) : sorties structurées avec scores de confiance, livrées sous forme de scanner Docker autonome.',
             'Rédaction de la constitution technique du projet, suivie par l’équipe comme par les agents IA.',
           ],

@@ -58,7 +58,10 @@ export const en: Content = {
           title: 'AI programming',
           text: 'The harness that makes AI code well: specs, instructions, data, tests. Agentic coding with Claude Code.',
         },
-        { title: 'AI systems', text: 'MCP servers, agents and validation harnesses in production' },
+        {
+          title: 'AI systems',
+          text: 'MCP servers, agents and validation harnesses in production. AI usage telemetry with OpenTelemetry.',
+        },
       ],
     },
   },
@@ -301,7 +304,7 @@ export const en: Content = {
         },
         {
           title: 'AI systems',
-          text: 'Custom MCP servers, agents and validation harnesses, with authentication and multi-tenancy built in.',
+          text: 'Custom MCP servers, agents and validation harnesses, with authentication and multi-tenancy built in. AI usage telemetry with OpenTelemetry, tying each use to its AI system.',
         },
       ],
     },
@@ -320,7 +323,8 @@ export const en: Content = {
           bullets: [
             "Administrator of the product's Azure infrastructure, in charge of its DevOps work and of infrastructure changes through to production.",
             'Led the build of the AI governance module from scratch: AI system registry, maturity assessments, EU AI Act compliance, ROI calculator. Live with its first paying customers.',
-            "Built the product's MCP server with OAuth 2.1, and the telemetry pipeline that attributes AI usage.",
+            "Built the product's MCP server with OAuth 2.1.",
+            'Built AI usage telemetry with OpenTelemetry: OTLP ingestion and rules that tie usage to each AI system.',
             'Brought AI into the accessibility audit tool (RGAA): structured outputs with confidence scores, shipped as a standalone Docker scanner.',
             "Wrote the project's technical constitution, followed by the team and by AI agents alike.",
           ],
