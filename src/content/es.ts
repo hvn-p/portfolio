@@ -58,7 +58,10 @@ export const es: Content = {
           title: 'Programar con IA',
           text: 'El arnés que hace que una IA programe bien: especificaciones, instrucciones, datos, tests. Programación agéntica con Claude Code.',
         },
-        { title: 'Sistemas de IA', text: 'Servidores MCP, agentes y arneses de validación en producción' },
+        {
+          title: 'Sistemas de IA',
+          text: 'Servidores MCP, agentes y arneses de validación en producción. Telemetría del uso de la IA con OpenTelemetry.',
+        },
       ],
     },
   },
@@ -306,7 +309,7 @@ export const es: Content = {
         },
         {
           title: 'Sistemas de IA',
-          text: 'Servidores MCP a medida, agentes y arneses de validación, con autenticación y multi-tenant integrados.',
+          text: 'Servidores MCP a medida, agentes y arneses de validación, con autenticación y multi-tenant integrados. Telemetría del uso de la IA con OpenTelemetry, que vincula cada uso a su sistema de IA.',
         },
       ],
     },
@@ -325,7 +328,8 @@ export const es: Content = {
           bullets: [
             'Administrador de la infraestructura Azure del producto, a cargo de su DevOps y de los cambios de infraestructura hasta producción.',
             'Lideré la construcción desde cero del módulo de gobernanza de la IA: registro de sistemas de IA, evaluaciones de madurez, cumplimiento del AI Act europeo, calculadora de ROI. En producción con sus primeros clientes de pago.',
-            'Construí el servidor MCP del producto con OAuth 2.1, y la canalización de telemetría que atribuye el uso de la IA.',
+            'Construí el servidor MCP del producto con OAuth 2.1.',
+            'Construí la telemetría del uso de la IA con OpenTelemetry: ingesta OTLP y reglas que vinculan el uso a cada sistema de IA.',
             'Llevé la IA a la herramienta de auditoría de accesibilidad (RGAA): salidas estructuradas con puntuaciones de confianza, entregadas como escáner Docker autónomo.',
             'Redacté la constitución técnica del proyecto, que siguen tanto el equipo como los agentes de IA.',
           ],
