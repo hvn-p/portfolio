@@ -145,6 +145,10 @@
   /* The statement size at which its widest rotating phrase, about 8.4em long,
      fits the line with a margin. */
   --statement-fit: calc((100vw - 2 * var(--gutter)) / 8.6);
+  /* Beside the lede, the statement grows with the screen but its column stops at the
+     site width: past it, it takes the size at which its longest line, about 10.5em
+     ("Desarrollador full stack."), fits the column. Read in the statement's container. */
+  --statement-column-fit: calc(100cqi / 10.8);
   color-scheme: dark;
 }
 

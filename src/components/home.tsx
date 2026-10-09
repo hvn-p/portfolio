@@ -20,15 +20,17 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
       <HeroWater />
       <HeroMotion />
       <div className="hero-top row-[2] grid grid-cols-[minmax(0,1.9fr)_minmax(16rem,1fr)] items-end gap-x-[clamp(2rem,6vw,6rem)] gap-y-8 self-end narrow:grid-cols-1 short:gap-y-5">
-        <p className="m-0 text-statement short:text-[2.25rem] tiny:text-(length:--statement-fit) short:tiny:text-[min(2.25rem,var(--statement-fit))]">
-          {t.statement.first}
-          <br />
-          <span className="text-ink-muted">
-            {t.statement.lead}
-            <Rotator words={t.statement.rotating} />
-            <span className="sr-only">{t.statement.spoken}</span>
-          </span>
-        </p>
+        <div className="@container">
+          <p className="m-0 text-statement not-narrow:text-[min(var(--text-statement),var(--statement-column-fit))] short:text-[2.25rem] tiny:text-(length:--statement-fit) short:tiny:text-[min(2.25rem,var(--statement-fit))]">
+            {t.statement.first}
+            <br />
+            <span className="text-ink-muted">
+              {t.statement.lead}
+              <Rotator words={t.statement.rotating} />
+              <span className="sr-only">{t.statement.spoken}</span>
+            </span>
+          </p>
+        </div>
         <div className="grid justify-items-start gap-[1.1rem] pb-2 short:gap-3">
           <Availability text={site.availability} />
           <p className="m-0 text-[0.9375rem] text-ink-muted">
