@@ -8,6 +8,7 @@ import { Link } from '@/components/transition-link'
 import { getContent } from '@/content'
 import { type Locale, localePath } from '@/i18n'
 import { pageMetadata } from '@/site'
+import { homeLd, JsonLd } from '@/structured-data'
 
 type Props = PageProps<'/[lang]'>
 
@@ -22,6 +23,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <main id="main" className="pt-(--bar-h)">
+      <JsonLd data={homeLd(lang)} />
       <Hero t={home} site={site} />
       <Scenes lang={lang} t={home} site={site} projects={Object.values(projects)} />
       <Split id="about-title" title={home.about.title}>
