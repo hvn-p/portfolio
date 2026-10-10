@@ -14,6 +14,7 @@ import { getContent } from '@/content'
 import { age, fill } from '@/dates'
 import type { Locale } from '@/i18n'
 import { pageMetadata } from '@/site'
+import { aboutLd, JsonLd } from '@/structured-data'
 
 type Props = PageProps<'/[lang]/about'>
 
@@ -23,10 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function AboutPage({ params }: Props) {
-  const { site, about } = getContent((await params).lang as Locale)
+  const lang = (await params).lang as Locale
+  const { site, about } = getContent(lang)
 
   return (
     <main id="main" className="pt-(--bar-h)">
+      <JsonLd data={aboutLd(lang)} />
       <PageHead title={about.title} lede={fill(about.lede, { age: age() })} />
       <section aria-labelledby="skills-title" className="wrap pt-4">
         <SectionHead id="skills-title" title={about.skills.title} />

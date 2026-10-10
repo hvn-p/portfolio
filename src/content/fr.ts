@@ -15,6 +15,7 @@ export const fr: Content = {
     languages: { label: 'Langue', names: { en: 'English', fr: 'Français', es: 'Español' } },
     availability: 'Disponible pour des missions freelance',
     location: 'Bilbao, Espagne',
+    jobTitle: 'Développeur full stack',
     localTime: 'heure locale',
     footer: { copyright: '© {year} Pierre Hervelin', backToTop: 'Haut de page', source: 'Code source' },
     contact: { title: 'Une mission en tête ?', github: 'GitHub', linkedin: 'LinkedIn' },

@@ -61,6 +61,8 @@ export type Content = {
     languages: { label: string; names: Record<'en' | 'fr' | 'es', string> }
     availability: string
     location: string
+    // The role search engines read in the structured data.
+    jobTitle: string
     localTime: string
     // {year} is the current year.
     footer: { copyright: string; backToTop: string; source: string }
