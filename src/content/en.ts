@@ -193,7 +193,7 @@ export const en: Content = {
               layout: 'full',
               shot: {
                 image: images.abacusOverview,
-                alt: 'Abacus overview in its dark theme, for a fictitious person: balances, commitments and recent activity.',
+                alt: 'Abacus overview in its dark theme, for a fictitious person: net worth, account balances over the month, and what is waiting for a decision.',
               },
             },
           ],
@@ -223,7 +223,7 @@ export const en: Content = {
                 },
                 {
                   image: images.abacusAnalysis,
-                  alt: 'Analysis view with spending charts over several months, fictitious data.',
+                  alt: 'Analysis view over 12 months: money in and out by month, then spending as a map of blocks, from the main groups down to each payment, fictitious data.',
                 },
               ],
             },

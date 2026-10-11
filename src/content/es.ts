@@ -197,7 +197,7 @@ export const es: Content = {
               layout: 'full',
               shot: {
                 image: images.abacusOverview,
-                alt: 'Vista general de Abacus en tema oscuro, para una persona ficticia: saldos, compromisos y actividad reciente.',
+                alt: 'Vista general de Abacus en tema oscuro, para una persona ficticia: patrimonio, saldos de las cuentas a lo largo del mes y lo que espera una decisión.',
               },
             },
           ],
@@ -227,7 +227,7 @@ export const es: Content = {
                 },
                 {
                   image: images.abacusAnalysis,
-                  alt: 'Vista de análisis con gráficos de gastos de varios meses, datos ficticios.',
+                  alt: 'Vista de análisis de 12 meses: entradas y salidas por mes, y luego los gastos como un mapa de bloques, de los grandes grupos hasta cada pago, datos ficticios.',
                 },
               ],
             },

@@ -197,8 +197,8 @@ export const fr: Content = {
             {
               layout: 'full',
               shot: {
-                image: images.abacusOverview,
-                alt: 'Vue d’ensemble d’Abacus en thème sombre, pour une personne fictive : soldes, engagements et activité récente.',
+                image: images.abacusOverviewFr,
+                alt: 'Vue d’ensemble d’Abacus en thème sombre, pour une personne fictive : patrimoine, soldes des comptes sur le mois et ce qui attend une décision.',
               },
             },
           ],
@@ -223,19 +223,19 @@ export const fr: Content = {
               layout: 'two-up',
               shots: [
                 {
-                  image: images.abacusMovements,
+                  image: images.abacusMovementsFr,
                   alt: 'Liste des mouvements avec dates, contreparties, catégories et montants, données fictives.',
                 },
                 {
-                  image: images.abacusAnalysis,
-                  alt: 'Vue d’analyse avec des graphiques de dépenses sur plusieurs mois, données fictives.',
+                  image: images.abacusAnalysisFr,
+                  alt: 'Vue d’analyse sur 12 mois : entrées et sorties par mois, puis les dépenses en carte de blocs, des grands postes jusqu’à chaque paiement, données fictives.',
                 },
               ],
             },
             {
               layout: 'full',
               shot: {
-                image: images.abacusInvestments,
+                image: images.abacusInvestmentsFr,
                 alt: 'Vue des placements avec les positions et leur valeur dans le temps, données fictives.',
               },
             },
@@ -258,9 +258,9 @@ export const fr: Content = {
             {
               layout: 'two-up',
               shots: [
-                { image: images.abacusRecurring, alt: 'Vue des dépenses récurrentes, données fictives.' },
+                { image: images.abacusRecurringFr, alt: 'Vue des dépenses récurrentes, données fictives.' },
                 {
-                  image: images.abacusDeclarePanel,
+                  image: images.abacusDeclarePanelFr,
                   alt: 'Panneau latéral ouvert pour déclarer un mouvement, données fictives.',
                 },
               ],
@@ -268,7 +268,7 @@ export const fr: Content = {
             {
               layout: 'full',
               shot: {
-                image: images.abacusAiConnect,
+                image: images.abacusAiConnectFr,
                 alt: 'Écran de connexion d’un agent IA à Abacus via MCP.',
               },
             },
@@ -282,9 +282,9 @@ export const fr: Content = {
         line: 'Une application de finances personnelles auto-hébergée à qui l’on parle : vous déclarez ce qui s’est passé, un agent IA l’enregistre via MCP.',
         facts: 'Produit personnel · Next.js, PostgreSQL, MCP',
         shots: [
-          { image: images.abacusOverview, caption: 'Vue d’ensemble, données fictives' },
-          { image: images.abacusAnalysis, caption: 'Analyse, données fictives' },
-          { image: images.abacusAiConnect, caption: 'Connecter un agent IA' },
+          { image: images.abacusOverviewFr, caption: 'Vue d’ensemble, données fictives' },
+          { image: images.abacusAnalysisFr, caption: 'Analyse, données fictives' },
+          { image: images.abacusAiConnectFr, caption: 'Connecter un agent IA' },
         ],
       },
     },
