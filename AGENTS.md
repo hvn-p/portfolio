@@ -127,10 +127,14 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
 
 ## Refaire des captures
 
-- **Abacus** : instance de démonstration, worktree `~/dev/pro/abacus/demo-captures`,
-  `demo/run.sh` (port 3947), `demo/reset.sh` pour reconstruire la base
-  `abacus_demo_portfolio`. Identifiant `lea@demo.abacus.example`, mot de passe dans
-  `demo/seed.ts`. Ne jamais lire la base `abacus`, qui contient les vraies données de
+- **Abacus** : compte de démo du dépôt Abacus (`~/dev/lab/abacus`), décrit dans son
+  `AGENTS.md`. Un worktree `demo-captures` (`wt switch -c demo-captures`) reçoit sa base,
+  le jeu de démo et son serveur. Dans son `apps/web/.env.local`, `MCP_URL` pointe vers
+  `https://abacus-mcp.example.com/mcp`, sinon l'écran « Connect an AI » affiche
+  l'adresse locale. L'interface suit la langue du navigateur, les données de démo restent
+  en français : un jeu en anglais (`src/assets/abacus/`, copié dans `mockup/`) et un en
+  français (`src/assets/abacus/fr/`, pour les pages françaises), 1600×1000 à densité 1.5,
+  thème sombre. Ne jamais lire la base `abacus`, qui contient les vraies données de
   Pierre, ni appeler le connecteur MCP `abacus`.
 - **estuaire.fr** : fenêtre de 1920×1200 à densité 1.5 (voir Pièges), attendre la fin du
   carrousel d'accueil (8 s environ), faire défiler la page avant une capture pleine page

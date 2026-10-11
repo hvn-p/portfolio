@@ -1,7 +1,15 @@
-// Screenshots, shared by every language.
+// Screenshots, shared by every language. Abacus also speaks French: the French pages
+// show its French interface (the Fr set), the others its English one.
 import abacusAiConnect from '@/assets/abacus/ai-connect.webp'
 import abacusAnalysis from '@/assets/abacus/analysis.webp'
 import abacusDeclarePanel from '@/assets/abacus/declare-panel.webp'
+import abacusAiConnectFr from '@/assets/abacus/fr/ai-connect.webp'
+import abacusAnalysisFr from '@/assets/abacus/fr/analysis.webp'
+import abacusDeclarePanelFr from '@/assets/abacus/fr/declare-panel.webp'
+import abacusInvestmentsFr from '@/assets/abacus/fr/investments.webp'
+import abacusMovementsFr from '@/assets/abacus/fr/movements.webp'
+import abacusOverviewFr from '@/assets/abacus/fr/overview.webp'
+import abacusRecurringFr from '@/assets/abacus/fr/recurring.webp'
 import abacusInvestments from '@/assets/abacus/investments.webp'
 import abacusMovements from '@/assets/abacus/movements.webp'
 import abacusOverview from '@/assets/abacus/overview.webp'
@@ -24,6 +32,13 @@ export const images = {
   abacusMovements,
   abacusOverview,
   abacusRecurring,
+  abacusAiConnectFr,
+  abacusAnalysisFr,
+  abacusDeclarePanelFr,
+  abacusInvestmentsFr,
+  abacusMovementsFr,
+  abacusOverviewFr,
+  abacusRecurringFr,
   estuaireExpertise,
   estuaireHome,
   estuaireHomeMobile,
