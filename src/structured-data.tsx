@@ -19,7 +19,6 @@ function person(lang: Locale) {
     jobTitle: site.jobTitle,
     description: home.meta.description,
     email: links.email,
-    address: { '@type': 'PostalAddress', addressLocality: 'Bilbao', addressCountry: 'ES' },
     sameAs: [links.linkedin, links.github, links.githubPersonal, links.modrinth, links.curseforge],
   }
 }

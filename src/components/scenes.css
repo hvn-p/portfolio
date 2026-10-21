@@ -174,7 +174,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    font-size: clamp(6rem, 16vw, 17rem);
+    font-size: clamp(5rem, 12vw, 13rem);
     transform-origin: 0 0;
     will-change: transform;
   }
@@ -192,7 +192,8 @@
   .scenes-pinned .scene-details {
     position: absolute;
     top: calc(var(--fb, 75vh) + 3.2vh);
-    left: 30vw;
+    /* Past the shrunk title, however long the name (--tx, home-motion.tsx). */
+    left: max(30vw, var(--tx, 30vw));
     right: var(--gutter);
     margin: 0;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;

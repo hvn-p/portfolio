@@ -318,7 +318,7 @@ export function ContactWater() {
   return (
     <div
       aria-hidden="true"
-      className="contact-water relative col-start-2 row-span-2 row-start-1 aspect-[16/10] overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] max-[56rem]:hidden"
+      className="contact-water relative col-start-2 row-span-3 row-start-1 aspect-[16/10] overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] max-[56rem]:hidden"
     >
       <canvas ref={ref} className="block" />
     </div>

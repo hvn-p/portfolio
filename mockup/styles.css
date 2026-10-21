@@ -193,10 +193,10 @@ main { padding-top: var(--bar-h); }
 .scenes-pinned .shot img { position: absolute; left: 0; top: 0; height: auto; max-width: none; object-fit: fill; transform-origin: 0 0; }
 .scenes-pinned .scene-info { position: absolute; inset: 0; max-width: none; padding: 0; pointer-events: none; }
 .scenes-pinned .scene-info a { pointer-events: auto; }
-.scenes-pinned .scene-title { position: absolute; left: 0; top: 0; font-size: clamp(6rem, 16vw, 17rem); transform-origin: 0 0; will-change: transform; }
+.scenes-pinned .scene-title { position: absolute; left: 0; top: 0; font-size: clamp(5rem, 12vw, 13rem); transform-origin: 0 0; will-change: transform; }
 .scenes-pinned .scene-sub { position: absolute; left: 0; right: 0; top: 62vh; margin: 0; justify-content: center; gap: 2.5rem; opacity: var(--sub, 1); transform: translateY(calc((1 - var(--sub, 1)) * -1rem)); }
 .scenes-pinned .scene-details {
-  position: absolute; top: calc(var(--fb, 75vh) + 3.2vh); left: 30vw; right: var(--gutter); margin: 0;
+  position: absolute; top: calc(var(--fb, 75vh) + 3.2vh); left: max(30vw, var(--tx, 30vw)); right: var(--gutter); margin: 0;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 1rem 2.5rem; align-items: start;
 }
 .scenes-pinned .scene-details > * { opacity: var(--dt, 1); transform: translateY(calc((1 - var(--dt, 1)) * 1.25rem)); }
@@ -218,11 +218,17 @@ main { padding-top: var(--bar-h); }
 .frame.is-lensed img { filter: brightness(0.8); }
 
 .project-meta {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.35rem 2rem; align-items: baseline;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.35rem 2rem; align-items: baseline;
   padding-top: 1.4rem;
 }
-.project-title { margin: 0; font-weight: 600; font-size: clamp(1.75rem, 3.2vw, 2.75rem); letter-spacing: -0.025em; line-height: 1.1; }
+.project-title { margin: 0 1.05em 0 0; font-weight: 600; font-size: clamp(1.75rem, 3.2vw, 2.75rem); letter-spacing: -0.025em; line-height: 1.1; }
 .project-kind { font-size: 0.9375rem; color: var(--ink-2); text-align: right; }
+/* The kind and the years share a line, a dot between them, when they fit. When they do not,
+   the years go under and the dot, left at the end of the first line, is clipped off the edge. */
+.project-kind { overflow: clip; }
+.project-kind > span { display: flex; flex-wrap: wrap; justify-content: flex-end; margin-right: -1.1em; }
+.project-kind > span > span:first-child::after { content: "·"; display: inline-block; width: 1.1em; text-align: center; }
+.project-kind > span > span:last-child { padding-right: 1.1em; }
 .project-line { grid-column: 1 / -1; margin: 0; color: var(--ink-2); max-width: 60ch; }
 .project-title { position: relative; }
 .title-arrow { position: absolute; left: -1.05em; top: 50%; display: flex; opacity: 0; transform: translate(-0.35em, -50%); }
@@ -242,6 +248,11 @@ main { padding-top: var(--bar-h); }
   box-shadow: 0 0 0 1px rgba(237, 235, 230, 0.55), 0 22px 48px -14px rgba(0, 0, 0, 0.8);
 }
 .lens-view img { position: absolute; left: 0; top: 0; max-width: none; }
+/* Over a frame without a picture, a copy of the frame is magnified instead. */
+.lens-copy { position: absolute; left: 0; top: 0; transform-origin: 0 0; display: none; }
+.lens-copy > .frame { width: 100%; height: 100%; aspect-ratio: auto; }
+.lens.is-copy .lens-view img { display: none; }
+.lens.is-copy .lens-copy { display: block; }
 .lens-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: lens-spin 16s linear infinite; }
 .lens-ring text { fill: var(--ink); font-family: var(--font); font-size: 9.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
 @keyframes lens-spin { to { transform: rotate(1turn); } }
@@ -292,11 +303,12 @@ main { padding-top: var(--bar-h); }
 
 .contact { padding-top: clamp(6rem, 14vw, 11rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
 .contact .display { max-width: 14ch; }
+.contact-aside { margin: 1.25rem 0 0; font-size: 0.9375rem; color: var(--ink-3); }
 .contact-row { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2.5rem; }
 /* The hero's water, in a frame beside the call (site.js, wide screens only). */
 .contact.has-water { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 30rem); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
 .contact.has-water > :not(.contact-water) { grid-column: 1; }
-.contact-water { grid-column: 2; grid-row: 1 / span 2; }
+.contact-water { grid-column: 2; grid-row: 1 / span 3; }
 .contact-water canvas { display: block; }
 @media (max-width: 56rem) { .contact.has-water { display: block; } .contact-water { display: none; } }
 
@@ -337,6 +349,10 @@ main { padding-top: var(--bar-h); }
 .gallery { display: grid; gap: clamp(1rem, 2vw, 1.5rem); padding-top: clamp(2.5rem, 5vw, 4rem); }
 .gallery .frame { aspect-ratio: auto; }
 .gallery .frame img { height: auto; object-fit: initial; }
+/* A visual that is not a screen capture (a composite on a transparent ground) sits whole on
+   the surface, at no more than its own size. */
+.gallery .frame.is-plate { display: grid; place-items: center; padding: clamp(1.5rem, 5vw, 4.5rem); }
+.gallery .frame.is-plate img { max-width: 100%; }
 .two-up { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.5rem); }
 .device-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.34fr); gap: clamp(1rem, 2vw, 1.5rem); align-items: start; }
 .gallery figcaption { margin-top: 0.7rem; font-size: 0.875rem; color: var(--ink-3); }
@@ -514,6 +530,12 @@ main { padding-top: var(--bar-h); }
   .capabilities li, .capabilities li + li { padding: 1.1rem 0; border-left: 0; border-bottom: 1px solid var(--hair); }
   .project-meta { grid-template-columns: 1fr; }
   .project-kind { text-align: left; grid-row: 2; }
+  /* Left-aligned, the dot moves to the start of the years, clipped off the left edge. */
+  .project-kind > span { justify-content: flex-start; margin: 0 0 0 -1.1em; }
+  .project-kind > span > span:first-child { padding-left: 1.1em; }
+  .project-kind > span > span:first-child::after { content: none; }
+  .project-kind > span > span:last-child { padding-right: 0; }
+  .project-kind > span > span:last-child::before { content: "·"; display: inline-block; width: 1.1em; text-align: center; }
   .two-up, .device-pair { grid-template-columns: 1fr; }
   .device-pair figure:last-child { max-width: 16rem; }
   .mini-list li { grid-template-columns: 1fr; }
@@ -610,3 +632,14 @@ main { padding-top: var(--bar-h); }
 @keyframes rv-rise { from { transform: translateY(calc(100% + 0.5em)); } }
 @keyframes rv-draw { from { background-size: 0 1px; } }
 @keyframes rv-fade { from { opacity: 0; } }
+
+/* ---------- Work page: every project, a picture and its label, two by two ---------- */
+.all-work { display: flex; justify-content: flex-end; padding-top: clamp(2.5rem, 5vw, 4rem); }
+.work-grid {
+  list-style: none; margin: 0; padding: clamp(1rem, 3vw, 2rem) 0 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 3vw, 2.5rem);
+}
+/* A project without a picture shows its description on the surface instead. */
+.frame.is-type { display: grid; align-content: end; padding: clamp(1.5rem, 3vw, 2.5rem); }
+.frame.is-type p { margin: 0; max-width: 24ch; font-weight: 600; font-size: clamp(1.25rem, 2.1vw, 1.875rem); letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); }
+@media (max-width: 48rem) { .work-grid { grid-template-columns: 1fr; } }

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CarbonScore · Pierre Hervelin</title>
+<meta name="description" content="CarbonScore shows employees the carbon footprint of their digital use, in the browser, Outlook and Teams.">
+<script>document.documentElement.classList.add("js");try{var c=sessionStorage.getItem("curtain");if(c){document.documentElement.classList.add("curtain-in");document.documentElement.dataset.curtain=c}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body id="top">
+<div class="curtain" aria-hidden="true"><div class="curtain-panel"><span class="curtain-label"><span></span></span><span class="curtain-bar"></span></div></div>
+<script>document.querySelector(".curtain-label span").textContent=document.documentElement.dataset.curtain||""</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-up" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></symbol>
+  <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM3.4 6.2h2.1V13H3.4zM4.45 2.9a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM6.8 6.2h2v.95c.3-.55 1.02-1.1 2.1-1.1 2.1 0 2.6 1.3 2.6 3.05V13h-2.1V9.55c0-.82-.15-1.6-1.08-1.6-.97 0-1.42.7-1.42 1.65V13H6.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <span class="brand-slot"><a class="brand" href="../index.html" aria-label="Pierre Hervelin, home"><svg class="monogram" viewBox="0 0 132.93 100" aria-hidden="true" focusable="false"><path d="M0 100L0 0L50.35 0Q68.48 0 77.5 7.64Q86.53 15.28 86.53 30.55Q86.53 45.76 76.67 53.43Q66.8 61.11 46.88 61.11L25.07 61.11L25.07 100L0 100ZM25.07 41.87L48.54 41.87Q54.86 41.87 58.26 38.92Q61.67 35.97 61.67 30.62Q61.67 25.42 58.3 22.32Q54.93 19.24 47.99 19.24L25.07 19.24L25.07 41.87ZM45 41.87H108.86V61.11H45ZM107.86 0H132.93V100H107.86Z"/></svg></a></span>
+    <nav class="topnav" aria-label="Main">
+    <ul>
+      <li><a href="../work.html" aria-current="page">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <!-- The socials and the contact button belong together. v1 contact channel: LinkedIn. -->
+    <div class="nav-contact">
+      <ul class="socials">
+      <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221" aria-label="LinkedIn"><svg class="icon-brand" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+      <li><a href="https://github.com/hvn-p" aria-label="GitHub"><svg class="icon-brand" aria-hidden="true"><use href="#i-github"/></svg></a></li>
+    </ul>
+      <a class="button is-small" href="https://www.linkedin.com/in/pierre-hervelin-a25b60221">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" aria-pressed="true" lang="en">EN</button>
+      <button type="button" aria-pressed="false" lang="fr" disabled title="Français, bientôt">FR</button>
+      <button type="button" aria-pressed="false" lang="es" disabled title="Español, pronto">ES</button>
+    </div>
+  </nav>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="burger-lines" aria-hidden="true"><span></span><span></span></span>
+      <span class="burger-label" aria-hidden="true"><span>Menu</span><span>Close</span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+<div class="menu" id="menu" aria-label="Menu" inert>
+  <div class="wrap menu-inner">
+    <ul class="menu-links">
+      <li><a href="../work.html" aria-current="page"><span class="ml" style="--i:0">Work</span></a></li>
+      <li><a href="../about.html"><span class="ml" style="--i:1">About</span></a></li>
+      <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221"><span class="ml" style="--i:2">Get in touch</span></a></li>
+    </ul>
+    <div class="menu-foot">
+      <p class="availability"><span class="pulse" aria-hidden="true"></span>Open to new opportunities</p>
+      <ul class="socials">
+        <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221" aria-label="LinkedIn"><svg class="icon-brand" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+        <li><a href="https://github.com/hvn-p" aria-label="GitHub"><svg class="icon-brand" aria-hidden="true"><use href="#i-github"/></svg></a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" aria-pressed="true" lang="en">EN</button>
+        <button type="button" aria-pressed="false" lang="fr" disabled title="Français, bientôt">FR</button>
+        <button type="button" aria-pressed="false" lang="es" disabled title="Español, pronto">ES</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <header class="wrap case-head">
+    <p class="crumb"><a href="../work.html">Work</a> / CarbonScore</p>
+    <h1 class="display">CarbonScore</h1>
+    <p class="lede">CarbonScore shows the employees of an organisation on Microsoft 365 the carbon footprint of their digital use, and gets them to act through a game, quizzes and training. It runs in the browser, in Outlook and in Teams. I have worked on it since 2021, as developer then lead, and I maintain it today.</p>
+  </header>
+
+  <div class="wrap">
+    <dl class="facts">
+      <div><dt>Company</dt><dd>TechupClimate, then Digital4Better</dd></div>
+      <div><dt>Role</dt><dd>Developer, then lead; main maintainer today</dd></div>
+      <div><dt>Years</dt><dd>2021–now</dd></div>
+      <div><dt>Runs in</dt><dd>Browser, Outlook, Teams</dd></div>
+      <div><dt>Stack</dt><dd>TypeScript, Vue, NestJS, PostgreSQL, Kubernetes, Azure</dd></div>
+      <div><dt>Visuals</dt><dd>Published by Fruggr, demo data</dd></div>
+    </dl>
+    <div class="gallery">
+      <figure style="margin:0">
+        <div class="frame is-plate"><img src="../assets/carbonscore/carbonscore.webp" width="707" height="641" style="width:566px" loading="lazy" alt="Two screens of CarbonScore: an employee&#x27;s home page with their score, their impact in grams of CO2 and their current season level, and their dashboard with a behaviour score against the organisation&#x27;s average."></div>
+        <figcaption>Visual published by Fruggr, with demo data.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section class="wrap case-text" aria-labelledby="product-title">
+    <h2 id="product-title">The product</h2>
+    <div>
+      <ul>
+        <li>Each person&#x27;s daily footprint: mailbox and file storage, Teams meetings, equipment, printing and Copilot, with two scores and a comparison with their organisation.</li>
+        <li>Eco-gestures, training paths and quizzes, in French and English.</li>
+        <li>A game with levels, achievements, seasons, teams and leaderboards, updated in real time.</li>
+        <li>A supervisor space that follows adoption and the footprint across the organisation, by department, city or company.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap case-text" aria-labelledby="built-title">
+    <h2 id="built-title">What I built</h2>
+    <div>
+      <ul>
+        <li>The first calculation service, which set the split between collecting and computing jobs that still structures the product.</li>
+        <li>The game engine and most of its interface, with real-time updates.</li>
+        <li>Microsoft 365 usage data from Graph reports, and later the measurement of each Copilot interaction.</li>
+        <li>The equipment module, end to end.</li>
+        <li>The front end&#x27;s move to Vue 3, and its data layer shared by the web app, Outlook and Teams.</li>
+        <li>The monthly e-mail report.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap case-text" aria-labelledby="running-title">
+    <h2 id="running-title">Running it</h2>
+    <div>
+      <ul>
+        <li>As lead: its releases, and the review of the junior developers&#x27; work. Mentored and trained apprentices.</li>
+        <li>New clients set up end to end, and their data carried over when they change Microsoft tenant.</li>
+        <li>Since 2025, its main maintainer: security fixes, an audit run with Claude Code, and agent skills for the team&#x27;s recurring tasks.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next-project" href="abacus.html">
+      <span class="label">Next project</span>
+      <span class="display">Abacus</span>
+    </a>
+  </div>
+</main>
+
+<footer class="wrap footer" style="margin-top: 5rem">
+  <span>© 2026 Pierre Hervelin · <a class="to-top" href="https://github.com/hvn-p/portfolio">Source code <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></span>
+  <a class="to-top" href="#top">Back to top <svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a>
+  <span>Full-stack developer</span>
+</footer>
+<script src="../site.js"></script>
+</body>
+</html>

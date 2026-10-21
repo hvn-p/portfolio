@@ -1,6 +1,6 @@
 # portfolio
 
-Site vitrine de Pierre Hervelin, développeur full stack freelance : une vitrine de
+Site vitrine de Pierre Hervelin, développeur full stack : une vitrine de
 projets façon site d'agence, une page par projet, et une page À propos. Anglais par
 défaut, français et espagnol au choix du visiteur.
 
@@ -127,6 +127,9 @@ applications. En local, `provision/.env` fournit les deux valeurs, et `nr plan` 
 
 ## Refaire des captures
 
+- **Fruggr et CarbonScore** : aucune capture, seulement les visuels que Fruggr publie
+  sur fruggr.io. Leur source et les plaques composées pour les scènes sont dans
+  `src/assets/fruggr/README.md`, à tenir à jour avec les fichiers.
 - **Abacus** : compte de démo du dépôt Abacus (`~/dev/lab/abacus`), décrit dans son
   `AGENTS.md`. Un worktree `demo-captures` (`wt switch -c demo-captures`) reçoit sa base,
   le jeu de démo et son serveur. Dans son `apps/web/.env.local`, `MCP_URL` pointe vers

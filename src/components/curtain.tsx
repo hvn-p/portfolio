@@ -78,6 +78,7 @@ export function Curtain({ labels, children }: { labels: CurtainLabels; children:
       const slug = parts[parts.indexOf('projects') + 1]
       if (parts.includes('projects') && slug) return labels.projects[slug] ?? labels.home
       if (parts.includes('about')) return labels.about
+      if (parts.includes('work')) return labels.work
       return url.hash === '#work' ? labels.work : labels.home
     },
     [labels],

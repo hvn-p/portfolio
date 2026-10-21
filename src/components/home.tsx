@@ -34,7 +34,6 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
         <div className="grid justify-items-start gap-[1.1rem] pb-2 short:gap-3">
           <Availability text={site.availability} />
           <p className="m-0 text-[0.9375rem] text-ink-muted">
-            {site.location}
             <Clock suffix={site.localTime} />
           </p>
           <p className="m-0 max-w-[44ch] text-[1rem] leading-[1.5] text-pretty text-ink-muted shorter:hidden">
@@ -58,18 +57,20 @@ export function Hero({ t, site }: { t: Content['home']; site: Content['site'] })
 
 const counter = (k: number, n: number) => `${String(k).padStart(2, '0')} / ${String(n).padStart(2, '0')}`
 
-// One scene per project: its screenshots, then its label (scenes.css).
+// One scene per project shown on the home page: its screenshots, then its label
+// (scenes.css). The link to every project follows.
 export function Scenes({
   lang,
   t,
   site,
-  projects,
+  projects: all,
 }: {
   lang: Locale
   t: Content['home']
   site: Content['site']
   projects: Project[]
 }) {
+  const projects = all.flatMap(({ scene, ...project }) => (scene ? [{ ...project, scene }] : []))
   return (
     <section id="work" aria-labelledby="work-title" className="pt-[clamp(5rem,14*var(--vh,1vh),10rem)]">
       <div className="wrap">
@@ -105,11 +106,11 @@ export function Scenes({
                   </h3>
                   <p className="scene-sub">
                     <span>{counter(k + 1, projects.length)}</span>
-                    <span>{project.scene.kind}</span>
-                    <span>{project.scene.year}</span>
+                    <span>{project.kind}</span>
+                    <span>{project.when}</span>
                   </p>
                   <div className="scene-details">
-                    <p className="scene-line">{project.scene.line}</p>
+                    <p className="scene-line">{project.line}</p>
                     <p className="scene-facts">{project.scene.facts}</p>
                     <Link href={href} className={link.text}>
                       <Roll text={site.openCaseStudy} /> <Icon name="right" />
@@ -125,6 +126,11 @@ export function Scenes({
           )
         })}
       </ol>
+      <div className="rv-fade wrap flex justify-end pt-[clamp(2.5rem,5vw,4rem)]">
+        <Link href={localePath(lang, '/work')} className={link.text}>
+          <Roll text={t.allWork} /> <Icon name="right" />
+        </Link>
+      </div>
       <ScenesMotion />
       <Lens label={site.openProject} />
     </section>

@@ -12,7 +12,7 @@ export function NotFoundPage({ lang, t }: { lang: Locale; t: Content['site'] }) 
     <main id="main" className="pt-(--bar-h) pb-20">
       <PageHead title={t.notFound.title} lede={t.notFound.text} />
       <div className="wrap">
-        <Link href={localePath(lang, '/#work')} className={link.text}>
+        <Link href={localePath(lang, '/work')} className={link.text}>
           <Roll text={t.notFound.back} /> <Icon name="right" />
         </Link>
       </div>

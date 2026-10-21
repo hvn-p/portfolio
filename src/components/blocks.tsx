@@ -1,5 +1,5 @@
 import { getImageProps, type StaticImageData } from 'next/image'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { links } from '@/content/links'
 import type { Capability, Content, Row } from '@/content/types'
 import { Icon } from './icons'
@@ -21,6 +21,7 @@ export function Screenshot({
   eager = false,
   lens = false,
   className,
+  style,
 }: {
   image: StaticImageData
   alt: string
@@ -28,6 +29,7 @@ export function Screenshot({
   eager?: boolean
   lens?: boolean
   className?: string
+  style?: CSSProperties
 }) {
   const { props } = getImageProps({ src: image, alt, sizes, quality: 90, loading: eager ? 'eager' : 'lazy' })
   return (
@@ -40,6 +42,7 @@ export function Screenshot({
       alt={alt}
       data-full={lens ? image.src : undefined}
       className={className}
+      style={{ ...props.style, ...style }}
     />
   )
 }
@@ -146,6 +149,7 @@ export function Contact({ t }: { t: Content['site'] }) {
       <h2 id="contact-title" className="rv-title col-start-1 m-0 max-w-[14ch] text-display text-balance">
         <Rise text={t.contact.title} />
       </h2>
+      <p className="rv-fade col-start-1 mt-5 mb-0 text-[0.9375rem] text-ink-quiet">{t.contact.aside}</p>
       <div className="rv-fade col-start-1 mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
         <Magnetic href={links.linkedin} className={button.large}>
           <Roll text={t.getInTouch} /> <Icon name="arrow" />

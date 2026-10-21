@@ -7,6 +7,9 @@ export type GalleryRow =
   | { layout: 'two-up'; shots: [Shot, Shot] }
   // A desktop capture beside a narrow mobile one.
   | { layout: 'device-pair'; shots: [Shot, Shot] }
+  // A visual that is not a screen capture, a composite on a transparent ground: whole on
+  // the surface, at no more than `width` CSS pixels, with its caption below.
+  | { layout: 'plate'; shot: Shot; width: number; caption: string }
 
 export type Section =
   | { kind: 'gallery'; rows: GalleryRow[] }
@@ -14,7 +17,7 @@ export type Section =
 
 export type Fact = { label: string; value: string; href?: string }
 
-export type ProjectSlug = 'estuaire' | 'abacus'
+export type ProjectSlug = 'fruggr' | 'carbonscore' | 'abacus' | 'estuaire' | 'baudrier' | 'orchestrator'
 
 export type Project = {
   slug: ProjectSlug
@@ -24,11 +27,16 @@ export type Project = {
   facts: Fact[]
   sections: Section[]
   next: ProjectSlug
-  // How the project appears among the home page scenes.
-  scene: {
-    kind: string
-    year: string
-    line: string
+  // How the project is labelled on the Work page and in its home page scene: what it
+  // is, when (a period or 'In progress'), and one line about it.
+  kind: string
+  when: string
+  line: string
+  // Its frame on the Work page: a screenshot, or for a project without a picture, a
+  // sentence on the surface.
+  tile: { image: StaticImageData } | { text: string }
+  // Its home page scene, for the projects shown there.
+  scene?: {
     facts: string
     shots: { image: StaticImageData; caption: string }[]
   }
@@ -60,13 +68,13 @@ export type Content = {
     // Each language named in itself.
     languages: { label: string; names: Record<'en' | 'fr' | 'es', string> }
     availability: string
-    location: string
-    // The role search engines read in the structured data.
+    // The role, in the footer and in the structured data.
     jobTitle: string
     localTime: string
     // {year} is the current year.
     footer: { copyright: string; backToTop: string; source: string }
-    contact: { title: string; github: string; linkedin: string }
+    // aside: the quiet line under the call, for freelance engagements.
+    contact: { title: string; aside: string; github: string; linkedin: string }
     work: string
     nextProject: string
     openCaseStudy: string
@@ -85,13 +93,17 @@ export type Content = {
     selectedWork: string
     workTitle: string
     projectCount: string
+    // The link from the scenes to the Work page.
+    allWork: string
     about: { title: string; text: string; link: string; capabilities: Capability[] }
   }
+  // In the order of the Work page; the home page shows those with a scene.
   projects: Record<ProjectSlug, Project>
+  work: { meta: { title: string; description: string }; title: string; lede: string; gridLabel: string }
   about: {
     meta: { title: string; description: string }
     title: string
-    // {age} is worked out from today's date.
+    // {age}, if written, is worked out from today's date.
     lede: string
     skills: { title: string; capabilities: Capability[] }
     experience: { title: string; since: string; indexLabel: string; roles: Role[] }

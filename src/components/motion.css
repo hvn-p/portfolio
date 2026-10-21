@@ -190,6 +190,25 @@
     top: 0;
     max-width: none;
   }
+  /* Over a frame without a picture, a copy of the frame is magnified instead. */
+  .lens-copy {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    display: none;
+  }
+  .lens-copy > .frame {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .lens.is-copy .lens-view img {
+    display: none;
+  }
+  .lens.is-copy .lens-copy {
+    display: block;
+  }
   .lens-ring {
     position: absolute;
     inset: 0;

@@ -283,7 +283,7 @@
       "name": "Availability",
       "kind": "chip",
       "description": "Statut de disponibilité, le seul vert du site.",
-      "html": "<p class=\"ds-status\"><span></span>Open to freelance missions</p>",
+      "html": "<p class=\"ds-status\"><span></span>Open to new opportunities</p>",
       "css": ".ds-status { display: inline-flex; align-items: center; gap: 0.7rem; margin: 0; color: #EDEBE6; font: 400 0.9375rem 'Schibsted Grotesk', sans-serif; } .ds-status span { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #5BD68A; box-shadow: 0 0 0 0 rgba(91, 214, 138, 0.6); animation: ds-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite; } @keyframes ds-pulse { to { box-shadow: 0 0 0 0.55rem rgba(91, 214, 138, 0); } }"
     },
     {
