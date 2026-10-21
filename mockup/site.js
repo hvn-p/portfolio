@@ -23,7 +23,7 @@
   const curtainLabel = curtain?.querySelector(".curtain-label span");
   const labelFor = (url) => {
     const file = url.pathname.split("/").pop().replace(".html", "") || "index";
-    return { index: url.hash === "#work" ? "Work" : "Pierre Hervelin", about: "About", estuaire: "Estuaire", abacus: "Abacus" }[file] ?? "Pierre Hervelin";
+    return { index: url.hash === "#work" ? "Work" : "Pierre Hervelin", work: "Work", about: "About", fruggr: "Fruggr", carbonscore: "CarbonScore", abacus: "Abacus", estuaire: "Estuaire", baudrier: "baudrier", orchestrator: "orchestrator" }[file] ?? "Pierre Hervelin";
   };
   if (root.classList.contains("curtain-in")) {
     try { sessionStorage.removeItem("curtain"); } catch {}
@@ -112,7 +112,7 @@
   if ("IntersectionObserver" in window) {
     const pending = new Set();
     const inOrder = (els) => [...els].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
-    for (const el of document.querySelectorAll(".crumb, .case-head .lede, .work-head .count, .split > div > p, .split .text-link, .split .elsewhere, .capabilities li, .mini-list li, .facts > div, .case-text p, .case-text li, .exp-entry :is(.when, .what, li, .stack), .contact-row, .next-project .label, .footer > *")) {
+    for (const el of document.querySelectorAll(".crumb, .case-head .lede, .work-head .count, .split > div > p, .split .text-link, .split .elsewhere, .capabilities li, .mini-list li, .facts > div, .case-text p, .case-text li, .exp-entry :is(.when, .what, li, .stack), .contact-aside, .contact-row, .work-grid > li, .all-work, .next-project .label, .footer > *")) {
       el.classList.add("rv-fade");
       pending.add(el);
     }
@@ -256,6 +256,8 @@
         const x0 = (vw - tw) / 2, y0 = vh * 0.44 - th / 2;
         const x1 = g, y1 = fy + fh + vh * 0.032 - th * ke * 0.08;
         scene.style.setProperty("--fb", `${fy + fh}px`);
+        // The details start past the shrunk title, however long the name.
+        scene.style.setProperty("--tx", `${x1 + tw * ke + Math.max(32, vw * 0.035)}px`);
         title.style.transform = `translate3d(${x0 + (x1 - x0) * move}px, ${y0 + (y1 - y0) * move}px, 0) scale(${kt})`;
         scene.style.setProperty("--sub", (1 - clamp(move / 0.35)).toFixed(3));
         scene.querySelectorAll(".scene-details > *").forEach((el, i) => {
@@ -291,11 +293,11 @@
   addEventListener("resize", request);
   bar?.addEventListener("focusin", () => bar.classList.remove("is-hidden"));
 
-  // Local time in Bilbao, next to the availability.
+  // Local time, next to the availability. The city stays off the site (PRODUCT.md).
   const clock = document.querySelector(".clock");
   if (clock) {
     const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Madrid", hour: "2-digit", minute: "2-digit" });
-    const tick = () => { clock.textContent = ` · ${fmt.format(new Date())} local time`; };
+    const tick = () => { clock.textContent = `${fmt.format(new Date())} local time`; };
     tick();
     setInterval(tick, 20000);
   }
@@ -663,7 +665,8 @@
     });
   }
 
-  // Signature interaction: a lens replaces the cursor over project screenshots.
+  // Signature interaction: a lens replaces the cursor over project screenshots. Over a frame
+  // without a picture (a project shown by its description), it magnifies a copy of the frame.
   const lensFrames = document.querySelectorAll(".project-link .frame, .project-link .shot");
   if (!lensFrames.length) return;
   root.classList.add("has-lens");
@@ -673,7 +676,7 @@
   lens.setAttribute("aria-hidden", "true");
   lens.innerHTML = `
     <div class="lens-body">
-      <div class="lens-view"><img alt=""></div>
+      <div class="lens-view"><img alt=""><div class="lens-copy"></div></div>
       <svg class="lens-ring" viewBox="0 0 208 208">
         <defs><path id="lens-path" d="M104,104 m-94,0 a94,94 0 1,1 188,0 a94,94 0 1,1 -188,0"/></defs>
         <text><textPath href="#lens-path" textLength="590" lengthAdjust="spacing"></textPath></text>
@@ -682,6 +685,7 @@
   document.body.append(lens);
   const view = lens.querySelector(".lens-view");
   const zoomed = view.querySelector("img");
+  const copy = view.querySelector(".lens-copy");
   const label = lens.querySelector("textPath");
   const ZOOM = 1.9;
 
@@ -702,11 +706,19 @@
     cy += (y - cy) * 0.24;
     lens.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
     if (active) {
-      const b = pictureBox(active.querySelector("img"));
+      const img = active.querySelector("img");
       const half = view.clientWidth / 2;
-      zoomed.style.width = `${b.width * ZOOM}px`;
-      zoomed.style.height = `${b.height * ZOOM}px`;
-      zoomed.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0)`;
+      if (img) {
+        const b = pictureBox(img);
+        zoomed.style.width = `${b.width * ZOOM}px`;
+        zoomed.style.height = `${b.height * ZOOM}px`;
+        zoomed.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0)`;
+      } else {
+        const b = active.getBoundingClientRect();
+        copy.style.width = `${b.width}px`;
+        copy.style.height = `${b.height}px`;
+        copy.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0) scale(${ZOOM})`;
+      }
     }
     const moving = Math.abs(x - cx) > 0.1 || Math.abs(y - cy) > 0.1;
     raf = active || moving ? requestAnimationFrame(loop) : 0;
@@ -729,8 +741,14 @@
     }
     // The visible screenshot can change under a still pointer as a scene advances.
     const img = target.querySelector("img");
-    const src = img.currentSrc || img.src;
-    if (zoomed.src !== src) zoomed.src = src;
+    lens.classList.toggle("is-copy", !img);
+    if (img) {
+      const src = img.currentSrc || img.src;
+      if (zoomed.src !== src) zoomed.src = src;
+    } else if (copy.dataset.of !== target.closest(".project-link")?.href) {
+      copy.dataset.of = target.closest(".project-link")?.href ?? "";
+      copy.replaceChildren(target.cloneNode(true));
+    }
     if (!raf) raf = requestAnimationFrame(loop);
   };
 

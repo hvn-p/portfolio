@@ -26,7 +26,7 @@ export function sectionOf(pathname: string): 'home' | 'work' | 'about' | null {
   const parts = pathname.split('/').filter(Boolean)
   if (parts[0] && hasLocale(parts[0])) parts.shift()
   if (parts.length === 0) return 'home'
-  if (parts[0] === 'projects') return 'work'
+  if (parts[0] === 'work' || parts[0] === 'projects') return 'work'
   if (parts[0] === 'about') return 'about'
   return null
 }

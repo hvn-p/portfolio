@@ -6,7 +6,7 @@ import { ogAlt, ogImage, ogSize } from '@/og'
 export const alt = ogAlt
 export const size = ogSize
 export const contentType = 'image/png'
-// The lede carries the age: regenerated daily, like the page.
+// The lede can carry the age: regenerated daily, like the page.
 export const revalidate = 86400
 
 // Rendered at build time, once per language.

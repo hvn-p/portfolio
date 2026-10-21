@@ -6,7 +6,7 @@ import { siteUrl } from '@/site'
 // Every page in every language, each entry pointing to its translations.
 export default function sitemap(): MetadataRoute.Sitemap {
   const slugs = Object.keys(getContent(defaultLocale).projects)
-  const paths = ['/', '/about', ...slugs.map((slug) => `/projects/${slug}`)]
+  const paths = ['/', '/work', '/about', ...slugs.map((slug) => `/projects/${slug}`)]
   const url = (path: string) => new URL(path, siteUrl).toString()
   return paths.flatMap((path) =>
     locales.map((lang) => ({

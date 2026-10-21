@@ -6,6 +6,9 @@ export const links = {
   githubPersonal: 'https://github.com/payangar-dev',
   modrinth: 'https://modrinth.com/user/Payangar',
   curseforge: 'https://www.curseforge.com/members/payangar_dev',
+  baudrier: 'https://github.com/hvn-p/baudrier',
+  orchestrator: 'https://github.com/hvn-p/orchestrator',
+  fruggrAiGovernance: 'https://www.fruggr.io/en/ai-governance/',
   // This site's own source.
   source: 'https://github.com/hvn-p/portfolio',
 }

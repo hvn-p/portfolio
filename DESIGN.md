@@ -106,16 +106,16 @@ components:
 
 **Creative North Star: "La maquette fait foi, pixel par pixel"**
 
-La référence de ce système n'est pas une métaphore : c'est la maquette validée par Pierre le 2026-09-30, dans `mockup/` (`styles.css`, `site.js`, les quatre pages). Toute implémentation, en Next.js ou ailleurs, reproduit ce rendu exactement, composant par composant et mouvement par mouvement. Quand ce document et la maquette divergent, la maquette gagne ; quand un cas n'y figure pas, on l'étend dans sa grammaire, on n'en invente pas une autre.
+La référence de ce système n'est pas une métaphore : c'est la maquette validée par Pierre le 2026-09-30, dans `mockup/` (`styles.css`, `site.js`, ses pages). Toute implémentation, en Next.js ou ailleurs, reproduit ce rendu exactement, composant par composant et mouvement par mouvement. Quand ce document et la maquette divergent, la maquette gagne ; quand un cas n'y figure pas, on l'étend dans sa grammaire, on n'en invente pas une autre.
 
 Le monde est une vitrine de projets sombre et sobre, au niveau de finition de trois sites d'agence cités par Pierre (hello-superchouette.com, sobha-privy-collection.com, gilhuybrecht.com). Le fond est presque noir, l'interface se tient en retrait, et la seule couleur vient des captures des projets. Le mouvement est la signature : chaque interaction répond, mais rien ne bouge sans raison.
 
-Refusé et à ne pas réintroduire : une palette colorée (la v1 en outremer et vermillon), le CV interactif comme forme principale, les projets présentés en cartes, le texte posé au-dessus des images ou sur une image dès l'arrivée d'une scène, les halos lumineux en fond.
+Refusé et à ne pas réintroduire : une palette colorée (la v1 en outremer et vermillon), le CV interactif comme forme principale, les projets présentés en cartes, le texte posé au-dessus des images ou sur une image dès l'arrivée d'une scène, les halos lumineux en fond, et un projet qui dépend d'une image pour se présenter.
 
 **Key Characteristics:**
 - Fond presque noir, encres chaudes à trois niveaux, filets très discrets.
 - Une seule famille, Schibsted Grotesk, du texte courant jusqu'au nom, qui la porte en graisse 800.
-- Les projets occupent l'écran en grand ; le texte ne fait qu'étiqueter.
+- Sur l'accueil, trois projets occupent l'écran en grand et le texte ne fait qu'étiqueter. La page Work les montre tous ; un projet sans image s'y présente par une phrase.
 - Des micro-interactions précises : un réticule pour curseur, lettres qui roulent, flèches qui s'échangent, loupe sur les captures, eau de nuit que la souris trouble.
 - Des transitions de page qui couvrent, nomment la destination, puis se lèvent.
 
@@ -127,7 +127,7 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 - **Encre chaude** (ink) : tout le texte principal, le fond des boutons, le focus visible. Contraste 16:1 sur le fond.
 
 ### Secondary
-- **Vert statut** (status-online) : uniquement le point « Open to freelance missions », qui pulse comme un statut en ligne. C'est un état, pas une décoration.
+- **Vert statut** (status-online) : uniquement le point « Open to new opportunities », qui pulse comme un statut en ligne. C'est un état, pas une décoration.
 
 ### Neutral
 - **Fond d'encre** (ground) : le fond de toutes les pages et de la barre du haut une fois défilée (à 94 % d'opacité).
@@ -150,9 +150,9 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 **Character:** un grotesque d'actualité, net et un peu serré en grand corps. Le nom en prend la graisse la plus appuyée (800) : c'est lui qui signe.
 
 ### Hierarchy
-- **Display** (600, clamp(2.75rem, 6.4vw, 6rem), 1.02) : titres de page, « Selected work », « Have a mission in mind? ».
+- **Display** (600, clamp(2.75rem, 6.4vw, 6rem), 1.02) : titres de page, « Work », « Hiring? Let's talk. ».
 - **Statement** (600, clamp(2.6rem, 5.2vw, 6rem), 1.02) : l'accroche du hero, dont les derniers mots tournent. Sous 390px de large, elle suit la largeur de l'écran pour que la plus longue phrase tournante tienne sur une ligne.
-- **Headline** (600, clamp(2.75rem, 7vw, 6rem), 0.92) : titres de projet dans les scènes ; en scène épinglée il part de clamp(6rem, 16vw, 17rem) et se réduit à 68 px au plus.
+- **Headline** (600, clamp(2.75rem, 7vw, 6rem), 0.92) : titres de projet dans les scènes ; en scène épinglée il part de clamp(5rem, 12vw, 13rem) et se réduit à 68 px au plus.
 - **Title** (600, clamp(2rem, 3.4vw, 3rem), 1.05) : entreprises du parcours.
 - **Section** (600, clamp(1.5rem, 2.4vw, 2rem), 1.15) : titres de section secondaires.
 - **Lede** (400, clamp(1.125rem, 1.6vw, 1.375rem), 1.5) : chapeaux, 44 à 52 caractères de large au plus.
@@ -169,10 +169,11 @@ Une palette neutre et chaude sur un noir teinté ; la couleur appartient aux pro
 Un conteneur de 90rem centré, avec une gouttière fluide (clamp(1.25rem, 4vw, 4rem)). La barre du haut fait 5rem (4.25rem sous 48rem).
 
 - **Hero** : toute la hauteur de l'écran moins la barre ; sur un écran tactile, celle de l'arrivée, qui ne suit pas les barres d'outils repliées au défilement. L'accroche et la colonne de disponibilité sont regroupées en bas, juste au-dessus du nom en pleine largeur, puis une ligne de pied (« Scroll to see the work »). Sur un téléphone trop court pour ce dessin (moins de 736px de haut, mesurés à l'arrivée), espacements et accroche se resserrent, et sous 620px la phrase d'introduction quitte le hero : le nom reste sur le premier écran.
-- **Scènes de projet** : une par projet, 380vh de défilement, dont l'écran reste épinglé. Le cadre d'image mesure la largeur du conteneur moins les gouttières, et 70 % de la hauteur d'écran au plus, plafonné à la hauteur réelle de la capture (ratio 16:10). Sur un écran haut, le bloc cadre et étiquette se centre verticalement. L'étiquette (titre, description, fiche, lien) vit sous le cadre, jamais au-dessus. Sans épinglage (sous 56rem, ou en mouvement réduit), les scènes se suivent et chacune commence par le nom et le numéro du projet, puis ses captures, puis la description, la fiche et le lien : ses captures ne se lisent jamais comme celles du projet précédent. Sous 56rem, ses captures forment une bande qu'on fait glisser à l'horizontale, d'un bord de l'écran à l'autre et sans barre de défilement : chacune prend 85 % de la largeur et s'arrête net, la suivante dépasse au bord. Sur grand écran en mouvement réduit, elles restent l'une sous l'autre.
-- **Pages projet** : en-tête, bande de faits en grille automatique (colonnes de 11rem au moins), galerie en pleine largeur, en deux colonnes, ou en paire bureau et mobile.
+- **Scènes de projet** : sur l'accueil, une par projet mis en avant (trois, dans l'ordre de PRODUCT.md), 380vh de défilement, dont l'écran reste épinglé. Le cadre d'image mesure la largeur du conteneur moins les gouttières, et 70 % de la hauteur d'écran au plus, plafonné à la hauteur réelle de la capture (ratio 16:10). Sur un écran haut, le bloc cadre et étiquette se centre verticalement. L'étiquette (titre, description, fiche, lien) vit sous le cadre, jamais au-dessus. La description, la fiche et le lien commencent après le titre réduit, à 30vw du bord au moins : un nom long comme CarbonScore ne les chevauche jamais. Sans épinglage (sous 56rem, ou en mouvement réduit), les scènes se suivent et chacune commence par le nom et le numéro du projet, puis ses captures, puis la description, la fiche et le lien : ses captures ne se lisent jamais comme celles du projet précédent. Sous 56rem, ses captures forment une bande qu'on fait glisser à l'horizontale, d'un bord de l'écran à l'autre et sans barre de défilement : chacune prend 85 % de la largeur et s'arrête net, la suivante dépasse au bord. Sur grand écran en mouvement réduit, elles restent l'une sous l'autre. Après les scènes, un lien texte « All six projects », aligné à droite, mène à la page Work.
+- **Page Work** : en-tête de page (« Work » en display, un chapeau), puis tous les projets dans l'ordre de PRODUCT.md, sur une grille de deux colonnes (une sous 48rem), avec clamp(3rem, 6vw, 5rem) entre les rangées et clamp(1.25rem, 3vw, 2.5rem) entre les colonnes. Chaque projet est un lien entier : un cadre 16:10, puis son nom (600, clamp(1.75rem, 3.2vw, 2.75rem), 1.1), son type et ses années alignés à droite (sous le nom en dessous de 48rem), et une phrase sur toute la largeur.
+- **Pages projet** : en-tête, bande de faits en grille automatique (colonnes de 11rem au moins), galerie en pleine largeur, en deux colonnes, ou en paire bureau et mobile. Un visuel qui n'est pas une capture (une composition marketing sur fond transparent) se pose entier sur un plateau : le cadre en surface, une marge de clamp(1.5rem, 5vw, 4.5rem), l'image à sa taille au plus, à une densité de 1.5, et sa légende dessous. Une page sans image tient sur ses sections de texte.
 - **À propos** : grille 1fr / 2fr ; index de l'expérience fixe à gauche, entrées à droite.
-- **Points de rupture** : 48rem (barre mobile, grilles en une colonne), 56rem (fin de l'épinglage des scènes, début de la bande de captures), 80rem (sources et stack en colonne dédiée).
+- **Points de rupture** : 48rem (barre mobile, grilles en une colonne, dont celle de la page Work), 56rem (fin de l'épinglage des scènes, début de la bande de captures), 80rem (sources et stack en colonne dédiée).
 
 ## Elevation & Depth
 
@@ -216,10 +217,15 @@ Des angles doux et constants : 14px pour les cadres d'images, 16px pour le cadre
 
 ### Frames and lens
 - **Cadre :** surface, 14px, image en `object-fit: cover` calée en haut, contour intérieur en filet.
-- **Loupe :** au-dessus d'une capture de projet, le réticule devient une loupe de 13rem, qui part de la taille de son anneau, suit le pointeur avec un lissage (facteur 0.24 par image), grossit ×1.9 et porte un anneau de texte tournant (« Open project · nom · », 16s par tour) sur une couronne sombre. Pointeur précis uniquement.
+- **Cadre sans image :** sur la page Work, un projet qui n'a pas d'image (baudrier, orchestrator) porte dans son cadre une phrase sur la surface, en 600, clamp(1.25rem, 2.1vw, 1.875rem), 24 caractères de large au plus, calée en bas à gauche avec une marge de clamp(1.5rem, 3vw, 2.5rem). Elle est masquée aux lecteurs d'écran : la phrase du projet est dite sous le cadre.
+- **Loupe :** au-dessus d'une capture de projet, le réticule devient une loupe de 13rem, qui part de la taille de son anneau, suit le pointeur avec un lissage (facteur 0.24 par image), grossit ×1.9 et porte un anneau de texte tournant (« Open project · nom · », 16s par tour) sur une couronne sombre. Elle vit sur les captures des scènes et sur tous les cadres de la page Work ; au-dessus d'un cadre sans image, elle grossit une copie du cadre. Pointeur précis uniquement.
 
 ### Project scenes
 Le titre seul et très grand au centre ; au défilement il rétrécit et descend à sa place d'étiquette pendant que la capture s'ouvre au-dessus depuis une ligne médiane, en léger dézoom ; puis la description, la fiche et le lien arrivent, puis les captures suivantes montent en volet, chacune descendant lentement le long de sa page. Légende et compteur (« 2 / 3 ») sous le cadre, à droite. À la molette, le défilement glisse au lieu d'avancer par crans, pour que la scène suive une souris comme un pavé tactile.
+- **Images des scènes :** des captures 16:10 de 2400 × 1500. Fruggr et CarbonScore n'ont que des visuels marketing sur fond transparent : ils sont composés sur un plateau de 2400 × 1500 en couleur de surface (#161618), pour que la scène les ouvre comme une capture. Leur provenance est dans `mockup/assets/fruggr/README.md`.
+
+### Work page
+- **Survol :** le nom du projet glisse de 1.05em vers la droite pour laisser entrer une flèche (0.6s) ; sur le cadre, la loupe prend le relais du réticule.
 
 ### Page transition
 Un volet couvre la page (bande d'encre en tête, puis panneau de surface, 0.55s), affiche la destination en très grand avec un filet de chargement, puis se lève sur la nouvelle page (0.75s). La navigation ne part qu'à la fin réelle de la fermeture ; le volet passe alors dans un état fermé figé. Dans l'implémentation Next.js, le volet est piloté par le routeur, sans rechargement de document.
@@ -230,11 +236,11 @@ La page se construit à mesure qu'elle entre à l'écran. Les filets se tracent 
 ### Signature details
 - **Hero :** les lettres du nom montent une à une à chaque arrivée sur l'accueil, rechargement compris, et pendant que le volet se lève quand on y revient par un lien du site ; puis elles s'enfoncent sous la ligne de base au défilement.
 - **Accroche :** « I build AI systems. / with AI. / end to end. » tourne toutes les 2.8s.
-- **Disponibilité :** point vert qui pulse, à côté de l'heure locale de Bilbao en direct.
+- **Disponibilité :** point vert qui pulse, à côté de l'heure locale en direct, sans ville ni pays (PRODUCT.md).
 - **Expérience :** index fixe qui suit la lecture avec un filet de progression, grandes années en contour qui défilent en parallaxe derrière le texte.
 - **Pied de page :** « Back to top » au centre, avec défilement doux.
 - **Eau de nuit :** au-dessus de l'accroche, une eau vue de dessus sous la lune, dessinée sur une trame de traits courts (9 × 7 px) en encre. De grands reflets dérivent et changent de forme ; seuls les traits qu'ils couvrent s'allument, à 45 % d'opacité au plus. Le geste de la souris trouble les traits sur son passage : ils captent plus de lumière, s'étirent dans son sens et sont poussés devant lui, d'autant plus large et plus loin qu'il va vite, puis se reposent en une seconde environ. L'eau tient toute la largeur de l'écran, de juste sous les liens de la barre jusqu'à derrière la première ligne de l'accroche, où elle s'efface. Elle est fixe : l'accroche la recouvre en montant. La souris ne la trouble qu'en haut de page. Sur un écran tactile, l'eau est là, sans réaction au doigt.
-- **Cadre d'eau :** la même eau dans un cadre 16:10 à droite de « Have a mission in mind? », coupée net à ses bords, sur les écrans larges avec une souris seulement.
+- **Cadre d'eau :** la même eau dans un cadre 16:10 à droite de « Hiring? Let's talk. », coupée net à ses bords, sur les écrans larges avec une souris seulement.
 
 ## Do's and Don'ts
 
@@ -242,6 +248,7 @@ La page se construit à mesure qu'elle entre à l'écran. Les filets se tracent 
 - **Do** reproduire la maquette `mockup/` au pixel près ; en cas de doute, ouvrir la page et mesurer.
 - **Do** laisser la couleur aux captures des projets et garder l'interface dans les encres et filets.
 - **Do** garder le texte d'une scène de projet sous l'image ; seuls le nom et le numéro du projet passent avant ses captures, et seulement sans épinglage.
+- **Do** faire tenir chaque projet sans image : sur la page Work, son cadre porte une phrase, et sa page tient sur ses sections de texte.
 - **Do** donner à chaque mouvement une alternative en mouvement réduit : pas de réticule, pas de loupe, pas d'épinglage, pas d'eau, fondus à la place des déplacements.
 - **Do** tenir le contraste du texte à 4.5:1 au moins, y compris pour les légendes.
 

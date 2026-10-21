@@ -7,8 +7,13 @@ export const APP_URL = 'http://localhost:3917'
 // Each app route and the mockup page it must reproduce.
 export const pages = [
   { name: 'home', mockup: '/index.html', app: '/' },
-  { name: 'estuaire', mockup: '/projects/estuaire.html', app: '/projects/estuaire' },
+  { name: 'work', mockup: '/work.html', app: '/work' },
+  { name: 'fruggr', mockup: '/projects/fruggr.html', app: '/projects/fruggr' },
+  { name: 'carbonscore', mockup: '/projects/carbonscore.html', app: '/projects/carbonscore' },
   { name: 'abacus', mockup: '/projects/abacus.html', app: '/projects/abacus' },
+  { name: 'estuaire', mockup: '/projects/estuaire.html', app: '/projects/estuaire' },
+  { name: 'baudrier', mockup: '/projects/baudrier.html', app: '/projects/baudrier' },
+  { name: 'orchestrator', mockup: '/projects/orchestrator.html', app: '/projects/orchestrator' },
   { name: 'about', mockup: '/about.html', app: '/about' },
 ] as const
 

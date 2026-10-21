@@ -179,6 +179,8 @@ export function ScenesMotion() {
         const x1 = g
         const y1 = fy + fh + vh * 0.032 - th * ke * 0.08
         scene.style.setProperty('--fb', `${fy + fh}px`)
+        // The details start past the shrunk title, however long the name.
+        scene.style.setProperty('--tx', `${x1 + tw * ke + Math.max(32, vw * 0.035)}px`)
         title.style.transform = `translate3d(${x0 + (x1 - x0) * move}px, ${y0 + (y1 - y0) * move}px, 0) scale(${kt})`
         scene.style.setProperty('--sub', (1 - clamp(move / 0.35)).toFixed(3))
         scene.querySelectorAll<HTMLElement>('.scene-details > *').forEach((el, i) => {
@@ -219,12 +221,14 @@ export function ScenesMotion() {
   return null
 }
 
-// Signature interaction: a lens replaces the cursor over project screenshots.
+// Signature interaction: a lens replaces the cursor over project screenshots. Over a frame
+// without a picture (a project shown by its description), it magnifies a copy of the frame.
 export function Lens({ label }: { label: string }) {
   const [on, setOn] = useState(false)
   const lens = useRef<HTMLDivElement>(null)
   const view = useRef<HTMLDivElement>(null)
   const zoomed = useRef<HTMLImageElement>(null)
+  const copy = useRef<HTMLDivElement>(null)
   const ring = useRef<SVGTextPathElement>(null)
 
   useEffect(() => {
@@ -240,8 +244,9 @@ export function Lens({ label }: { label: string }) {
     const el = lens.current
     const lensView = view.current
     const img = zoomed.current
+    const copied = copy.current
     const text = ring.current
-    if (!on || !el || !lensView || !img || !text) return
+    if (!on || !el || !lensView || !img || !copied || !text) return
     const ZOOM = 1.9
 
     // Where the picture actually sits inside its box, since frames crop with object-fit: cover.
@@ -264,13 +269,20 @@ export function Lens({ label }: { label: string }) {
       cx += (x - cx) * 0.24
       cy += (y - cy) * 0.24
       el.style.transform = `translate3d(${cx}px, ${cy}px, 0)`
-      const picture = active?.querySelector('img')
-      if (picture) {
-        const b = pictureBox(picture)
+      if (active) {
+        const picture = active.querySelector('img')
         const half = lensView.clientWidth / 2
-        img.style.width = `${b.width * ZOOM}px`
-        img.style.height = `${b.height * ZOOM}px`
-        img.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0)`
+        if (picture) {
+          const b = pictureBox(picture)
+          img.style.width = `${b.width * ZOOM}px`
+          img.style.height = `${b.height * ZOOM}px`
+          img.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0)`
+        } else {
+          const b = active.getBoundingClientRect()
+          copied.style.width = `${b.width}px`
+          copied.style.height = `${b.height}px`
+          copied.style.transform = `translate3d(${half - (cx - b.left) * ZOOM}px, ${half - (cy - b.top) * ZOOM}px, 0) scale(${ZOOM})`
+        }
       }
       const moving = Math.abs(x - cx) > 0.1 || Math.abs(y - cy) > 0.1
       raf = active || moving ? requestAnimationFrame(loop) : 0
@@ -289,7 +301,10 @@ export function Lens({ label }: { label: string }) {
         active?.classList.remove('is-lensed')
         const entering = !active
         active = target
-        const name = target.dataset.name ?? ''
+        const name =
+          target.dataset.name ??
+          target.closest('.project-link')?.querySelector('.project-title')?.textContent?.trim() ??
+          ''
         text.textContent = `${label} · ${name} · ${label} · ${name} · `
         target.classList.add('is-lensed')
         el.classList.add('is-on')
@@ -300,8 +315,17 @@ export function Lens({ label }: { label: string }) {
       }
       // The visible screenshot can change under a still pointer as a scene advances.
       const picture = target.querySelector('img')
-      const src = picture?.dataset.full || picture?.currentSrc || picture?.src || ''
-      if (img.src !== src) img.src = src
+      el.classList.toggle('is-copy', !picture)
+      if (picture) {
+        const src = picture.dataset.full || picture.currentSrc || picture.src
+        if (img.src !== src) img.src = src
+      } else {
+        const of = target.closest<HTMLAnchorElement>('.project-link')?.href ?? ''
+        if (copied.dataset.of !== of) {
+          copied.dataset.of = of
+          copied.replaceChildren(target.cloneNode(true))
+        }
+      }
       if (!raf) raf = requestAnimationFrame(loop)
     }
 
@@ -342,6 +366,7 @@ export function Lens({ label }: { label: string }) {
         <div ref={view} className="lens-view">
           {/* biome-ignore lint/performance/noImgElement: a magnified copy of a screenshot already on the page */}
           <img ref={zoomed} alt="" />
+          <div ref={copy} className="lens-copy" />
         </div>
         <svg className="lens-ring" viewBox="0 0 208 208" aria-hidden="true">
           <defs>

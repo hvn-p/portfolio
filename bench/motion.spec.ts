@@ -121,6 +121,26 @@ const cases: Case[] = [
     },
   },
   {
+    // Over a frame without a picture, the lens magnifies a copy of the frame.
+    name: 'lens-copy',
+    page: { mockup: '/work.html', app: '/work' },
+    async *run(page) {
+      await settleReveals(page)
+      await page.waitForTimeout(800)
+      const frame = page.locator('.project-link .frame', { hasText: 'Claude Code plugin' }).first()
+      await frame.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+      await frames(page)
+      const box = await frame.boundingBox()
+      if (!box) throw new Error('no frame')
+      // Over the sentence, so the copy shows in the lens.
+      await page.mouse.move(box.x + box.width * 0.3, box.y + box.height * 0.76)
+      await page.mouse.move(box.x + box.width * 0.32, box.y + box.height * 0.78)
+      await page.waitForTimeout(1500)
+      await freeze(page, 0)
+      yield 'still'
+    },
+  },
+  {
     // The reticle at rest, closing on a link, then flattening into a caret over text.
     // Each change is frozen as soon as it starts, then the trailing ring is left to
     // catch up with the pointer before the capture.

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fruggr · Pierre Hervelin</title>
+<meta name="description" content="Three modules of Fruggr: AI Governance, Accessibility and Ecodesign.">
+<script>document.documentElement.classList.add("js");try{var c=sessionStorage.getItem("curtain");if(c){document.documentElement.classList.add("curtain-in");document.documentElement.dataset.curtain=c}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body id="top">
+<div class="curtain" aria-hidden="true"><div class="curtain-panel"><span class="curtain-label"><span></span></span><span class="curtain-bar"></span></div></div>
+<script>document.querySelector(".curtain-label span").textContent=document.documentElement.dataset.curtain||""</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-up" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></symbol>
+  <symbol id="i-github" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM3.4 6.2h2.1V13H3.4zM4.45 2.9a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM6.8 6.2h2v.95c.3-.55 1.02-1.1 2.1-1.1 2.1 0 2.6 1.3 2.6 3.05V13h-2.1V9.55c0-.82-.15-1.6-1.08-1.6-.97 0-1.42.7-1.42 1.65V13H6.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <span class="brand-slot"><a class="brand" href="../index.html" aria-label="Pierre Hervelin, home"><svg class="monogram" viewBox="0 0 132.93 100" aria-hidden="true" focusable="false"><path d="M0 100L0 0L50.35 0Q68.48 0 77.5 7.64Q86.53 15.28 86.53 30.55Q86.53 45.76 76.67 53.43Q66.8 61.11 46.88 61.11L25.07 61.11L25.07 100L0 100ZM25.07 41.87L48.54 41.87Q54.86 41.87 58.26 38.92Q61.67 35.97 61.67 30.62Q61.67 25.42 58.3 22.32Q54.93 19.24 47.99 19.24L25.07 19.24L25.07 41.87ZM45 41.87H108.86V61.11H45ZM107.86 0H132.93V100H107.86Z"/></svg></a></span>
+    <nav class="topnav" aria-label="Main">
+    <ul>
+      <li><a href="../work.html" aria-current="page">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <!-- The socials and the contact button belong together. v1 contact channel: LinkedIn. -->
+    <div class="nav-contact">
+      <ul class="socials">
+      <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221" aria-label="LinkedIn"><svg class="icon-brand" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+      <li><a href="https://github.com/hvn-p" aria-label="GitHub"><svg class="icon-brand" aria-hidden="true"><use href="#i-github"/></svg></a></li>
+    </ul>
+      <a class="button is-small" href="https://www.linkedin.com/in/pierre-hervelin-a25b60221">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" aria-pressed="true" lang="en">EN</button>
+      <button type="button" aria-pressed="false" lang="fr" disabled title="Français, bientôt">FR</button>
+      <button type="button" aria-pressed="false" lang="es" disabled title="Español, pronto">ES</button>
+    </div>
+  </nav>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="burger-lines" aria-hidden="true"><span></span><span></span></span>
+      <span class="burger-label" aria-hidden="true"><span>Menu</span><span>Close</span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+<div class="menu" id="menu" aria-label="Menu" inert>
+  <div class="wrap menu-inner">
+    <ul class="menu-links">
+      <li><a href="../work.html" aria-current="page"><span class="ml" style="--i:0">Work</span></a></li>
+      <li><a href="../about.html"><span class="ml" style="--i:1">About</span></a></li>
+      <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221"><span class="ml" style="--i:2">Get in touch</span></a></li>
+    </ul>
+    <div class="menu-foot">
+      <p class="availability"><span class="pulse" aria-hidden="true"></span>Open to new opportunities</p>
+      <ul class="socials">
+        <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221" aria-label="LinkedIn"><svg class="icon-brand" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+        <li><a href="https://github.com/hvn-p" aria-label="GitHub"><svg class="icon-brand" aria-hidden="true"><use href="#i-github"/></svg></a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" aria-pressed="true" lang="en">EN</button>
+        <button type="button" aria-pressed="false" lang="fr" disabled title="Français, bientôt">FR</button>
+        <button type="button" aria-pressed="false" lang="es" disabled title="Español, pronto">ES</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <header class="wrap case-head">
+    <p class="crumb"><a href="../work.html">Work</a> / Fruggr</p>
+    <h1 class="display">Fruggr</h1>
+    <p class="lede">Fruggr is a European SaaS suite that measures and steers the ESG impact of digital services, through modules for AI, accessibility, ecodesign, infrastructure, IT fleet and the digital workplace. I work on three of them: AI Governance, Accessibility and Ecodesign.</p>
+  </header>
+
+  <div class="wrap">
+    <dl class="facts">
+      <div><dt>Company</dt><dd>Digital4Better</dd></div>
+      <div><dt>Modules</dt><dd>AI Governance, Accessibility, Ecodesign</dd></div>
+      <div><dt>Role</dt><dd>Full-stack developer</dd></div>
+      <div><dt>Years</dt><dd>2025–now</dd></div>
+      <div><dt>Stack</dt><dd>TypeScript, React, NestJS, tRPC, GraphQL, MongoDB, Azure, Docker, OpenTelemetry, MCP</dd></div>
+      <div><dt>Visuals</dt><dd>Published by Fruggr, demo data</dd></div>
+      <div><dt>Live</dt><dd><a href="https://www.fruggr.io/en/ai-governance/">fruggr.io <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></dd></div>
+    </dl>
+    <div class="gallery">
+      <figure style="margin:0">
+        <div class="frame is-plate"><img src="../assets/fruggr/ai-efficiency.webp" width="1233" height="857" style="width:822px" loading="lazy" alt="Two screens of Fruggr&#x27;s AI efficiency view: an overall score with return on investment, costs, environment, ethics and AI Act conformity, a list of AI projects, and the detail of one project."></div>
+        <figcaption>Visual published by Fruggr, with demo data.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section class="wrap case-text" aria-labelledby="governance-title">
+    <h2 id="governance-title">AI Governance</h2>
+    <div>
+      <p>An organisation inventories its AI systems, assesses their EU AI Act compliance and its own AI maturity, runs an action plan, and measures its real use of AI. I laid the foundations of the production application and led its build; it is live with its first paying customers.</p>
+      <ul>
+        <li>The production foundations: a typed API in NestJS and tRPC, authentication shared with the rest of the suite, and every piece of data isolated per organisation.</li>
+        <li>The first business screens: the AI system registry, the maturity assessments and the action plan.</li>
+        <li>The MCP server, with OAuth 2.1, so AI assistants can work with the platform.</li>
+        <li>What makes AI usage telemetry useful: rules that tie each use to its AI system with a live preview, and production telemetry replayed on test environments so every screen holds the volume.</li>
+        <li>An access policy required on every entry point of the API, with tests that prove the isolation between organisations.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap case-text" aria-labelledby="accessibility-title">
+    <h2 id="accessibility-title">Accessibility</h2>
+    <div>
+      <p>The module audits websites against the French accessibility standard, RGAA, from a Chrome extension or a scanner, by hand or with the help of AI.</p>
+      <ul>
+        <li>The accessibility scanner, taken to production in a container: audits behind a login, hardened images, and a client token that never leaves for the audited site.</li>
+        <li>The automatic mode of the AI-assisted audit in the extension, which runs a whole audit on its own, and the extension&#x27;s releases.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap gallery">
+      <figure style="margin:0">
+        <div class="frame is-plate"><img src="../assets/fruggr/accessibility.webp" width="2044" height="1268" style="width:1363px" loading="lazy" alt="Fruggr&#x27;s accessibility view: an estimated compliance of 65 percent, the breakdown of evaluated criteria, the list of audited services and sample pages."></div>
+        <figcaption>Visual published by Fruggr, with demo data.</figcaption>
+      </figure>
+  </div>
+
+  <section class="wrap case-text" aria-labelledby="ecodesign-title">
+    <h2 id="ecodesign-title">Ecodesign</h2>
+    <div>
+      <p>The module analyses the footprint of websites and mobile apps, and their compliance with ecodesign standards.</p>
+      <ul>
+        <li>The ecodesign compliance forms, the French RGESN among them, with an engine that pre-fills criteria from each analysis.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap case-text" aria-labelledby="suite-title">
+    <h2 id="suite-title">Across the suite</h2>
+    <div>
+      <ul>
+        <li>Personal access tokens and the authentication chain that let clients&#x27; CI/CD call Fruggr, and silent single sign-on over SAML.</li>
+        <li>Administrator of the product&#x27;s Azure infrastructure, in charge of its DevOps work through to production.</li>
+        <li>Co-author of the project&#x27;s technical constitution, followed by the team and by AI agents alike, including the rule that no agent merges without a human&#x27;s approval.</li>
+        <li>Rotating customer support duty, with investigations started by an AI connected to the product&#x27;s data.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <a class="next-project" href="carbonscore.html">
+      <span class="label">Next project</span>
+      <span class="display">CarbonScore</span>
+    </a>
+  </div>
+</main>
+
+<footer class="wrap footer" style="margin-top: 5rem">
+  <span>© 2026 Pierre Hervelin · <a class="to-top" href="https://github.com/hvn-p/portfolio">Source code <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></span>
+  <a class="to-top" href="#top">Back to top <svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a>
+  <span>Full-stack developer</span>
+</footer>
+<script src="../site.js"></script>
+</body>
+</html>

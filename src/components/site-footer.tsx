@@ -19,7 +19,7 @@ export function SiteFooter({ t }: { t: Content['site'] }) {
       <a href="#top" className={`rv-fade ${footerLink}`}>
         <Roll text={t.footer.backToTop} /> <Icon name="up" />
       </a>
-      <span className="rv-fade">{t.location}</span>
+      <span className="rv-fade">{t.jobTitle}</span>
     </footer>
   )
 }

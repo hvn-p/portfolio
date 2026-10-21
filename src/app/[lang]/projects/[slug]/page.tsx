@@ -8,7 +8,7 @@ import { link } from '@/components/styles'
 import { Link } from '@/components/transition-link'
 import { getContent } from '@/content'
 import type { ProjectSlug } from '@/content/types'
-import { type Locale, localePath } from '@/i18n'
+import { defaultLocale, type Locale, localePath } from '@/i18n'
 import { pageMetadata } from '@/site'
 
 type Props = PageProps<'/[lang]/projects/[slug]'>
@@ -16,7 +16,7 @@ type Props = PageProps<'/[lang]/projects/[slug]'>
 export const dynamicParams = false
 
 export function generateStaticParams(): { slug: ProjectSlug }[] {
-  return [{ slug: 'estuaire' }, { slug: 'abacus' }]
+  return Object.values(getContent(defaultLocale).projects).map(({ slug }) => ({ slug }))
 }
 
 async function load(params: Props['params']) {
@@ -42,7 +42,7 @@ export default async function ProjectPage({ params }: Props) {
     <main id="main" className="pt-(--bar-h) pb-20">
       <PageHead title={project.name} lede={project.lede}>
         <p className="rv-fade mt-0 mb-6 text-[0.9375rem] text-ink-quiet">
-          <Link href={localePath(lang, '/#work')} className={link.crumb}>
+          <Link href={localePath(lang, '/work')} className={link.crumb}>
             {site.work}
           </Link>{' '}
           / {project.name}

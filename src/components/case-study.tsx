@@ -48,9 +48,7 @@ function Frame({
   className?: string
 }) {
   return (
-    <figure
-      className={`frame relative m-0 overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)] ${className}`}
-    >
+    <figure className={`${frameClass} ${className}`}>
       <Screenshot
         image={shot.image}
         alt={shot.alt}
@@ -62,10 +60,34 @@ function Frame({
   )
 }
 
+const frameClass =
+  'frame relative m-0 overflow-hidden rounded-frame bg-surface after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-hairline)]'
+
+// A visual that is not a screen capture sits whole on the surface, at no more than its
+// own size, with its caption below.
+function Plate({ row, eager }: { row: Extract<GalleryRow, { layout: 'plate' }>; eager: boolean }) {
+  return (
+    <figure className="m-0">
+      <div className={`${frameClass} grid place-items-center p-[clamp(1.5rem,5vw,4.5rem)]`}>
+        <Screenshot
+          image={row.shot.image}
+          alt={row.shot.alt}
+          sizes={`(max-width: 48rem) 100vw, ${row.width}px`}
+          eager={eager}
+          style={{ width: row.width }}
+          className="h-auto max-w-full [transition:transform_1.4s_var(--ease-soft),filter_0.45s_var(--ease-soft)]"
+        />
+      </div>
+      <figcaption className="mt-[0.7rem] text-[0.875rem] text-ink-quiet">{row.caption}</figcaption>
+    </figure>
+  )
+}
+
 const gap = 'gap-[clamp(1rem,2vw,1.5rem)]'
 
 function Row({ row, eager }: { row: GalleryRow; eager: boolean }) {
   if (row.layout === 'full') return <Frame shot={row.shot} eager={eager} size="full" />
+  if (row.layout === 'plate') return <Plate row={row} eager={eager} />
   if (row.layout === 'two-up') {
     return (
       <div className={`grid grid-cols-[1fr_1fr] ${gap} narrow:grid-cols-1`}>
@@ -115,7 +137,7 @@ export function CaseSections({ sections }: { sections: Section[] }) {
         </section>
       )
     }
-    const key = (row: GalleryRow) => (row.layout === 'full' ? row.shot.alt : row.shots[0].alt)
+    const key = (row: GalleryRow) => ('shot' in row ? row.shot.alt : row.shots[0].alt)
     const rows = section.rows.map((row, i) => <Row key={key(row)} row={row} eager={first && i === 0} />)
     first = false
     return (

@@ -108,7 +108,7 @@ export function SiteHeader({ lang, t }: Props) {
     }
   }, [open, toggle, placeCircle])
 
-  const workHref = localePath(lang, '/#work')
+  const workHref = localePath(lang, '/work')
   const aboutHref = localePath(lang, '/about')
   const current = (name: 'work' | 'about') => (section === name ? ('page' as const) : undefined)
 

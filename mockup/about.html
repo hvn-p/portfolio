@@ -28,7 +28,7 @@
     <span class="brand-slot"><a class="brand" href="index.html" aria-label="Pierre Hervelin, home"><svg class="monogram" viewBox="0 0 132.93 100" aria-hidden="true" focusable="false"><path d="M0 100L0 0L50.35 0Q68.48 0 77.5 7.64Q86.53 15.28 86.53 30.55Q86.53 45.76 76.67 53.43Q66.8 61.11 46.88 61.11L25.07 61.11L25.07 100L0 100ZM25.07 41.87L48.54 41.87Q54.86 41.87 58.26 38.92Q61.67 35.97 61.67 30.62Q61.67 25.42 58.3 22.32Q54.93 19.24 47.99 19.24L25.07 19.24L25.07 41.87ZM45 41.87H108.86V61.11H45ZM107.86 0H132.93V100H107.86Z"/></svg></a></span>
     <nav class="topnav" aria-label="Main">
     <ul>
-      <li><a href="index.html#work">Work</a></li>
+      <li><a href="work.html">Work</a></li>
       <li><a href="about.html" aria-current="page">About</a></li>
     </ul>
     <!-- The socials and the contact button belong together. v1 contact channel: LinkedIn. -->
@@ -55,12 +55,12 @@
 <div class="menu" id="menu" aria-label="Menu" inert>
   <div class="wrap menu-inner">
     <ul class="menu-links">
-      <li><a href="index.html#work"><span class="ml" style="--i:0">Work</span></a></li>
+      <li><a href="work.html"><span class="ml" style="--i:0">Work</span></a></li>
       <li><a href="about.html" aria-current="page"><span class="ml" style="--i:1">About</span></a></li>
       <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221"><span class="ml" style="--i:2">Get in touch</span></a></li>
     </ul>
     <div class="menu-foot">
-      <p class="availability"><span class="pulse" aria-hidden="true"></span>Open to freelance missions</p>
+      <p class="availability"><span class="pulse" aria-hidden="true"></span>Open to new opportunities</p>
       <ul class="socials">
         <li><a href="https://www.linkedin.com/in/pierre-hervelin-a25b60221" aria-label="LinkedIn"><svg class="icon-brand" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
         <li><a href="https://github.com/hvn-p" aria-label="GitHub"><svg class="icon-brand" aria-hidden="true"><use href="#i-github"/></svg></a></li>
@@ -77,15 +77,15 @@
 <main id="main">
   <header class="wrap case-head">
     <h1 class="display">About</h1>
-    <p class="lede">Full-stack developer, 25, with close to five years in startups, fully remote. I design AI systems as much as I write product code, from one conviction: an AI is only as good as the data it can reach.</p>
+    <p class="lede">Full-stack developer, 25, with close to five years on SaaS products in production. An application starts from what its users need to do, then from an architecture that holds over time, and AI runs through both. What I am looking for: a product to watch grow, at a scale that demands better design.</p>
   </header>
 
   <section class="wrap" aria-labelledby="skills-title" style="padding-top: 1rem">
     <div class="work-head"><h2 id="skills-title" class="section-title">What I do</h2></div>
     <ul class="capabilities" style="border-top: 0; margin-top: 0">
-      <li><strong>Full stack</strong><span>React and Vue, NestJS, GraphQL and tRPC, PostgreSQL and MongoDB, Docker, Kubernetes, Azure, infrastructure as code with Pulumi and Bicep.</span></li>
-      <li><strong>AI programming</strong><span>AI writes the code; what makes it good is its harness: instructions, data, tests, language. I build that harness and choose the architecture the problem calls for. Spec-driven development with GitHub SpecKit, agentic coding with Claude Code.</span></li>
-      <li><strong>AI systems</strong><span>Custom MCP servers, agents and validation harnesses, with authentication and multi-tenancy built in. AI usage telemetry with OpenTelemetry, tying each use to its AI system.</span></li>
+      <li><strong>Full stack</strong><span>React, Next.js and Vue, NestJS, GraphQL and tRPC, PostgreSQL and MongoDB, Docker, Kubernetes, Azure, infrastructure as code with Pulumi and Bicep.</span></li>
+      <li><strong>AI programming</strong><span>AI writes most of the code; what makes it reliable is its harness: instructions, skills, the data it can reach, validation of what it produces. I build that harness and choose the architecture the problem calls for. Spec-driven development with GitHub SpecKit, agentic coding with Claude Code, several tasks in parallel.</span></li>
+      <li><strong>AI systems</strong><span>MCP servers in production, agents and validation harnesses, with authentication and multi-tenancy built in. AI usage telemetry with OpenTelemetry, tying each use to its AI system and holding up under production volume.</span></li>
     </ul>
   </section>
 
@@ -105,14 +105,17 @@
           <span class="exp-year" aria-hidden="true">2025</span>
           <p class="when">Mar 2025 – now · Remote</p>
           <h3>Digital4Better</h3>
-          <p class="what">Full-stack developer on Fruggr, a European SaaS suite that monitors the ESG impact of digital services.</p>
+          <p class="what">Full-stack developer on Fruggr, a European SaaS suite that monitors the ESG impact of digital services. Works across its AI Governance, Accessibility, Ecodesign and Digital Workplace modules, and administers its Azure infrastructure and DevOps.</p>
           <ul>
-            <li>Administrator of the product's Azure infrastructure, in charge of its DevOps work and of infrastructure changes through to production.</li>
-            <li>Led the build of the AI governance module from scratch: AI system registry, maturity assessments, EU AI Act compliance, ROI calculator. Live with its first paying customers.</li>
-            <li>Built the product's MCP server with OAuth 2.1.</li>
-            <li>Built AI usage telemetry with OpenTelemetry: OTLP ingestion and rules that tie usage to each AI system.</li>
-            <li>Brought AI into the accessibility audit tool (RGAA): structured outputs with confidence scores, shipped as a standalone Docker scanner.</li>
-            <li>Wrote the project's technical constitution, followed by the team and by AI agents alike.</li>
+            <li>Laid the production foundation of the AI Governance module from a prototype (EU AI Act, AI system registry, maturity assessments, action plan), then built its first business screens.</li>
+            <li>Built the product's MCP server: OAuth 2.1 authorization, role-based tools, business logic shared with the API.</li>
+            <li>Made AI usage telemetry (OpenTelemetry) usable at production volume: raw archiving, rules that attach each use to its AI system, replay of production traffic in test.</li>
+            <li>Secured the API: mandatory, tested access control on every entry point and per-client rate limits; personal access tokens and silent SAML single sign-on on the legacy platform.</li>
+            <li>Took the containerized accessibility scanner to production, with audits behind a login and hardened Docker images, and built the automatic mode of the browser extension's AI-assisted audit.</li>
+            <li>Built the ecodesign compliance form (RGESN) and the engine that prefills its criteria from each analysis.</li>
+            <li>Main maintainer of CarbonScore, the Digital Workplace product: releases, security, onboarding of new clients, measurement of Microsoft Copilot use.</li>
+            <li>Co-authored the technical constitution, followed by the team and by AI agents alike.</li>
+            <li>Rotating customer support duty, with investigations started by an AI connected to the product's data.</li>
           </ul>
           <p class="stack">TypeScript, React, GraphQL, NestJS, tRPC, Zod, MongoDB, Cosmos DB, Docker, Azure</p>
         </li>
@@ -120,14 +123,15 @@
           <span class="exp-year" aria-hidden="true">2021</span>
           <p class="when">Nov 2021 – Mar 2025 · Remote</p>
           <h3>TechupClimate</h3>
-          <p class="what">Developer, then de facto lead, on CarbonScore, a SaaS that shows employees the carbon footprint of their digital workplace.</p>
+          <p class="what">Developer, then lead, on CarbonScore, a SaaS that shows employees the carbon footprint of their digital workplace, in the browser, Outlook and Teams.</p>
           <ul>
-            <li>Shipped 50+ production releases as de facto lead, autonomous on the front end and the back end.</li>
-            <li>Built data ingestion from Microsoft Graph (Outlook, Teams, OneDrive) on a batch architecture that computes carbon footprints.</li>
-            <li>Designed the gamification module end to end, from Figma mockups to production code.</li>
-            <li>Mentored and trained apprentices.</li>
+            <li>Lead over the last period: production releases, autonomous on the front end and the back end.</li>
+            <li>Built the first computation service, separate from data collection, which set the product's architecture; added the Microsoft 365 usage data and its computations.</li>
+            <li>Designed the game in Figma and built its engine: points, levels, achievements, seasons, leaderboards, in real time.</li>
+            <li>Built the IT equipment module and a Windows desktop app (Electron), each alone and end to end.</li>
+            <li>Reviewed the junior developers' pull requests, mentored and trained apprentices.</li>
           </ul>
-          <p class="stack">TypeScript, Vue, NestJS, PostgreSQL, Kubernetes, Helm, Docker, Azure, Figma</p>
+          <p class="stack">TypeScript, Vue, NestJS, REST APIs, PostgreSQL, Kubernetes, Helm, Docker, Azure, Figma</p>
         </li>
         <li id="exp-bea" class="exp-entry">
           <span class="exp-year" aria-hidden="true">2021</span>
@@ -136,6 +140,7 @@
           <p class="what">Web developer intern at the French civil aviation safety investigation bureau.</p>
           <ul>
             <li>Prototyped a web viewer for black-box flight parameters to replace an in-house MATLAB tool. Meant as a throwaway, it reached pre-production with the investigators.</li>
+            <li>Picked Plotly.js after a comparative study and bridged it to the existing tool over WebSocket.</li>
           </ul>
           <p class="stack">JavaScript, Plotly.js, WebSocket, MATLAB</p>
         </li>
@@ -168,13 +173,14 @@
       <ul class="mini-list">
         <li><span>Professional bachelor's degree in web development and connected devices, CY Cergy Paris Université</span><span class="muted">2021 – 2022</span></li>
         <li><span>Two-year technical degree in computer science, Université Sorbonne Paris Nord</span><span class="muted">2019 – 2021</span></li>
-        <li><span>French, native · Spanish, C1 · English, B2</span><span class="muted">Languages</span></li>
+        <li><span>French, native · Spanish, bilingual · English, B2</span><span class="muted">Languages</span></li>
       </ul>
     </div>
   </section>
 
   <section class="wrap contact" aria-labelledby="contact-title">
-    <h2 id="contact-title" class="display">Have a mission in mind?</h2>
+    <h2 id="contact-title" class="display">Hiring? Let’s talk.</h2>
+    <p class="contact-aside">Long freelance engagements are welcome too.</p>
     <div class="contact-row">
       <a class="button" href="https://www.linkedin.com/in/pierre-hervelin-a25b60221">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <ul class="elsewhere">
@@ -189,7 +195,7 @@
 <footer class="wrap footer">
   <span>© 2026 Pierre Hervelin · <a class="to-top" href="https://github.com/hvn-p/portfolio">Source code <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></span>
   <a class="to-top" href="#top">Back to top <svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a>
-  <span>Bilbao, Spain</span>
+  <span>Full-stack developer</span>
 </footer>
 <script src="site.js"></script>
 </body>
