@@ -22,7 +22,10 @@ RUN pnpm build
 
 FROM node:24-slim
 WORKDIR /app
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1
+# Read again at runtime: the pages are regenerated daily, and a regeneration
+# without it writes noindex and localhost links into them.
+ARG SITE_URL
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 SITE_URL=$SITE_URL
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 # The image optimizer caches its resized screenshots here.
